@@ -13,8 +13,8 @@ LDFLAGS	+= -lblas -L/usr/lib64
 endif
 
 ifeq ($(CXX),icpc)
-CXXFLAGS += -xHost #-no-vec
-CXXFLAGS += -opt-report=5
+CXXFLAGS += -xMIC-AVX512 #-no-vec
+CXXFLAGS += -qopt-report=5
 endif
 
 ifneq ($(restrict),)

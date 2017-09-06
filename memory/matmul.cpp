@@ -284,8 +284,8 @@ int run_matmul (int n, int niters, const double tDelta, matmul_ptr matmul)
          err2 += diff*diff;
       }
 
-   double Mflops = 1e-6 * ((((2.0*n)*n)*n) + ((3.0*n)*n)) / tCalc;
-   printf("%d, %g, %f, %.2f%%, %d %e\n", n, tCalc*1000, Mflops, 100*tDelta/(niters*tCalc), niters, sqrt(err2 / ref2));
+   double Gflops = 1e-9 * ((((2.0*n)*n)*n) + ((3.0*n)*n)) / tCalc;
+   printf("%5d, %10.4f, %10.4f, %.2f%%, %d %e\n", n, tCalc*1000, Gflops, 100*tDelta/(niters*tCalc), niters, sqrt(err2 / ref2));
    //printf("%d, %f, %.2f%%\n", n, tCalc/niters, tDelta/tCalc);
 
    if (n<=5)
@@ -335,7 +335,7 @@ int main (int argc, char * argv[])
          stepSize = atof(argv[5]);
 
    matmul_ptr methods[] = {matmul_blas, matmul_naive, matmul_opt1, matmul_opt2, matmul_opt3};
-   char *method_names[] = {"matmul_blas", "matmul_naive", "matmul_vect(opt1)", "matmul_block(opt2)", "matmul_unroll(opt3)"};
+   const char *method_names[] = {"matmul_blas", "matmul_naive", "matmul_vect(opt1)", "matmul_block(opt2)", "matmul_unroll(opt3)"};
 
    if (method < 0 || method > sizeof(methods)/sizeof(methods[0]))
    {
@@ -380,6 +380,8 @@ int main (int argc, char * argv[])
 
       delete [] a;
    }
+
+   printf("size, time (ms), GFLOP/s, Confident(%), # runs, error\n");
 
    int size = min_size;
    for (; size <= max_size; size *= stepSize)
