@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string>
 
 #include <cmath>
 #include <algorithm>
@@ -9,6 +10,13 @@
 
 #ifndef RESTRICT
 #define RESTRICT
+#endif
+
+#ifndef UNROLL
+# define UNROLL (4)
+#endif
+#ifndef BLOCKSIZE
+# define BLOCKSIZE (32)
 #endif
 
 typedef double ValueType;
@@ -36,15 +44,10 @@ void matmul_naive (const int m, const int n, const int k, const ValueType alpha,
 {
    for (int i = 0; i < m; ++i)
       for (int j = 0; j < n; ++j)
-      {
-         ValueType cij(0);
          for (int l = 0; l < k; ++l)
-            cij += A[i + l*lda] * B[l + j*ldb];
-
-         C[i + j*ldc] = beta*C[i + j*ldc] + alpha*cij;
-      }
+            C[i + j*ldc] = beta*C[i + j*ldc] + alpha*A[i + l*lda] * B[l + j*ldb];
 }
-void matmul_opt1 (const int m, const int n, const int k, const ValueType alpha, ValueType A[], const int lda, ValueType B[], const int ldb, const ValueType beta, ValueType C[], const int ldc)
+void matmul_vect (const int m, const int n, const int k, const ValueType alpha, ValueType A[], const int lda, ValueType B[], const int ldb, const ValueType beta, ValueType C[], const int ldc)
 {
    // Restructed to improved vectorization.
    for (int j = 0; j < n; ++j)
@@ -65,7 +68,9 @@ void matmul_opt1 (const int m, const int n, const int k, const ValueType alpha, 
       }
    }
 }
-void matmul_opt3 (const int m, const int n, const int k, const ValueType alpha, ValueType A[], const int lda, ValueType B[], const int ldb, const ValueType beta, ValueType C[], const int ldc)
+
+template <int unroll>
+void matmul_unroll (const int m, const int n, const int k, const ValueType alpha, ValueType A[], const int lda, ValueType B[], const int ldb, const ValueType beta, ValueType C[], const int ldc)
 {
    ValueType *RESTRICT _A = A;
    ValueType *RESTRICT _B = B;
@@ -79,73 +84,32 @@ void matmul_opt3 (const int m, const int n, const int k, const ValueType alpha, 
       else if (beta != 1.0)
          for (int i = 0; i < m; ++i) _C[i + j*ldc] *= beta;
 
-      /*for (int l = 0; l < k; l += 2)
-      {
-         ValueType t0 = alpha * _B[l   + j*ldb];
-         ValueType t1 = alpha * _B[l+1 + j*ldb];
-         //ValueType t2 = alpha * _B[l+2 + j*ldb];
-         //ValueType t3 = alpha * _B[l+3 + j*ldb];
-         for (int i = 0; i < m; ++i)
-         {
-            ValueType cij  = t0 * _A[i + (l+0)*lda];
-                      cij += t1 * _A[i + (l+1)*lda];
-            _C[i + j*ldc] += cij;
-         }
-      }*/
-
-#ifndef unroll
-#define unroll (8)
-#warning 'Setting unroll = 8'
-#endif
-/*      //const int unroll(8);
       int l = 0;
       const int k_stop = k - unroll;
       for (; l < k_stop; l += unroll)
       {
-         ValueType temp[unroll];
-         for (int ll = 0; ll < unroll; ++ll)
-            temp[ll] = alpha * _B[l + ll   + j*ldb];
-
-         for (int i = 0; i < m; ++i)
-         {
-            ValueType cij = _C[i + j*ldc];
-            for (int ll = 0; ll < unroll; ++ll)
-               cij += temp[ll] * _A[i + (l+ll)*lda];
-
-            _C[i + j*ldc] = cij;
-         }
-      } */
-
-
-      #define __unroll (4)
-      int l = 0;
-      const int k_stop = k - __unroll;
-      for (; l < k_stop; l += __unroll)
-      {
          ValueType t0 = alpha * _B[l    + j*ldb];
-#if (__unroll > 1)
-         ValueType t1 = alpha * _B[l+1  + j*ldb];
-#endif
-#if (__unroll > 2)
-         ValueType t2 = alpha * _B[l+2  + j*ldb];
-#endif
-#if (__unroll > 3)
-         ValueType t3 = alpha * _B[l+3  + j*ldb];
-#endif
+         ValueType t1,t2,t3,t4,t5,t6,t7;
+         if (unroll > 1) t1 = alpha * _B[l+1  + j*ldb];
+         if (unroll > 2) t2 = alpha * _B[l+2  + j*ldb];
+         if (unroll > 3) t3 = alpha * _B[l+3  + j*ldb];
+         if (unroll > 4) t4 = alpha * _B[l+4  + j*ldb];
+         if (unroll > 5) t5 = alpha * _B[l+5  + j*ldb];
+         if (unroll > 6) t6 = alpha * _B[l+6  + j*ldb];
+         if (unroll > 7) t7 = alpha * _B[l+7  + j*ldb];
 
          for (int i = 0; i < m; ++i)
          {
             ValueType cij = _C[i + j*ldc];
             cij += t0 * _A[i + (l  )*lda];
-#if (__unroll > 1)
-            cij += t1 * _A[i + (l+1)*lda];
-#endif
-#if (__unroll > 2)
-            cij += t2 * _A[i + (l+2)*lda];
-#endif
-#if (__unroll > 3)
-            cij += t3 * _A[i + (l+3)*lda];
-#endif
+            if (unroll > 1) cij += t1 * _A[i + (l+1)*lda];
+            if (unroll > 2) cij += t2 * _A[i + (l+2)*lda];
+            if (unroll > 3) cij += t3 * _A[i + (l+3)*lda];
+            if (unroll > 4) cij += t4 * _A[i + (l+4)*lda];
+            if (unroll > 5) cij += t5 * _A[i + (l+5)*lda];
+            if (unroll > 6) cij += t6 * _A[i + (l+6)*lda];
+            if (unroll > 7) cij += t7 * _A[i + (l+7)*lda];
+
             _C[i + j*ldc] = cij;
          }
       }
@@ -159,27 +123,12 @@ void matmul_opt3 (const int m, const int n, const int k, const ValueType alpha, 
                _C[i + j*ldc] += temp * _A[i + l*lda];
          }
       }
-      
-
    }
 }
-void matmul_opt2 (const int m, const int n, const int k, const ValueType alpha, ValueType A[], const int lda, ValueType B[], const int ldb, const ValueType beta, ValueType C[], const int ldc)
+
+template <int blockSize>
+void matmul_blocked (const int m, const int n, const int k, const ValueType alpha, ValueType A[], const int lda, ValueType B[], const int ldb, const ValueType beta, ValueType C[], const int ldc)
 {
-#ifndef blockSize
-#define blockSize (32)
-#warning 'Setting blockSize = 32'
-#endif
-   //const int blockSize = 41;
-
-   /*if (beta == 0.0)
-      for (int j = 0; j < n; ++j)
-         for (int i = 0; i < m; ++i)
-            C[i + j*ldc] = 0.0;
-   else if (beta != 1.0)
-      for (int j = 0; j < n; ++j)
-         for (int i = 0; i < m; ++i)
-            C[i + j*ldc] *= beta;*/
-
    for (int i = 0; i < m; i += blockSize)
       for (int j = 0; j < n; j += blockSize)
       {
@@ -199,17 +148,13 @@ void matmul_opt2 (const int m, const int n, const int k, const ValueType alpha, 
 
          for (int l = 0; l < k; l += blockSize)
          {
-            //const int m_blk = std::min( blockSize, m-i);
-            //const int n_blk = std::min( blockSize, n-j);
             const int k_blk = std::min( blockSize, k-l);
 
             ValueType *A_blk = A + i + l*lda;
             ValueType *B_blk = B + l + j*ldb;
-            //ValueType *C_blk = C + i + j*ldc;
 
             const ValueType one(1.0);
-            //matmul_naive (m_blk, n_blk, k_blk, alpha, A_blk, lda, B_blk, ldb, one, C_blk, ldc);
-            matmul_opt1 (m_blk, n_blk, k_blk, alpha, A_blk, lda, B_blk, ldb, one, C_blk, ldc);
+            matmul_vect (m_blk, n_blk, k_blk, alpha, A_blk, lda, B_blk, ldb, one, C_blk, ldc);
          }
       }
 }
@@ -240,11 +185,14 @@ int run_matmul (int n, int niters, const double tDelta, matmul_ptr matmul)
    // Interesting scaling factors (not 0 or 1).
    ValueType alpha = 0.1, beta = 0.21;
 
+   // Run the BLAS version to get the correct answer.
    matmul_blas(n, n, n, alpha, a, n, b, n, beta, cref, n);
 
    // Run a few iterations to warm up the system.
    for (int iter = 0; iter < std::min(5,niters); iter++)
+   {
       matmul(n, n, n, alpha, a, n, b, n, beta, c, n);
+   }
 
    // Run the test for 'a long time.'
    double tCalc = 0;
@@ -268,7 +216,7 @@ int run_matmul (int n, int niters, const double tDelta, matmul_ptr matmul)
 
       //tCalc += getElapsedTime(t0,t1);
       tCalc = getElapsedTime(t0,t1);
-      if (tCalc < 0.01)
+      if (tCalc < 0.1)
          niters *= 2;
       else
          break;
@@ -305,37 +253,67 @@ int run_matmul (int n, int niters, const double tDelta, matmul_ptr matmul)
    return 0;
 }
 
+void show_usage( const char* prog )
+{
+   printf("Usage for %s\n", prog);
+   printf("\t--minsize  | -min    <int value> : Minimum matrix size to start. (10)\n");
+   printf("\t--maxsize  | -max    <int value> : Maximum matrix size to start. (1000)\n");
+   printf("\t--stepsize | -step   <flt value> : Growth rate of matrix size.   (2)\n");
+   printf("\t--method   | -method <int value> : Function choices are ... (0)\n");
+   printf("\t\t0: blas (vendor)\n");
+   printf("\t\t1: naive\n");
+   printf("\t\t2: vectorized\n");
+   printf("\t\t3: cache blocked\n");
+   printf("\t\t4: unrolled\n");
+}
+
 int main (int argc, char * argv[])
 {
    int min_size = 10;
    int max_size = 1000;
-   int niters = 50; // Number of samples for each test.
+   int niters = 5; // Number of samples for each test.
    int method = 0; // blas
    double stepSize = 2;
 
-   // Allow the user to change the defaults.
-   if (argc > 1)
-      if (isdigit(*argv[1]))
-         min_size = atoi(argv[1]);
+   // Get user inputs.
+   {
+      #define check_index(_i) { if ((_i) >= argc){ fprintf(stderr,"Missing value for argument %s\n", for
+      for (int i = 1; i < argc; i++)
+      {
+         std::string arg = argv[i];
+         if (arg == "--minsize" || arg == "-min")
+         {
+            if ((i+1) >= argc) { fprintf(stderr,"Missing value for --minsize\n"); show_usage(argv[0]); return 1; }
+            min_size = atoi( argv[i+1] );
+            i++;
+         }
+         else if (arg == "--maxsize" || arg == "-max")
+         {
+            if ((i+1) >= argc) { fprintf(stderr,"Missing value for --maxsize\n"); show_usage(argv[0]); return 1; }
+            max_size = atoi( argv[i+1] );
+            i++;
+         }
+         else if (arg == "--method" || arg == "-method")
+         {
+            if ((i+1) >= argc) { fprintf(stderr,"Missing value for --method\n"); show_usage(argv[0]); return 1; }
+            method = atoi( argv[i+1] );
+            i++;
+         }
+         else if (arg == "--stepsize" || arg == "-step")
+         {
+            if ((i+1) >= argc) { fprintf(stderr,"Missing value for --stepsize\n"); show_usage(argv[0]); return 1; }
+            stepSize = atof( argv[i+1] );
+            i++;
+         }
+         else if (arg == "--help" || arg == "-h")
+         {
+            show_usage(argv[0]); return 0;
+         }
+      }
+   }
 
-   if (argc > 2)
-      if (isdigit(*argv[2]))
-         max_size = atoi(argv[2]);
-
-   if (argc > 3)
-      if (isdigit(*argv[3]))
-         niters = atoi(argv[3]);
-
-   if (argc > 4)
-      if (isdigit(*argv[4]))
-         method = atoi(argv[4]);
-
-   if (argc > 5)
-      if (isdigit(*argv[4]) || *argv[4] == '.')
-         stepSize = atof(argv[5]);
-
-   matmul_ptr methods[] = {matmul_blas, matmul_naive, matmul_opt1, matmul_opt2, matmul_opt3};
-   const char *method_names[] = {"matmul_blas", "matmul_naive", "matmul_vect(opt1)", "matmul_block(opt2)", "matmul_unroll(opt3)"};
+   matmul_ptr methods[] = {matmul_blas, matmul_naive, matmul_vect, matmul_blocked<BLOCKSIZE>, matmul_unroll<UNROLL>};
+   const char *method_names[] = {"matmul_blas", "matmul_naive", "matmul_vect", "matmul_blocked", "matmul_unroll"};
 
    if (method < 0 || method > sizeof(methods)/sizeof(methods[0]))
    {
@@ -345,12 +323,8 @@ int main (int argc, char * argv[])
    else
       fprintf(stderr,"Using method[%d]=%s, min/max=%d/%d, step=%f\n", method, method_names[method], min_size, max_size, stepSize);
 
-#ifdef unroll
-   printf("unroll = %d\n", unroll);
-#endif
-#ifdef blockSize
-   printf("blockSize = %d\n", blockSize);
-#endif
+   printf("unroll = %d\n", UNROLL);
+   printf("blockSize = %d\n", BLOCKSIZE);
 
    // Check the timer accuracy.
    double tDelta = 1e50;
