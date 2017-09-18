@@ -7,7 +7,7 @@ LDFLAGS	= -lrt
 
 ifeq ($(CXX),icpc)
 CXXFLAGS += -xHost #-no-vec
-CXXFLAGS += -opt-report=5
+CXXFLAGS += -qopt-report=5
 CXXFLAGS += -D__ALIGNMENT=32
 endif
 

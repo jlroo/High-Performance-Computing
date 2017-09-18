@@ -3,29 +3,61 @@
 #include <ctype.h>
 #include <algorithm> // std::min
 #include <cmath> // std::log, etc.
+#include <string>
 
 #include <my_timer.h>
 
+void show_usage( const char* prog )
+{
+   printf("Usage for %s\n", prog);
+   printf("\t-min    <int value> : Minimum array size to start. (30B)\n");
+   printf("\t-max    <int value> : Maximum array size to finish. (16MB)\n");
+   printf("\t-ntests <int value> : # of samples between min/max.   (34)\n");
+}
 int main (int argc, char * argv[])
 {
-   const int nmin = 30;
+   int nmin = 30;
    int nsizes = 34; // Number of tests between [nmin,nmax]
    int nmax = 16000000;
    int niters = 50; // Number of samples for each test.
    const int npad = 5; // Array padding.
 
    // Allow the user to change the defaults.
-   if (argc > 1)
-      if (isdigit(*argv[1]))
-         nmax = atoi(argv[1]);
-
-   if (argc > 2)
-      if (isdigit(*argv[2]))
-         nsizes = atoi(argv[2]);
-
-   if (argc > 3)
-      if (isdigit(*argv[3]))
-         niters = atoi(argv[3]);
+   {
+      #define check_index(_i) { if ((_i) >= argc){ fprintf(stderr,"Missing value for argument %s\n", for
+      for (int i = 1; i < argc; i++)
+      {
+         std::string arg = argv[i];
+         if (arg == "-min")
+         {
+            if ((i+1) >= argc) { fprintf(stderr,"Missing value for -min\n"); show_usage(argv[0]); return 1; }
+            nmin = atoi( argv[i+1] );
+            i++;
+         }
+         else if (arg == "-max")
+         {
+            if ((i+1) >= argc) { fprintf(stderr,"Missing value for -max\n"); show_usage(argv[0]); return 1; }
+            nmax = atoi( argv[i+1] );
+            i++;
+         }
+         else if (arg == "-ntests")
+         {
+            if ((i+1) >= argc) { fprintf(stderr,"Missing value for -ntests\n"); show_usage(argv[0]); return 1; }
+            nsizes = atoi( argv[i+1] );
+            i++;
+         }
+         else if (arg == "--help" || arg == "-h")
+         {
+            show_usage(argv[0]); return 0;
+         }
+         else
+         {
+            fprintf(stderr,"Unknown option %s\n", arg.c_str());
+            show_usage(argv[0]);
+            return 1;
+         }
+      }
+   }
 
    typedef double ValueType;
 
@@ -60,7 +92,7 @@ int main (int argc, char * argv[])
       printf("getTicksPerSecond = %e\n", getTicksPerSecond());
    }
 
-   printf("Size, Fill, Copy, AXPY, DOT, Uncertainty\n");
+   printf("Size (iterations), Fill (MB/s), Copy, AXPY, DOT, Uncertainty (%%)\n");
 
    // Loop over the problem sizes.
    for (int size = 0; size < nsizes; size++)
@@ -136,6 +168,13 @@ int main (int argc, char * argv[])
             time[k][3] = t1/double(nloop);
             srand((int)sumAll); // Force the compiler to keep sumAll.
          }
+
+         bool allPassed = true;
+         for (int test = 0; test < 4; test++)
+            allPassed = allPassed && (time[k][test] > 1.0);
+
+         if (allPassed)
+            break;
       }
 
       // Pick the best times for each test.
