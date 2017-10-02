@@ -1,0 +1,8 @@
+\BOOKMARK [1][-]{section.1}{Overview}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Python Code}{section.1}% 2
+\BOOKMARK [1][-]{section.2}{Classification \205 Linear Separable Data}{}% 3
+\BOOKMARK [2][-]{subsection.2.1}{Perceptron Model Training on Linear Separable Data}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Classification \205 Non-Linear Separable Data}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Perceptron Model Training on Non-Linear Separable Data}{section.3}% 6
+\BOOKMARK [1][-]{section.4}{AdelineSGD Model \205 Titanic Dataset}{}% 7
+\BOOKMARK [1][-]{section.5}{Reference}{}% 8
