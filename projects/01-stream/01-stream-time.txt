@@ -1,0 +1,10 @@
+
+
+# Smallest detectable time = 1.000000e-06 (ms)
+# getTicksPerSecond = 1.478213e+09
+#
+# real	0m35.094s
+# user	0m35.070s
+# sys	0m0.014s
+
+
