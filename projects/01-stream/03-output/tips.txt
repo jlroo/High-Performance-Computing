@@ -1,0 +1,81 @@
+
+
+
+Min and max is the length of the array
+
+Change array size so the largest array so that the largest array is
+significant larger than the last level of cache (10 to 20 largest) bytes units
+Cache size of the device - Size of L2 cache KB
+Array sise/ loop iterations (16M). Estimate how much data that array constitute 
+16M elements doubles how much data that actually consumes, how long is your allocation
+How big an array of N compute the number of kb that the array would take
+Significantly bigger than the L2 cache data coming from main memory not just from cache
+
+
+How much memory that matrix would take
+
+
+####### class #######
+
+Cost increase matrix factorization is a quadratic complexity (n^3)
+If we double the we should expect that normally increase by a factor
+Of eight 
+
+L1 cache - 32kb = 32,768b
+
+Double = 8bits
+
+32,768b/8b = 4096 doubles 
+
+# matrixes are squares
+sqrt(4096) = 64kb
+
+
+L2 cache
+
+1024kb = 1024000b
+
+1024000b/8b = 128000
+
+sqrt(128000) = 357.770kb
+
+
+1m/8 = 12500
+sqrt(12500) = 111.80
+
+
+20 480 000
+
+
+N = sqrt(X/(5*8))
+
+N = sqrt(L2cache/(nsizes*8))
+
+sqrt(1024000/256) = 63kb
+
+
+
+login3.stampede2(17)$ lscpu
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                28
+On-line CPU(s) list:   0-27
+Thread(s) per core:    1
+Core(s) per socket:    14
+Socket(s):             2
+NUMA node(s):          2
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 79
+Model name:            Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+Stepping:              1
+CPU MHz:               1200.000
+BogoMIPS:              4798.97
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              35840K
+NUMA node0 CPU(s):     0,2,4,6,8,10,12,14,16,18,20,22,24,26
+NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23,25,27
