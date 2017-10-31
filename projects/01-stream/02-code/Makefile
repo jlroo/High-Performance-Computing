@@ -1,4 +1,4 @@
-COMMON	= ../common
+COMMON	= ../../common
 
 #CXX	= icpc
 CXX    ?= g++
@@ -31,6 +31,13 @@ ifneq ($(dtype),)
 ifneq ($(dtype),0)
 CXXFLAGS += -D__DTYPE=$(dtype)
 endif
+endif
+
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Darwin)
+	RM="-lrt"
+	LDFLAGS=$(${LDFLAGS//$RM/})
 endif
 
 EXEC = stream2

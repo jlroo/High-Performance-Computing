@@ -1,0 +1,797 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 18.0.0.104 Build 20170811
+
+Compiler options: -I. -I../../common -O3 -xHost -qopt-report=5 -D__ALIGNMENT=32 -o stream2
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: main(int, char **)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (main(int, char **)) [1/31=3.2%] stream2.cpp(18,1)
+  -> INLINE (MANUAL): (30,28) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *, const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::value_type *) (isz = 10) (sz = 17)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(1544,44) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::__compressed_pair(std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) (isz = 0) (sz = 5)
+      -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2315,31) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::__libcpp_compressed_pair_imp(std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *const) (isz = 0) (sz = 5)
+        -> INLINE (MANUAL): (2208,31) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::__libcpp_compressed_pair_imp(std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) (isz = 7) (sz = 12)
+          -> EXTERN: (2208,31) memset(void *, int, size_t)
+          -> DELETED: (2208,31) std::__1::allocator<char>::allocator(std::__1::allocator<char> *const) (isz = 0) (sz = 5)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(1547,5) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__init(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *, const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::value_type *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(1547,17) std::__1::char_traits<char>::length(const std::__1::char_traits<char>::char_type *) (isz = 2) (sz = 9)
+      -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__string:(215,53) __builtin_strlen(const char *)
+  -> EXTERN: (30,28) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::~basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *)
+  -> INLINE (MANUAL): (31,18) std::__1::operator==<char, std::__1::char_traits<char>, std::__1::allocator<char>>(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &, const char *) (isz = 26) (sz = 36)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3543,1) ___cxa_call_unexpected
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3546,24) std::__1::char_traits<char>::length(const std::__1::char_traits<char>::char_type *) (isz = 2) (sz = 9)
+      -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__string:(215,53) __builtin_strlen(const char *)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3547,28) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 15) (sz = 22)
+      -> INLINE (MANUAL): (893,17) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__is_long(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 11) (sz = 18)
+        -> INLINE (MANUAL): (1213,27) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,31) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_long_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 7) (sz = 14)
+        -> INLINE (MANUAL): (1275,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,51) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_short_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 9) (sz = 16)
+        -> INLINE (MANUAL): (1265,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3548,18) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::compare(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::value_type *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type) const
+  -> EXTERN: (33,34) fprintf(FILE *, const char *, ...)
+  -> INLINE: (33,78) show_usage(const char *) (isz = 15) (sz = 20)
+    -> EXTERN: (12,4) printf(const char *, ...)
+    -> EXTERN: (13,4) printf(const char *, ...)
+    -> EXTERN: (14,4) printf(const char *, ...)
+    -> EXTERN: (15,4) printf(const char *, ...)
+  -> EXTERN: (33,99) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::~basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *)
+  -> EXTERN: (34,20) atoi(const char *)
+  -> INLINE (MANUAL): (37,23) std::__1::operator==<char, std::__1::char_traits<char>, std::__1::allocator<char>>(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &, const char *) (isz = 26) (sz = 36)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3543,1) ___cxa_call_unexpected
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3546,24) std::__1::char_traits<char>::length(const std::__1::char_traits<char>::char_type *) (isz = 2) (sz = 9)
+      -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__string:(215,53) __builtin_strlen(const char *)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3547,28) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 15) (sz = 22)
+      -> INLINE (MANUAL): (893,17) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__is_long(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 11) (sz = 18)
+        -> INLINE (MANUAL): (1213,27) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,31) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_long_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 7) (sz = 14)
+        -> INLINE (MANUAL): (1275,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,51) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_short_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 9) (sz = 16)
+        -> INLINE (MANUAL): (1265,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3548,18) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::compare(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::value_type *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type) const
+  -> EXTERN: (39,34) fprintf(FILE *, const char *, ...)
+  -> INLINE: (39,78) show_usage(const char *) (isz = 15) (sz = 20)
+    -> EXTERN: (12,4) printf(const char *, ...)
+    -> EXTERN: (13,4) printf(const char *, ...)
+    -> EXTERN: (14,4) printf(const char *, ...)
+    -> EXTERN: (15,4) printf(const char *, ...)
+  -> EXTERN: (39,99) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::~basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *)
+  -> EXTERN: (40,20) atoi(const char *)
+  -> INLINE (MANUAL): (43,23) std::__1::operator==<char, std::__1::char_traits<char>, std::__1::allocator<char>>(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &, const char *) (isz = 26) (sz = 36)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3543,1) ___cxa_call_unexpected
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3546,24) std::__1::char_traits<char>::length(const std::__1::char_traits<char>::char_type *) (isz = 2) (sz = 9)
+      -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__string:(215,53) __builtin_strlen(const char *)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3547,28) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 15) (sz = 22)
+      -> INLINE (MANUAL): (893,17) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__is_long(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 11) (sz = 18)
+        -> INLINE (MANUAL): (1213,27) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,31) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_long_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 7) (sz = 14)
+        -> INLINE (MANUAL): (1275,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,51) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_short_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 9) (sz = 16)
+        -> INLINE (MANUAL): (1265,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3548,18) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::compare(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::value_type *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type) const
+  -> EXTERN: (45,34) fprintf(FILE *, const char *, ...)
+  -> INLINE: (45,81) show_usage(const char *) (isz = 15) (sz = 20)
+    -> EXTERN: (12,4) printf(const char *, ...)
+    -> EXTERN: (13,4) printf(const char *, ...)
+    -> EXTERN: (14,4) printf(const char *, ...)
+    -> EXTERN: (15,4) printf(const char *, ...)
+  -> EXTERN: (45,102) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::~basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *)
+  -> EXTERN: (46,22) atoi(const char *)
+  -> INLINE (MANUAL): (49,23) std::__1::operator==<char, std::__1::char_traits<char>, std::__1::allocator<char>>(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &, const char *) (isz = 26) (sz = 36)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3543,1) ___cxa_call_unexpected
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3546,24) std::__1::char_traits<char>::length(const std::__1::char_traits<char>::char_type *) (isz = 2) (sz = 9)
+      -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__string:(215,53) __builtin_strlen(const char *)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3547,28) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 15) (sz = 22)
+      -> INLINE (MANUAL): (893,17) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__is_long(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 11) (sz = 18)
+        -> INLINE (MANUAL): (1213,27) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,31) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_long_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 7) (sz = 14)
+        -> INLINE (MANUAL): (1275,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,51) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_short_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 9) (sz = 16)
+        -> INLINE (MANUAL): (1265,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3548,18) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::compare(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::value_type *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type) const
+  -> INLINE (MANUAL): (49,42) std::__1::operator==<char, std::__1::char_traits<char>, std::__1::allocator<char>>(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &, const char *) (isz = 26) (sz = 36)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3543,1) ___cxa_call_unexpected
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3546,24) std::__1::char_traits<char>::length(const std::__1::char_traits<char>::char_type *) (isz = 2) (sz = 9)
+      -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__string:(215,53) __builtin_strlen(const char *)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3547,28) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 15) (sz = 22)
+      -> INLINE (MANUAL): (893,17) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__is_long(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 11) (sz = 18)
+        -> INLINE (MANUAL): (1213,27) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,31) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_long_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 7) (sz = 14)
+        -> INLINE (MANUAL): (1275,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+      -> INLINE (MANUAL): (893,51) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_short_size(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 9) (sz = 16)
+        -> INLINE (MANUAL): (1265,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+          -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+    -> EXTERN: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(3548,18) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::compare(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type, const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::value_type *, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::size_type) const
+  -> INLINE: (51,13) show_usage(const char *) (isz = 15) (sz = 20)
+    -> EXTERN: (12,4) printf(const char *, ...)
+    -> EXTERN: (13,4) printf(const char *, ...)
+    -> EXTERN: (14,4) printf(const char *, ...)
+    -> EXTERN: (15,4) printf(const char *, ...)
+  -> EXTERN: (51,34) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::~basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *)
+  -> EXTERN: (55,13) fprintf(FILE *, const char *, ...)
+  -> INLINE (MANUAL): (55,55) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::c_str(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 4) (sz = 11)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string:(1119,55) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::data(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 7) (sz = 14)
+      -> INLINE (MANUAL): (1121,55) std::__1::__to_raw_pointer<const char>(const char *) (isz = 0) (sz = 6)
+      -> INLINE (MANUAL): (1121,79) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_pointer(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 15) (sz = 22)
+        -> INLINE (MANUAL): (1307,17) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__is_long(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 11) (sz = 18)
+          -> INLINE (MANUAL): (1213,27) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+            -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+        -> INLINE (MANUAL): (1307,31) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_long_pointer(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 7) (sz = 14)
+          -> INLINE (MANUAL): (1295,22) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+            -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+        -> INLINE (MANUAL): (1307,54) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__get_short_pointer(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *) const (isz = 12) (sz = 19)
+          -> INLINE (MANUAL): (1301,17) std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::pointer_to(std::__1::conditional<false, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::__nat, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::element_type>::type &) (isz = 4) (sz = 11)
+            -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(970,17) std::__1::addressof<std::__1::conditional<false, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::__nat, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::element_type>::type>(std::__1::conditional<false, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::__nat, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::element_type>::type &) (isz = 0) (sz = 6)
+          -> INLINE (MANUAL): (1301,64) std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const (isz = 4) (sz = 11)
+            -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory:(2337,83) std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const (isz = 1) (sz = 7)
+  -> INLINE: (56,13) show_usage(const char *) (isz = 15) (sz = 20)
+    -> EXTERN: (12,4) printf(const char *, ...)
+    -> EXTERN: (13,4) printf(const char *, ...)
+    -> EXTERN: (14,4) printf(const char *, ...)
+    -> EXTERN: (15,4) printf(const char *, ...)
+  -> EXTERN: (57,13) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::~basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *)
+  -> EXTERN: (59,7) std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::~basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> *)
+  -> EXTERN: (65,38) operator new[](size_t)
+  -> EXTERN: (66,38) operator new[](size_t)
+  -> EXTERN: (69,35) operator new[](size_t)
+  -> INLINE (MANUAL): (74,27) std::__1::min<int>(const int &, const int &) (isz = 2) (sz = 11)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm:(2548,12) std::__1::min<int, std::__1::__less<int, int>>(const int &, const int &, std::__1::__less<int, int>) (isz = 7) (sz = 18)
+      -> INLINE (MANUAL): (2540,18) std::__1::__less<int, int>::operator()(const std::__1::__less<int, int> *, const int &, const int &) const (isz = 1) (sz = 11)
+  -> INLINE (MANUAL): (74,27) std::__1::min<int>(const int &, const int &) (isz = 2) (sz = 11)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm:(2548,12) std::__1::min<int, std::__1::__less<int, int>>(const int &, const int &, std::__1::__less<int, int>) (isz = 7) (sz = 18)
+      -> INLINE (MANUAL): (2540,18) std::__1::__less<int, int>::operator()(const std::__1::__less<int, int> *, const int &, const int &) const (isz = 1) (sz = 11)
+  -> EXTERN: (77,22) getTimeStamp()
+  -> INLINE (MANUAL): (78,27) std::__1::min<int>(const int &, const int &) (isz = 2) (sz = 11)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm:(2548,12) std::__1::min<int, std::__1::__less<int, int>>(const int &, const int &, std::__1::__less<int, int>) (isz = 7) (sz = 18)
+      -> INLINE (MANUAL): (2540,18) std::__1::__less<int, int>::operator()(const std::__1::__less<int, int> *, const int &, const int &) const (isz = 1) (sz = 11)
+  -> INLINE (MANUAL): (78,27) std::__1::min<int>(const int &, const int &) (isz = 2) (sz = 11)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm:(2548,12) std::__1::min<int, std::__1::__less<int, int>>(const int &, const int &, std::__1::__less<int, int>) (isz = 7) (sz = 18)
+      -> INLINE (MANUAL): (2540,18) std::__1::__less<int, int>::operator()(const std::__1::__less<int, int> *, const int &, const int &) const (isz = 1) (sz = 11)
+  -> EXTERN: (80,25) getTimeStamp()
+  -> EXTERN: (81,17) getElapsedTime(myTimer_t, myTimer_t)
+  -> INLINE (MANUAL): (86,27) std::__1::min<int>(const int &, const int &) (isz = 2) (sz = 11)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm:(2548,12) std::__1::min<int, std::__1::__less<int, int>>(const int &, const int &, std::__1::__less<int, int>) (isz = 7) (sz = 18)
+      -> INLINE (MANUAL): (2540,18) std::__1::__less<int, int>::operator()(const std::__1::__less<int, int> *, const int &, const int &) const (isz = 1) (sz = 11)
+  -> INLINE (MANUAL): (86,27) std::__1::min<int>(const int &, const int &) (isz = 2) (sz = 11)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm:(2548,12) std::__1::min<int, std::__1::__less<int, int>>(const int &, const int &, std::__1::__less<int, int>) (isz = 7) (sz = 18)
+      -> INLINE (MANUAL): (2540,18) std::__1::__less<int, int>::operator()(const std::__1::__less<int, int> *, const int &, const int &) const (isz = 1) (sz = 11)
+  -> INLINE (MANUAL): (87,14) abs(double) (isz = 1) (sz = 8)
+  -> INLINE (MANUAL): (88,22) std::__1::min<double>(const double &, const double &) (isz = 2) (sz = 11)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm:(2548,12) std::__1::min<double, std::__1::__less<double, double>>(const double &, const double &, std::__1::__less<double, double>) (isz = 7) (sz = 18)
+      -> INLINE (MANUAL): (2540,18) std::__1::__less<double, double>::operator()(const std::__1::__less<double, double> *, const double &, const double &) const (isz = 1) (sz = 11)
+  -> INLINE (MANUAL): (88,39) abs(double) (isz = 1) (sz = 8)
+  -> EXTERN: (90,7) printf(const char *, ...)
+  -> EXTERN: (92,7) printf(const char *, ...)
+  -> EXTERN: (92,42) getTicksPerSecond()
+  -> EXTERN: (95,4) printf(const char *, ...)
+  -> EXTERN: (101,28) log(double)
+  -> EXTERN: (102,51) log(double)
+  -> EXTERN: (102,71) log(double)
+  -> EXTERN: (104,21) rint(double)
+  -> EXTERN: (104,26) exp(double)
+  -> EXTERN: (118,28) getTimeStamp()
+  -> EXTERN: (125,25) getElapsedTime(myTimer_t, myTimer_t)
+  -> EXTERN: (125,45) getTimeStamp()
+  -> EXTERN: (131,28) getTimeStamp()
+  -> EXTERN: (138,25) getElapsedTime(myTimer_t, myTimer_t)
+  -> EXTERN: (138,45) getTimeStamp()
+  -> EXTERN: (144,28) getTimeStamp()
+  -> EXTERN: (151,25) getElapsedTime(myTimer_t, myTimer_t)
+  -> EXTERN: (151,45) getTimeStamp()
+  -> EXTERN: (158,28) getTimeStamp()
+  -> EXTERN: (167,25) getElapsedTime(myTimer_t, myTimer_t)
+  -> EXTERN: (167,45) getTimeStamp()
+  -> EXTERN: (169,13) srand(unsigned int)
+  -> EXTERN: (182,25) _?1memcpy
+  -> INLINE (MANUAL): (189,30) std::__1::min<double>(const double &, const double &) (isz = 2) (sz = 11)
+    -> INLINE (MANUAL): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm:(2548,12) std::__1::min<double, std::__1::__less<double, double>>(const double &, const double &, std::__1::__less<double, double>) (isz = 7) (sz = 18)
+      -> INLINE (MANUAL): (2540,18) std::__1::__less<double, double>::operator()(const std::__1::__less<double, double> *, const double &, const double &) const (isz = 1) (sz = 11)
+  -> EXTERN: (198,7) printf(const char *, ...)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at stream2.cpp(28,7)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+
+LOOP BEGIN at stream2.cpp(74,27)
+   remark #15523: loop was not vectorized: loop control variable i was found, but loop iteration count cannot be computed before executing the loop
+   remark #25478: While Loop Unrolled by 2  
+LOOP END
+
+LOOP BEGIN at stream2.cpp(78,27)
+   remark #15523: loop was not vectorized: loop control variable i was found, but loop iteration count cannot be computed before executing the loop
+   remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
+LOOP END
+
+LOOP BEGIN at stream2.cpp(86,48)
+   remark #15523: loop was not vectorized: loop control variable i was found, but loop iteration count cannot be computed before executing the loop
+   remark #25478: While Loop Unrolled by 8  
+LOOP END
+
+LOOP BEGIN at stream2.cpp(98,4)
+   remark #25236: Loop with pragma of trip count = 34 ignored for large value
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at stream2.cpp(108,7)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=3
+   LOOP END
+
+   LOOP BEGIN at stream2.cpp(108,7)
+      remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(109,17) ]
+      remark #15388: vectorization support: reference a[i] has aligned access   [ stream2.cpp(109,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.406
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 7 
+      remark #15477: vector cost: 2.000 
+      remark #15478: estimated potential speedup: 3.120 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stream2.cpp(108,7)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(109,17) ]
+      remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(109,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 1.600
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at stream2.cpp(108,7)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at stream2.cpp(112,7)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at stream2.cpp(119,13)
+         remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+         remark #25452: Original Order found to be proper, but by a close margin
+         remark #25461: Imperfect Loop Unroll-Jammed by 2   (pre-vector) 
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at stream2.cpp(122,16)
+         <Peeled loop for vectorization>
+            remark #25015: Estimate of max trip count of loop=3
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(122,16)
+            remark #15388: vectorization support: reference a[i] has aligned access   [ stream2.cpp(123,19) ]
+            remark #15388: vectorization support: reference a[i] has aligned access   [ stream2.cpp(123,19) ]
+            remark #15305: vectorization support: vector length 4
+            remark #15399: vectorization support: unroll factor set to 4
+            remark #15309: vectorization support: normalized vectorization overhead 0.500
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15442: entire loop may be executed in remainder
+            remark #15449: unmasked aligned unit stride stores: 2 
+            remark #15475: --- begin vector cost summary ---
+            remark #15476: scalar cost: 7 
+            remark #15477: vector cost: 1.500 
+            remark #15478: estimated potential speedup: 3.970 
+            remark #15488: --- end vector cost summary ---
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(122,16)
+         <Remainder loop for vectorization>
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(123,19) ]
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(123,19) ]
+            remark #15381: vectorization support: unaligned access used inside loop body
+            remark #15305: vectorization support: vector length 4
+            remark #15309: vectorization support: normalized vectorization overhead 1.800
+            remark #15301: REMAINDER LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(122,16)
+         <Remainder loop for vectorization>
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at stream2.cpp(119,13)
+      <Remainder>
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at stream2.cpp(122,16)
+         <Peeled loop for vectorization>
+            remark #25015: Estimate of max trip count of loop=3
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(122,16)
+            remark #15388: vectorization support: reference a[i] has aligned access   [ stream2.cpp(123,19) ]
+            remark #15305: vectorization support: vector length 4
+            remark #15399: vectorization support: unroll factor set to 4
+            remark #15309: vectorization support: normalized vectorization overhead 0.917
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15442: entire loop may be executed in remainder
+            remark #15449: unmasked aligned unit stride stores: 1 
+            remark #15475: --- begin vector cost summary ---
+            remark #15476: scalar cost: 4 
+            remark #15477: vector cost: 0.750 
+            remark #15478: estimated potential speedup: 4.360 
+            remark #15488: --- end vector cost summary ---
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(122,16)
+         <Remainder loop for vectorization>
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(123,19) ]
+            remark #15381: vectorization support: unaligned access used inside loop body
+            remark #15305: vectorization support: vector length 4
+            remark #15309: vectorization support: normalized vectorization overhead 2.800
+            remark #15301: REMAINDER LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(122,16)
+         <Remainder loop for vectorization>
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at stream2.cpp(132,13)
+         remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+         remark #25452: Original Order found to be proper, but by a close margin
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at stream2.cpp(135,16)
+            remark #25399: memcopy generated
+            remark #15542: loop was not vectorized: inner loop was already vectorized
+
+            LOOP BEGIN at stream2.cpp(135,16)
+               remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(136,19) ]
+               remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(136,26) ]
+               remark #15381: vectorization support: unaligned access used inside loop body
+               remark #15305: vectorization support: vector length 4
+               remark #15309: vectorization support: normalized vectorization overhead 1.000
+               remark #15300: LOOP WAS VECTORIZED
+               remark #15450: unmasked unaligned unit stride loads: 1 
+               remark #15451: unmasked unaligned unit stride stores: 1 
+               remark #15475: --- begin vector cost summary ---
+               remark #15476: scalar cost: 5 
+               remark #15477: vector cost: 1.500 
+               remark #15478: estimated potential speedup: 2.500 
+               remark #15488: --- end vector cost summary ---
+               remark #25015: Estimate of max trip count of loop=3
+            LOOP END
+
+            LOOP BEGIN at stream2.cpp(135,16)
+            <Remainder loop for vectorization>
+               remark #25015: Estimate of max trip count of loop=12
+            LOOP END
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at stream2.cpp(145,13)
+         remark #25461: Imperfect Loop Unroll-Jammed by 2   (pre-vector) 
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at stream2.cpp(148,16)
+         <Peeled loop for vectorization>
+            remark #25456: Number of Array Refs Scalar Replaced In Loop: 2
+            remark #25015: Estimate of max trip count of loop=3
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(148,16)
+            remark #15388: vectorization support: reference b[i] has aligned access   [ stream2.cpp(149,19) ]
+            remark #15388: vectorization support: reference b[i] has aligned access   [ stream2.cpp(149,26) ]
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(149,35) ]
+            remark #15388: vectorization support: reference b[i] has aligned access   [ stream2.cpp(149,19) ]
+            remark #15388: vectorization support: reference b[i] has aligned access   [ stream2.cpp(149,26) ]
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(149,35) ]
+            remark #15381: vectorization support: unaligned access used inside loop body
+            remark #15305: vectorization support: vector length 4
+            remark #15399: vectorization support: unroll factor set to 4
+            remark #15309: vectorization support: normalized vectorization overhead 0.250
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15442: entire loop may be executed in remainder
+            remark #15448: unmasked aligned unit stride loads: 1 
+            remark #15449: unmasked aligned unit stride stores: 2 
+            remark #15450: unmasked unaligned unit stride loads: 1 
+            remark #15475: --- begin vector cost summary ---
+            remark #15476: scalar cost: 19 
+            remark #15477: vector cost: 3.750 
+            remark #15478: estimated potential speedup: 4.300 
+            remark #15488: --- end vector cost summary ---
+            remark #25456: Number of Array Refs Scalar Replaced In Loop: 8
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(148,16)
+         <Remainder loop for vectorization>
+            remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(149,19) ]
+            remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(149,26) ]
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(149,35) ]
+            remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(149,19) ]
+            remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(149,26) ]
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(149,35) ]
+            remark #15381: vectorization support: unaligned access used inside loop body
+            remark #15305: vectorization support: vector length 4
+            remark #15309: vectorization support: normalized vectorization overhead 1.200
+            remark #15301: REMAINDER LOOP WAS VECTORIZED
+            remark #25456: Number of Array Refs Scalar Replaced In Loop: 2
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(148,16)
+         <Remainder loop for vectorization>
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at stream2.cpp(145,13)
+      <Remainder>
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at stream2.cpp(148,16)
+         <Peeled loop for vectorization>
+            remark #25015: Estimate of max trip count of loop=3
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(148,16)
+            remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(149,19) ]
+            remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(149,26) ]
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(149,35) ]
+            remark #15381: vectorization support: unaligned access used inside loop body
+            remark #15305: vectorization support: vector length 4
+            remark #15309: vectorization support: normalized vectorization overhead 1.750
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15442: entire loop may be executed in remainder
+            remark #15450: unmasked unaligned unit stride loads: 2 
+            remark #15451: unmasked unaligned unit stride stores: 1 
+            remark #15475: --- begin vector cost summary ---
+            remark #15476: scalar cost: 10 
+            remark #15477: vector cost: 2.000 
+            remark #15478: estimated potential speedup: 4.640 
+            remark #15488: --- end vector cost summary ---
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(148,16)
+         <Remainder loop for vectorization>
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at stream2.cpp(159,13)
+         remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+         remark #25452: Original Order found to be proper, but by a close margin
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at stream2.cpp(163,16)
+         <Peeled loop for vectorization>
+            remark #25015: Estimate of max trip count of loop=3
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(163,16)
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(164,26) ]
+            remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(164,31) ]
+            remark #15381: vectorization support: unaligned access used inside loop body
+            remark #15305: vectorization support: vector length 4
+            remark #15399: vectorization support: unroll factor set to 4
+            remark #15309: vectorization support: normalized vectorization overhead 1.000
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15442: entire loop may be executed in remainder
+            remark #15450: unmasked unaligned unit stride loads: 2 
+            remark #15475: --- begin vector cost summary ---
+            remark #15476: scalar cost: 8 
+            remark #15477: vector cost: 2.000 
+            remark #15478: estimated potential speedup: 3.400 
+            remark #15488: --- end vector cost summary ---
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(163,16)
+         <Remainder loop for vectorization>
+            remark #15389: vectorization support: reference a[i] has unaligned access   [ stream2.cpp(164,26) ]
+            remark #15389: vectorization support: reference b[i] has unaligned access   [ stream2.cpp(164,31) ]
+            remark #15381: vectorization support: unaligned access used inside loop body
+            remark #15305: vectorization support: vector length 4
+            remark #15309: vectorization support: normalized vectorization overhead 3.889
+            remark #15301: REMAINDER LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at stream2.cpp(163,16)
+         <Remainder loop for vectorization>
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at stream2.cpp(173,10)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed ANTI dependence between allPassed (174:25) and allPassed (174:13)
+         remark #15346: vector dependence: assumed FLOW dependence between allPassed (174:13) and allPassed (174:25)
+         remark #15346: vector dependence: assumed FLOW dependence between allPassed (174:13) and allPassed (174:25)
+         remark #15346: vector dependence: assumed ANTI dependence between allPassed (174:25) and allPassed (174:13)
+         remark #25436: completely unrolled by 4  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at stream2.cpp(183,7)
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed FLOW dependence between bestTime[test] (185:10) and *__a (189:13)
+      remark #15346: vector dependence: assumed ANTI dependence between *__a (189:13) and bestTime[test] (185:10)
+
+      LOOP BEGIN at stream2.cpp(187,10)
+         remark #25085: Preprocess Loopnests: Moving Out Load and Store    [ stream2.cpp(190,13) ]
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed ANTI dependence between *__a (2540:18) and bestTime[test] (189:13)
+         remark #15346: vector dependence: assumed FLOW dependence between bestTime[test] (189:13) and *__a (2540:18)
+         remark #25438: unrolled without remainder by 2  
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(2208,31):remark #34000: call to _memset implemented inline with stores with proven (alignment, offset): (32, 0)
+stream2.cpp(135,16):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to speed up library implementation
+stream2.cpp(135,16):remark #34014: optimization advice for memcpy: increase the source's alignment to 16 (and use __assume_aligned) to speed up library implementation
+stream2.cpp(135,16):remark #34026: call to memcpy implemented as a call to optimized library version
+stream2.cpp(18,1):remark #34051: REGISTER ALLOCATION : [_main] stream2.cpp:18
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   26[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm11]
+        
+    Routine temporaries
+        Total         :     765
+            Global    :     261
+            Local     :     504
+        Regenerable   :     159
+        Spilled       :      30
+        
+    Routine stack
+        Variables     :     292 bytes*
+            Reads     :      52 [1.75e+02 ~ 0.3%]
+            Writes    :      67 [1.75e+02 ~ 0.3%]
+        Spills        :     200 bytes*
+            Reads     :      81 [1.37e+03 ~ 2.4%]
+            Writes    :      37 [2.00e+02 ~ 0.4%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: std::__1::allocator<char>::allocator(std::__1::allocator<char> *const)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::allocator<char>::allocator(std::__1::allocator<char> *const)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(1760,31)
+
+===========================================================================
+
+Begin optimization report for: abs(double)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (abs(double)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/math.h(697,32)
+
+===========================================================================
+
+Begin optimization report for: show_usage(const char *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (show_usage(const char *)) [4/31=12.9%] stream2.cpp(11,1)
+  -> EXTERN: (12,4) printf(const char *, ...)
+  -> EXTERN: (13,4) printf(const char *, ...)
+  -> EXTERN: (14,4) printf(const char *, ...)
+  -> EXTERN: (15,4) printf(const char *, ...)
+
+
+    Report from: Code generation optimizations [cg]
+
+stream2.cpp(11,1):remark #34051: REGISTER ALLOCATION : [__Z10show_usagePKc] stream2.cpp:11
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    3[ rax rsi rdi]
+        
+    Routine temporaries
+        Total         :      18
+            Global    :       6
+            Local     :      12
+        Regenerable   :       9
+        Spilled       :       0
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: std::__1::char_traits<char>::length(const std::__1::char_traits<char>::char_type *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::char_traits<char>::length(const std::__1::char_traits<char>::char_type *)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__string(215,45)
+
+===========================================================================
+
+Begin optimization report for: std::__1::allocator<char>::allocator(std::__1::allocator<char> *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::allocator<char>::allocator(std::__1::allocator<char> *)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(1760,53)
+
+===========================================================================
+
+Begin optimization report for: std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::__libcpp_compressed_pair_imp(std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::__libcpp_compressed_pair_imp(std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(2208,75)
+
+===========================================================================
+
+Begin optimization report for: std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::__libcpp_compressed_pair_imp(std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *const)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::__libcpp_compressed_pair_imp(std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *const)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(2208,31)
+
+===========================================================================
+
+Begin optimization report for: std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U>::first(const std::__1::__libcpp_compressed_pair_imp<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type, 2U> *) const) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(2235,75)
+
+===========================================================================
+
+Begin optimization report for: std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::__compressed_pair(std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::__compressed_pair(std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(2315,51)
+
+===========================================================================
+
+Begin optimization report for: std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type>::first(const std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::__rep, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::allocator_type> *) const) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(2337,75)
+
+===========================================================================
+
+Begin optimization report for: std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::pointer_to(std::__1::conditional<false, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::__nat, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::element_type>::type &)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::pointer_to(std::__1::conditional<false, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::__nat, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::element_type>::type &)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(970,9)
+
+===========================================================================
+
+Begin optimization report for: std::__1::__less<int, int>::operator()(const std::__1::__less<int, int> *, const int &, const int &) const
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::__less<int, int>::operator()(const std::__1::__less<int, int> *, const int &, const int &) const) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm(714,59)
+
+===========================================================================
+
+Begin optimization report for: std::__1::__less<double, double>::operator()(const std::__1::__less<double, double> *, const double &, const double &) const
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::__less<double, double>::operator()(const std::__1::__less<double, double> *, const double &, const double &) const) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm(714,59)
+
+===========================================================================
+
+Begin optimization report for: std::__1::operator==<char, std::__1::char_traits<char>, std::__1::allocator<char>>(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &, const char *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::operator==<char, std::__1::char_traits<char>, std::__1::allocator<char>>(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &, const char *)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/string(3543,1)
+
+===========================================================================
+
+Begin optimization report for: std::__1::min<int>(const int &, const int &)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::min<int>(const int &, const int &)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm(2547,1)
+
+===========================================================================
+
+Begin optimization report for: std::__1::min<double>(const double &, const double &)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::min<double>(const double &, const double &)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm(2547,1)
+
+===========================================================================
+
+Begin optimization report for: std::__1::addressof<std::__1::conditional<false, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::__nat, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::element_type>::type>(std::__1::conditional<false, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::__nat, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::element_type>::type &)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::addressof<std::__1::conditional<false, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::__nat, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::element_type>::type>(std::__1::conditional<false, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::__nat, std::__1::pointer_traits<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>::const_pointer>::element_type>::type &)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/type_traits(435,1)
+
+===========================================================================
+
+Begin optimization report for: std::__1::__to_raw_pointer<const char>(const char *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::__to_raw_pointer<const char>(const char *)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/memory(1104,1)
+
+===========================================================================
+
+Begin optimization report for: std::__1::min<int, std::__1::__less<int, int>>(const int &, const int &, std::__1::__less<int, int>)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::min<int, std::__1::__less<int, int>>(const int &, const int &, std::__1::__less<int, int>)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm(2539,1)
+
+===========================================================================
+
+Begin optimization report for: std::__1::min<double, std::__1::__less<double, double>>(const double &, const double &, std::__1::__less<double, double>)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::__1::min<double, std::__1::__less<double, double>>(const double &, const double &, std::__1::__less<double, double>)) /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/algorithm(2539,1)
+
+===========================================================================
