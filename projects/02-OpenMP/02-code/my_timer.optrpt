@@ -2,7 +2,7 @@ Intel(R) Advisor can now assist with vectorization and show optimization
   report messages with your source code.
 See "https://software.intel.com/en-us/intel-advisor-xe" for details.
 
-Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 18.0.0.104 Build 20170811
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 17.0.4.196 Build 20170411
 
 Compiler options: -I. -I../../common -O3 -fopenmp -std=c++11 -xHost -qopt-report=5 -Wunknown-pragmas -c -o my_timer.o
 
@@ -46,7 +46,7 @@ INLINE REPORT: (getClockTicks()) [2/5=40.0%] ../../common/my_timer.cpp(39,1)
 
     Report from: Code generation optimizations [cg]
 
-../../common/my_timer.cpp(39,1):remark #34051: REGISTER ALLOCATION : [_getClockTicks] ../../common/my_timer.cpp:39
+../../common/my_timer.cpp(39,1):remark #34051: REGISTER ALLOCATION : [getClockTicks] ../../common/my_timer.cpp:39
 
     Hardware registers
         Reserved     :    2[ rsp rip]
@@ -87,7 +87,7 @@ INLINE REPORT: (getTimeStamp()) [3/5=60.0%] ../../common/my_timer.cpp(44,1)
 
     Report from: Code generation optimizations [cg]
 
-../../common/my_timer.cpp(44,1):remark #34051: REGISTER ALLOCATION : [_getTimeStamp] ../../common/my_timer.cpp:44
+../../common/my_timer.cpp(44,1):remark #34051: REGISTER ALLOCATION : [getTimeStamp] ../../common/my_timer.cpp:44
 
     Hardware registers
         Reserved     :    2[ rsp rip]
@@ -127,7 +127,7 @@ INLINE REPORT: (getElapsedTime(myTimer_t, myTimer_t)) [4/5=80.0%] ../../common/m
 
     Report from: Code generation optimizations [cg]
 
-../../common/my_timer.cpp(50,1):remark #34051: REGISTER ALLOCATION : [_getElapsedTime] ../../common/my_timer.cpp:50
+../../common/my_timer.cpp(50,1):remark #34051: REGISTER ALLOCATION : [getElapsedTime] ../../common/my_timer.cpp:50
 
     Hardware registers
         Reserved     :    2[ rsp rip]
@@ -189,7 +189,7 @@ LOOP END
 
     Report from: Code generation optimizations [cg]
 
-../../common/my_timer.cpp(73,1):remark #34051: REGISTER ALLOCATION : [_getTicksPerSecond] ../../common/my_timer.cpp:73
+../../common/my_timer.cpp(73,1):remark #34051: REGISTER ALLOCATION : [getTicksPerSecond] ../../common/my_timer.cpp:73
 
     Hardware registers
         Reserved     :    2[ rsp rip]
