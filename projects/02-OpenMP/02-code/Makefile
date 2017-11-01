@@ -30,3 +30,10 @@ nbody3: nbody3.o $(COMMON_OBJS)
 
 clean: clean_common
 	/bin/rm -fv $(EXEC) *.o *.optrpt
+
+# for t in 2 4 6 8 16 32; \
+# # do export OMP_NUM_THREADS=$t; \
+# # echo "$t"; for n in 1000 2000 4000 8000; \
+# # do ./serial-nbody3 -n $n -s 500 2>/dev/null; \
+# # done  > $t-output.log ; done
+# #
