@@ -4,7 +4,7 @@ See "https://software.intel.com/en-us/intel-advisor-xe" for details.
 
 Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 17.0.4.196 Build 20170411
 
-Compiler options: -I. -I../../common -O3 -fopenmp -std=c++11 -xHost -qopt-report=5 -Wunknown-pragmas -c -o my_timer.o
+Compiler options: -I. -I../../common -O3 -std=c++11 -xHost -qopt-report=5 -Wunknown-pragmas -c -o my_timer.o
 
     Report from: Interprocedural optimizations [ipo]
 

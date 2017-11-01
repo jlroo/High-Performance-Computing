@@ -4,7 +4,7 @@ See "https://software.intel.com/en-us/intel-advisor-xe" for details.
 
 Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 17.0.4.196 Build 20170411
 
-Compiler options: -I. -I../../common -O3 -fopenmp -std=c++11 -xHost -qopt-report=5 -Wunknown-pragmas -c
+Compiler options: -I. -I../../common -O3 -std=c++11 -xHost -qopt-report=5 -Wunknown-pragmas -c
 
     Report from: Interprocedural optimizations [ipo]
 
@@ -128,7 +128,7 @@ INLINE REPORT: (main(int, char **)) [1/26=3.8%] nbody3.cpp(322,1)
     -> EXTERN: (166,4) fprintf(FILE *, const char *, ...)
     -> EXTERN: (167,4) fprintf(FILE *, const char *, ...)
     -> EXTERN: (168,4) fprintf(FILE *, const char *, ...)
-  -> INLINE (MANUAL): (387,14) run_tests<double>(int, int, double) (isz = 920) (sz = 931)
+  -> INLINE (MANUAL): (387,14) run_tests<double>(int, int, double) (isz = 898) (sz = 909)
     -> EXTERN: (174,4) fprintf(FILE *, const char *, ...)
     -> EXTERN: (175,4) fprintf(FILE *, const char *, ...)
     -> EXTERN: (176,4) fprintf(FILE *, const char *, ...)
@@ -174,11 +174,11 @@ INLINE REPORT: (main(int, char **)) [1/26=3.8%] nbody3.cpp(322,1)
       -> EXTERN: (56,43) rand()
     -> EXTERN: (252,24) getTimeStamp()
     -> EXTERN: (259,22) getTimeStamp()
-    -> INLINE (MANUAL): (261,7) accel_register<double>(double *, double *, double *, double *, int) (isz = 102) (sz = 115)
+    -> INLINE (MANUAL): (261,7) accel_register<double>(double *, double *, double *, double *, int) (isz = 95) (sz = 108)
     -> EXTERN: (263,22) getTimeStamp()
-    -> INLINE (MANUAL): (266,7) update<double>(double *, double *, double *, double *, int, double) (isz = 71) (sz = 86)
+    -> INLINE (MANUAL): (266,7) update<double>(double *, double *, double *, double *, int, double) (isz = 64) (sz = 79)
     -> EXTERN: (268,22) getTimeStamp()
-    -> INLINE (MANUAL): (272,10) search<double>(double *, double *, double *, double *, int) (isz = 81) (sz = 94)
+    -> INLINE (MANUAL): (272,10) search<double>(double *, double *, double *, double *, int) (isz = 73) (sz = 86)
       -> INLINE (MANUAL): (151,14) std::max<double>(const double &, const double &) (isz = 2) (sz = 12)
       -> INLINE (MANUAL): (152,14) std::min<double>(const double &, const double &) (isz = 2) (sz = 12)
       -> EXTERN: (155,4) printf(const char *, ...)
@@ -203,15 +203,9 @@ INLINE REPORT: (main(int, char **)) [1/26=3.8%] nbody3.cpp(322,1)
       -> EXTERN: ../../common/aligned_allocator.h:(50,7) free(void *)
     -> INLINE (MANUAL): (316,4) Deallocate<double>(double *&) (isz = 6) (sz = 11)
       -> EXTERN: ../../common/aligned_allocator.h:(50,7) free(void *)
-  -> (389,14) run_tests<float>(int, int, float) (isz = 936) (sz = 947)
-     [[ Inlining would exceed -inline-max-total-size value (2144>2000) <1>]]
+  -> (389,14) run_tests<float>(int, int, float) (isz = 914) (sz = 925)
+     [[ Inlining would exceed -inline-max-total-size value (2100>2000) <1>]]
 
-
-    Report from: OpenMP optimizations [openmp]
-
-nbody3.cpp(66:1-66:1):OMP:main:  OpenMP DEFINED REGION WAS PARALLELIZED
-nbody3.cpp(100:1-100:1):OMP:main:  OpenMP DEFINED REGION WAS PARALLELIZED
-nbody3.cpp(142:1-142:1):OMP:main:  OpenMP DEFINED REGION WAS PARALLELIZED
 
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
@@ -244,29 +238,99 @@ LOOP BEGIN at nbody3.cpp(222,7) inlined into nbody3.cpp(387,14)
 LOOP END
 
 LOOP BEGIN at nbody3.cpp(256,4) inlined into nbody3.cpp(387,14)
-   remark #15382: vectorization support: call to function getTimeStamp() cannot be vectorized   [ nbody3.cpp(259,22) ]
-   remark #15382: vectorization support: call to function __kmpc_ok_to_fork cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function __kmpc_fork_call cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function __kmpc_serialized_parallel cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function .0 cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function __kmpc_end_serialized_parallel cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function getTimeStamp() cannot be vectorized   [ nbody3.cpp(263,22) ]
-   remark #15382: vectorization support: call to function __kmpc_ok_to_fork cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function __kmpc_fork_call cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function __kmpc_serialized_parallel cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function .1 cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function __kmpc_end_serialized_parallel cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function getTimeStamp() cannot be vectorized   [ nbody3.cpp(268,22) ]
-   remark #15382: vectorization support: call to function __kmpc_ok_to_fork cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function __kmpc_fork_call cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function __kmpc_serialized_parallel cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function .3 cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function __kmpc_end_serialized_parallel cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function getTimeStamp() cannot be vectorized   [ nbody3.cpp(274,22) ]
-   remark #15382: vectorization support: call to function getElapsedTime(myTimer_t, myTimer_t) cannot be vectorized   [ nbody3.cpp(276,18) ]
-   remark #15382: vectorization support: call to function getElapsedTime(myTimer_t, myTimer_t) cannot be vectorized   [ nbody3.cpp(277,19) ]
-   remark #15382: vectorization support: call to function getElapsedTime(myTimer_t, myTimer_t) cannot be vectorized   [ nbody3.cpp(278,19) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #25236: Loop with pragma of trip count = 100 ignored for large value
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at nbody3.cpp(69,4) inlined into nbody3.cpp(387,14)
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #25236: Loop with pragma of trip count = 100 ignored for large value
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(387,14)
+      <Peeled loop for vectorization>
+         remark #25015: Estimate of max trip count of loop=3
+      LOOP END
+
+      LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(387,14)
+         remark #15389: vectorization support: reference pos[j] has unaligned access   [ nbody3.cpp(78,25) ]
+         remark #15389: vectorization support: reference pos[j+n] has unaligned access   [ nbody3.cpp(79,25) ]
+         remark #15389: vectorization support: reference pos[j+n*2] has unaligned access   [ nbody3.cpp(80,25) ]
+         remark #15389: vectorization support: reference mass[j] has unaligned access   [ nbody3.cpp(82,30) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 4
+         remark #15309: vectorization support: normalized vectorization overhead 0.896
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15442: entire loop may be executed in remainder
+         remark #15450: unmasked unaligned unit stride loads: 4 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 99 
+         remark #15477: vector cost: 26.500 
+         remark #15478: estimated potential speedup: 3.560 
+         remark #15488: --- end vector cost summary ---
+      LOOP END
+
+      LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(387,14)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at nbody3.cpp(103,4) inlined into nbody3.cpp(387,14)
+      remark #25445: Loop Interchange not done due to: Data Dependencies
+      remark #25446: Dependencies found between following statements:  [From_Line# -> (Dependency Type) To_Line#]
+      remark #25447: Dependence found between following statements:  [106 -> (Output) 107]
+      remark #25447: Dependence found between following statements:  [106 -> (Flow) 107]
+      remark #25447: Dependence found between following statements:  [106 -> (Anti) 107]
+      remark #25447: Dependence found between following statements:  [106 -> (Flow) 106]
+      remark #25447: Dependence found between following statements:  [106 -> (Anti) 106]
+      remark #25447: Dependence found between following statements:  [107 -> (Flow) 107]
+      remark #25447: Dependence found between following statements:  [107 -> (Anti) 107]
+      remark #25447: Dependence found between following statements:  [107 -> (Output) 106]
+      remark #25447: Dependence found between following statements:  [107 -> (Anti) 106]
+      remark #25447: Dependence found between following statements:  [107 -> (Flow) 106]
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #25236: Loop with pragma of trip count = 100 ignored for large value
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between pos[i+k*n] (106:10) and vel[i+k*n] (107:10)
+      remark #15346: vector dependence: assumed OUTPUT dependence between vel[i+k*n] (107:10) and pos[i+k*n] (106:10)
+
+      LOOP BEGIN at nbody3.cpp(104,7) inlined into nbody3.cpp(387,14)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between pos[i+k*n] (106:10) and vel[i+k*n] (107:10)
+         remark #15346: vector dependence: assumed OUTPUT dependence between vel[i+k*n] (107:10) and pos[i+k*n] (106:10)
+         remark #25436: completely unrolled by 3  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at nbody3.cpp(145,4) inlined into nbody3.cpp(387,14)
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #25236: Loop with pragma of trip count = 100 ignored for large value
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,19) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,36) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,19) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,36) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,19) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,36) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 1.000
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15450: unmasked unaligned unit stride loads: 3 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 87 
+      remark #15477: vector cost: 19.000 
+      remark #15478: estimated potential speedup: 4.400 
+      remark #15488: --- end vector cost summary ---
+
+      LOOP BEGIN at nbody3.cpp(148,7) inlined into nbody3.cpp(387,14)
+         remark #25436: completely unrolled by 3   (pre-vector) 
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at nbody3.cpp(145,4) inlined into nbody3.cpp(387,14)
+   <Remainder loop for vectorization>
+   LOOP END
 LOOP END
 
 LOOP BEGIN at nbody3.cpp(303,7) inlined into nbody3.cpp(387,14)
@@ -291,65 +355,6 @@ LOOP BEGIN at nbody3.cpp(303,7) inlined into nbody3.cpp(387,14)
    LOOP END
 LOOP END
 
-LOOP BEGIN at nbody3.cpp(69,4) inlined into nbody3.cpp(387,14)
-   remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
-   remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
-   remark #15542: loop was not vectorized: inner loop was already vectorized
-
-   LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(387,14)
-   <Peeled loop for vectorization>
-      remark #25015: Estimate of max trip count of loop=3
-   LOOP END
-
-   LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(387,14)
-      remark #15389: vectorization support: reference pos has unaligned access   [ nbody3.cpp(78,25) ]
-      remark #15389: vectorization support: reference pos has unaligned access   [ nbody3.cpp(79,25) ]
-      remark #15389: vectorization support: reference pos has unaligned access   [ nbody3.cpp(80,25) ]
-      remark #15389: vectorization support: reference mass has unaligned access   [ nbody3.cpp(82,30) ]
-      remark #15381: vectorization support: unaligned access used inside loop body
-      remark #15305: vectorization support: vector length 4
-      remark #15309: vectorization support: normalized vectorization overhead 0.896
-      remark #15300: LOOP WAS VECTORIZED
-      remark #15442: entire loop may be executed in remainder
-      remark #15450: unmasked unaligned unit stride loads: 4 
-      remark #15475: --- begin vector cost summary ---
-      remark #15476: scalar cost: 99 
-      remark #15477: vector cost: 26.500 
-      remark #15478: estimated potential speedup: 3.560 
-      remark #15488: --- end vector cost summary ---
-   LOOP END
-
-   LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(387,14)
-   <Remainder loop for vectorization>
-   LOOP END
-LOOP END
-
-LOOP BEGIN at nbody3.cpp(103,4) inlined into nbody3.cpp(387,14)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between pos (106:10) and vel (107:10)
-   remark #15346: vector dependence: assumed OUTPUT dependence between vel (107:10) and pos (106:10)
-
-   LOOP BEGIN at nbody3.cpp(104,7) inlined into nbody3.cpp(387,14)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed OUTPUT dependence between pos (106:10) and vel (107:10)
-      remark #15346: vector dependence: assumed OUTPUT dependence between vel (107:10) and pos (106:10)
-      remark #25436: completely unrolled by 3  
-   LOOP END
-LOOP END
-
-LOOP BEGIN at nbody3.cpp(145,4) inlined into nbody3.cpp(387,14)
-   remark #25084: Preprocess Loopnests: Moving Out Store    [ nbody3.cpp(153,7) ]
-   remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
-   remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between vel (149:10) and at (152:7)
-   remark #15346: vector dependence: assumed FLOW dependence between at (152:7) and vel (149:10)
-
-   LOOP BEGIN at nbody3.cpp(148,7) inlined into nbody3.cpp(387,14)
-      remark #25436: completely unrolled by 3   (pre-vector) 
-   LOOP END
-LOOP END
-
     Report from: Code generation optimizations [cg]
 
 nbody3.cpp(322,1):remark #34051: REGISTER ALLOCATION : [main] nbody3.cpp:322
@@ -361,19 +366,19 @@ nbody3.cpp(322,1):remark #34051: REGISTER ALLOCATION : [main] nbody3.cpp:322
         Assigned     :   30[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm15]
         
     Routine temporaries
-        Total         :    1342
-            Global    :     259
-            Local     :    1083
-        Regenerable   :     504
-        Spilled       :      36
+        Total         :     934
+            Global    :     183
+            Local     :     751
+        Regenerable   :     297
+        Spilled       :      38
         
     Routine stack
-        Variables     :     372 bytes*
-            Reads     :      34 [6.55e+00 ~ 0.4%]
-            Writes    :      41 [3.27e+01 ~ 2.2%]
-        Spills        :     328 bytes*
-            Reads     :     154 [7.12e+01 ~ 4.9%]
-            Writes    :      78 [3.06e+01 ~ 2.1%]
+        Variables     :     116 bytes*
+            Reads     :      20 [8.55e+00 ~ 0.7%]
+            Writes    :      12 [6.22e+00 ~ 0.5%]
+        Spills        :     264 bytes*
+            Reads     :      80 [3.00e+01 ~ 2.4%]
+            Writes    :      50 [1.08e+01 ~ 0.9%]
     
     Notes
     
@@ -434,12 +439,12 @@ INLINE REPORT: (run_tests<float>(int, int, float)) [2/26=7.7%] nbody3.cpp(173,1)
     -> EXTERN: (56,43) rand()
   -> EXTERN: (252,24) getTimeStamp()
   -> EXTERN: (259,22) getTimeStamp()
-  -> INLINE (MANUAL): (261,7) accel_register<float>(float *, float *, float *, float *, int) (isz = 103) (sz = 116)
+  -> INLINE (MANUAL): (261,7) accel_register<float>(float *, float *, float *, float *, int) (isz = 96) (sz = 109)
     -> INLINE (MANUAL): (82,47) std::sqrt(float) (isz = 0) (sz = 7)
   -> EXTERN: (263,22) getTimeStamp()
-  -> INLINE (MANUAL): (266,7) update<float>(float *, float *, float *, float *, int, float) (isz = 71) (sz = 86)
+  -> INLINE (MANUAL): (266,7) update<float>(float *, float *, float *, float *, int, float) (isz = 64) (sz = 79)
   -> EXTERN: (268,22) getTimeStamp()
-  -> INLINE (MANUAL): (272,10) search<float>(float *, float *, float *, float *, int) (isz = 87) (sz = 100)
+  -> INLINE (MANUAL): (272,10) search<float>(float *, float *, float *, float *, int) (isz = 79) (sz = 92)
     -> INLINE (MANUAL): (151,14) std::max<float>(const float &, const float &) (isz = 2) (sz = 12)
     -> INLINE (MANUAL): (152,14) std::min<float>(const float &, const float &) (isz = 2) (sz = 12)
     -> EXTERN: (155,4) printf(const char *, ...)
@@ -465,12 +470,6 @@ INLINE REPORT: (run_tests<float>(int, int, float)) [2/26=7.7%] nbody3.cpp(173,1)
   -> INLINE (MANUAL): (316,4) Deallocate<float>(float *&) (isz = 6) (sz = 11)
     -> EXTERN: ../../common/aligned_allocator.h:(50,7) free(void *)
 
-
-    Report from: OpenMP optimizations [openmp]
-
-nbody3.cpp(66:1-66:1):OMP:_Z9run_testsIfEiiiT_:  OpenMP DEFINED REGION WAS PARALLELIZED
-nbody3.cpp(100:1-100:1):OMP:_Z9run_testsIfEiiiT_:  OpenMP DEFINED REGION WAS PARALLELIZED
-nbody3.cpp(142:1-142:1):OMP:_Z9run_testsIfEiiiT_:  OpenMP DEFINED REGION WAS PARALLELIZED
 
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
@@ -498,29 +497,101 @@ LOOP BEGIN at nbody3.cpp(222,7)
 LOOP END
 
 LOOP BEGIN at nbody3.cpp(256,4)
-   remark #15382: vectorization support: call to function getTimeStamp() cannot be vectorized   [ nbody3.cpp(259,22) ]
-   remark #15382: vectorization support: call to function __kmpc_ok_to_fork cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function __kmpc_fork_call cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function __kmpc_serialized_parallel cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function .18 cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function __kmpc_end_serialized_parallel cannot be vectorized   [ nbody3.cpp(66,1) ]
-   remark #15382: vectorization support: call to function getTimeStamp() cannot be vectorized   [ nbody3.cpp(263,22) ]
-   remark #15382: vectorization support: call to function __kmpc_ok_to_fork cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function __kmpc_fork_call cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function __kmpc_serialized_parallel cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function .19 cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function __kmpc_end_serialized_parallel cannot be vectorized   [ nbody3.cpp(100,1) ]
-   remark #15382: vectorization support: call to function getTimeStamp() cannot be vectorized   [ nbody3.cpp(268,22) ]
-   remark #15382: vectorization support: call to function __kmpc_ok_to_fork cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function __kmpc_fork_call cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function __kmpc_serialized_parallel cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function .21 cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function __kmpc_end_serialized_parallel cannot be vectorized   [ nbody3.cpp(142,1) ]
-   remark #15382: vectorization support: call to function getTimeStamp() cannot be vectorized   [ nbody3.cpp(274,22) ]
-   remark #15382: vectorization support: call to function getElapsedTime(myTimer_t, myTimer_t) cannot be vectorized   [ nbody3.cpp(276,18) ]
-   remark #15382: vectorization support: call to function getElapsedTime(myTimer_t, myTimer_t) cannot be vectorized   [ nbody3.cpp(277,19) ]
-   remark #15382: vectorization support: call to function getElapsedTime(myTimer_t, myTimer_t) cannot be vectorized   [ nbody3.cpp(278,19) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at nbody3.cpp(69,4) inlined into nbody3.cpp(261,7)
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(261,7)
+      <Peeled loop for vectorization>
+         remark #25015: Estimate of max trip count of loop=7
+      LOOP END
+
+      LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(261,7)
+         remark #15389: vectorization support: reference pos[j] has unaligned access   [ nbody3.cpp(78,25) ]
+         remark #15389: vectorization support: reference pos[j+n] has unaligned access   [ nbody3.cpp(79,25) ]
+         remark #15389: vectorization support: reference pos[j+n*2] has unaligned access   [ nbody3.cpp(80,25) ]
+         remark #15389: vectorization support: reference mass[j] has unaligned access   [ nbody3.cpp(82,30) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 8
+         remark #15309: vectorization support: normalized vectorization overhead 1.066
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15442: entire loop may be executed in remainder
+         remark #15450: unmasked unaligned unit stride loads: 4 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 99 
+         remark #15477: vector cost: 13.250 
+         remark #15478: estimated potential speedup: 5.800 
+         remark #15488: --- end vector cost summary ---
+      LOOP END
+
+      LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(261,7)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at nbody3.cpp(103,4) inlined into nbody3.cpp(266,7)
+      remark #25445: Loop Interchange not done due to: Data Dependencies
+      remark #25446: Dependencies found between following statements:  [From_Line# -> (Dependency Type) To_Line#]
+      remark #25447: Dependence found between following statements:  [106 -> (Output) 107]
+      remark #25447: Dependence found between following statements:  [106 -> (Flow) 107]
+      remark #25447: Dependence found between following statements:  [106 -> (Anti) 107]
+      remark #25447: Dependence found between following statements:  [106 -> (Flow) 106]
+      remark #25447: Dependence found between following statements:  [106 -> (Anti) 106]
+      remark #25447: Dependence found between following statements:  [107 -> (Flow) 107]
+      remark #25447: Dependence found between following statements:  [107 -> (Anti) 107]
+      remark #25447: Dependence found between following statements:  [107 -> (Output) 106]
+      remark #25447: Dependence found between following statements:  [107 -> (Anti) 106]
+      remark #25447: Dependence found between following statements:  [107 -> (Flow) 106]
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between pos[i+k*n] (106:10) and vel[i+k*n] (107:10)
+      remark #15346: vector dependence: assumed OUTPUT dependence between vel[i+k*n] (107:10) and pos[i+k*n] (106:10)
+
+      LOOP BEGIN at nbody3.cpp(104,7) inlined into nbody3.cpp(266,7)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between pos[i+k*n] (106:10) and vel[i+k*n] (107:10)
+         remark #15346: vector dependence: assumed OUTPUT dependence between vel[i+k*n] (107:10) and pos[i+k*n] (106:10)
+         remark #25436: completely unrolled by 3  
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at nbody3.cpp(145,4) inlined into nbody3.cpp(272,10)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=7
+   LOOP END
+
+   LOOP BEGIN at nbody3.cpp(145,4) inlined into nbody3.cpp(272,10)
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,19) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,36) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,19) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,36) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,19) ]
+      remark #15389: vectorization support: reference vel[i+k*n] has unaligned access   [ nbody3.cpp(149,36) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 8
+      remark #15309: vectorization support: normalized vectorization overhead 1.347
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15450: unmasked unaligned unit stride loads: 3 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 87 
+      remark #15477: vector cost: 9.370 
+      remark #15478: estimated potential speedup: 6.780 
+      remark #15488: --- end vector cost summary ---
+
+      LOOP BEGIN at nbody3.cpp(148,7) inlined into nbody3.cpp(272,10)
+         remark #25436: completely unrolled by 3   (pre-vector) 
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at nbody3.cpp(145,4) inlined into nbody3.cpp(272,10)
+   <Remainder loop for vectorization>
+   LOOP END
 LOOP END
 
 LOOP BEGIN at nbody3.cpp(303,7)
@@ -544,65 +615,6 @@ LOOP BEGIN at nbody3.cpp(303,7)
    LOOP END
 LOOP END
 
-LOOP BEGIN at nbody3.cpp(69,4) inlined into nbody3.cpp(261,7)
-   remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
-   remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
-   remark #15542: loop was not vectorized: inner loop was already vectorized
-
-   LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(261,7)
-   <Peeled loop for vectorization>
-      remark #25015: Estimate of max trip count of loop=7
-   LOOP END
-
-   LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(261,7)
-      remark #15389: vectorization support: reference pos has unaligned access   [ nbody3.cpp(78,25) ]
-      remark #15389: vectorization support: reference pos has unaligned access   [ nbody3.cpp(79,25) ]
-      remark #15389: vectorization support: reference pos has unaligned access   [ nbody3.cpp(80,25) ]
-      remark #15389: vectorization support: reference mass has unaligned access   [ nbody3.cpp(82,30) ]
-      remark #15381: vectorization support: unaligned access used inside loop body
-      remark #15305: vectorization support: vector length 8
-      remark #15309: vectorization support: normalized vectorization overhead 1.066
-      remark #15300: LOOP WAS VECTORIZED
-      remark #15442: entire loop may be executed in remainder
-      remark #15450: unmasked unaligned unit stride loads: 4 
-      remark #15475: --- begin vector cost summary ---
-      remark #15476: scalar cost: 99 
-      remark #15477: vector cost: 13.250 
-      remark #15478: estimated potential speedup: 5.800 
-      remark #15488: --- end vector cost summary ---
-   LOOP END
-
-   LOOP BEGIN at nbody3.cpp(75,7) inlined into nbody3.cpp(261,7)
-   <Remainder loop for vectorization>
-   LOOP END
-LOOP END
-
-LOOP BEGIN at nbody3.cpp(103,4) inlined into nbody3.cpp(266,7)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed OUTPUT dependence between pos (106:10) and vel (107:10)
-   remark #15346: vector dependence: assumed OUTPUT dependence between vel (107:10) and pos (106:10)
-
-   LOOP BEGIN at nbody3.cpp(104,7) inlined into nbody3.cpp(266,7)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization
-      remark #15346: vector dependence: assumed OUTPUT dependence between pos (106:10) and vel (107:10)
-      remark #15346: vector dependence: assumed OUTPUT dependence between vel (107:10) and pos (106:10)
-      remark #25436: completely unrolled by 3  
-   LOOP END
-LOOP END
-
-LOOP BEGIN at nbody3.cpp(145,4) inlined into nbody3.cpp(272,10)
-   remark #25084: Preprocess Loopnests: Moving Out Store    [ nbody3.cpp(153,7) ]
-   remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
-   remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization
-   remark #15346: vector dependence: assumed ANTI dependence between vel (149:10) and at (152:7)
-   remark #15346: vector dependence: assumed FLOW dependence between at (152:7) and vel (149:10)
-
-   LOOP BEGIN at nbody3.cpp(148,7) inlined into nbody3.cpp(272,10)
-      remark #25436: completely unrolled by 3   (pre-vector) 
-   LOOP END
-LOOP END
-
     Report from: Code generation optimizations [cg]
 
 nbody3.cpp(173,1):remark #34051: REGISTER ALLOCATION : [_Z9run_testsIfEiiiT_] nbody3.cpp:173
@@ -614,19 +626,19 @@ nbody3.cpp(173,1):remark #34051: REGISTER ALLOCATION : [_Z9run_testsIfEiiiT_] nb
         Assigned     :   30[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm15]
         
     Routine temporaries
-        Total         :     885
-            Global    :     217
-            Local     :     668
-        Regenerable   :     282
-        Spilled       :      31
+        Total         :     608
+            Global    :     153
+            Local     :     455
+        Regenerable   :     115
+        Spilled       :      40
         
     Routine stack
-        Variables     :     304 bytes*
-            Reads     :      32 [6.51e+01 ~ 0.4%]
-            Writes    :      39 [3.16e+02 ~ 2.1%]
-        Spills        :     288 bytes*
-            Reads     :      89 [6.21e+02 ~ 4.1%]
-            Writes    :      69 [2.83e+02 ~ 1.9%]
+        Variables     :     112 bytes*
+            Reads     :      18 [6.51e+01 ~ 0.5%]
+            Writes    :      16 [4.29e+01 ~ 0.3%]
+        Spills        :     280 bytes*
+            Reads     :      81 [3.11e+02 ~ 2.4%]
+            Writes    :      43 [8.49e+01 ~ 0.7%]
     
     Notes
     
