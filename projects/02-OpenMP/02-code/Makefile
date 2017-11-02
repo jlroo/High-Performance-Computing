@@ -32,8 +32,11 @@ clean: clean_common
 	/bin/rm -fv $(EXEC) *.o *.optrpt
 
 # for t in 2 4 6 8 16 32 64; \
-# # do export OMP_NUM_THREADS=$t; \
-# # echo "$t"; for n in 1000 2000 4000 8000; \
-# # do ./serial-nbody3 -n $n -s 500 2>/dev/null; \
-# # done  > $t-output.log ; done
-# #
+# do export OMP_NUM_THREADS=$t; \
+# echo "$t"; for n in 1000 2000 4000 8000; \
+# do ./serial-nbody3 -n $n -s 500 2>/dev/null; \
+# done  > $t-output.log ; done
+# 
+# weak
+# s=$( printf "%.0f" $(echo "sqrt ( 2 ) * 2000" | bc -l) )
+# for i in 1 2 4 8 16 32 64; do var=$( printf "%.0f" $(echo "sqrt ( $i ) * 1000" | bc -l) ); echo $var; done
