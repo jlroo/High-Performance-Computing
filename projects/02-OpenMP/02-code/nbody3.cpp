@@ -141,7 +141,7 @@ void search (ValueType pos[], ValueType vel[], ValueType mass[], ValueType acc[]
 	ValueType minv = 1e10, maxv = 0, ave = 0;
 #pragma omp parallel default(none) shared(vel,minv,maxv,ave)
 {
-#pragma omp for reduction(+:ave)
+#pragma omp for reduction(+:ave) reduction(max:maxc) reduction(min:minv)
    for (int i = 0; i < n; ++i)
    {
       ValueType vmag = 0;
@@ -187,6 +187,12 @@ int run_tests( const int n, const int num_steps, const ValueType dt)
 #else
    fprintf(stderr,"Format         = StructureOfArrays\n");
 #endif
+
+	int n_threads = 1;
+#if defined(_OPENMP)
+	n_threads = omp_get_max_threads();
+	fprintf(stderr, "OpenMP (%d.%d) enabled with %d threads\n", _MY_OPENMP_MAJOR, _MY_OPENMP_MINOR, n_threads);
+#endif 
 
    ValueType *pos = NULL;
    ValueType *vel = NULL;

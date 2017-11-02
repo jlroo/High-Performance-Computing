@@ -15,6 +15,7 @@
 \usepackage{scrextend} %needed for addmargin environment
 \usepackage{graphicx} 
 \usepackage{listings}
+
 \usepackage{color}
 \usepackage{accsupp}
 \usepackage{booktabs}
@@ -24,6 +25,31 @@
 \definecolor{comment}{rgb}{1,0,0}
 \definecolor{mauve}{rgb}{.627,.126,.941}
 \definecolor{purple}{rgb}{0.5, 0, 0.545098}
+
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\lstdefinestyle{customasm}{
+  belowcaptionskip=1\baselineskip,
+  frame=L,
+  xleftmargin=\parindent,
+  language=[x86masm]Assembler,
+  basicstyle=\footnotesize\ttfamily,
+  commentstyle=\itshape\color{purple!40!black},
+}
+
+\lstset{escapechar=@,style=customc}
 
 %
 %----------------------------------------------------------------------------------------
@@ -74,89 +100,57 @@ Jose Luis Rodriguez
 
 \section{Overview}
 
-This report highlights the procedures and results of running the nbody3 C++ code that predicts the individual motion of a group of celestial objects (particles) interacting with each other gravitationally. The program also runs a series of experiments and generates a benchmark (max, min and average speed) utilizing the Stampede2 supercomputer at The University of Texas at Austin's Texas Advanced Computing Center (TACC). The nbody3 code utilize Intel C++ library compilers and the OpenMP library in order to parallelize the serial code details and specifications to follow. 
-
-The n-body problem code performs two major benchmarks, strong scalability and weak scalability. 
-Run serial and parallel cases with 1,000, 2,000, 4,000, and 8,000 particles using 1, 2, 4, 8, 16, 32, and 64 threads. (Stampede2 KNL nodes have 68 cores and each core can run 4 hardware threads so you can try with more threads if you like.) Record the average time per step. Make sure you use enough steps to give consistent results. These results will be used to compute the strong scalability and efficiency.
-
-Now run a weak scalability test. The goal here is to keep the workload per-thread constant. This means you need to increase the number of particles when you increase the number of threads. Start with 200 and 1,000 particles serially and determine how many particles are needed when you double the number of threads and continue this up to 64 threads. Recall that the n-body problem cost scales as n2 where n is the \# of particles. Use that to determine how to increase the \# of particles per thread.
-
-The n-body problem benchmark runs a number of tests measuring the bandwidth of L1, L2, L3 cache, and main DRAM. The first benchmark uses GNU C++ compiler to build the Stream2 program on Stampede2 compute and login nodes as well as and the Lenovo workstation. After building the code with GNU or Intel compiler, the program is run and the output is recorded in the tables below. The specifications of each system are also recorded in the tables at the end of the report. The idea behind this experiment is to examine how the memory and cache behave during the different experience and to compare the Intel and GNU C++ compilers. 
-
-%----------------------------------------------------------------------------------------
-%	SECTION 2 - DESCRIPTION
-%----------------------------------------------------------------------------------------
-
-% Report a brief report that summarizes the performance results you measured.
-% Create plots strong scaling speed-up and efficiency ( Lecture #1 ) 
-% Create plots weak scaling efficiency.
-%
-% Use these plots to answer:
-% (1) does the n-body algorithm scale in parallel 
-% (2) is the scalability constant or dependent upon the number of threads and particles?
-%
-% Also include a summary of code modifications that were necessary.
+This report highlights the procedures and results of running the nbody3 C++ code that predicts the individual motion of a group of celestial objects (particles) interacting with each other gravitationally. The program also runs a series of experiments and generates a benchmark (max, min and average speed) utilizing the Stampede2 supercomputer at The University of Texas at Austin?s Texas Advanced Computing Center (TACC). The nbody3 code utilize Intel C++ library compilers and the OpenMP library in order to parallelize the serial code details and speci?cations to follow.
+The n-body problem code performs two major benchmarks in order to compute strong scalability and weak scalability. The program was compiled in serial and parallel each version was tested with 1,000, 2,000, 4,000, and 8,000 particles and 1, 2, 4, 8, 16, 32, and 64 threads, all tests ran with the same number of steps (-s 500). The average time per number of particles was recored in order to compute the strong scalability. This method also allows to compute the weak scalability test as we are keeping a constant workload per-thread when the number of particles increase the number of threads also increased. To ?nd out the number of particles needed per thread the parallel code was executed keeping the number of particles and steps constant (n=1000, s=200) while increasing the number of threats.
 
 \section{Benchmark Analysis}
 
-%  strong scalability 
+\textbf{Code Mofications} 
 
-% weak scalability
+In order to perform the benchmarks in parallel, pragmas ( statements tell the compiler to use the OpenMP framework to parallelize the code) were used on the outer for loops of the accelerate, update and search functions. In the later also a reduction on the min, max and average velocity was used, snippets of the code can be found in the reference.
 
-The stream2 code runs a number of loops over a sequence of experiments and various benchmarks:
+\subsection{Strong scalability}When the nbody problem particles size stays ?xed or increased as the number of processing elements are increased. In Figure.1 Stampede2 compute node using the GNU compiler, we can see how the benchmark that uses most bandwidth is the \textsc{COPY} benchmark, with a top performance at $26kb$
 
-\begin{table}[ht]
+\begin{figure}[htb]
+\caption{Strong Scaling - Speed-Up (T1/Tp)}\label{fig:benchmark01}
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{cl}
-\textbf{Benchmark} & \textbf{Description} \\ \midrule
-FILL (MB/s) & Set all elements in an array to a particular value \\
-COPY & Copy two arrays - one into the other \\
-AXPY & Takes two arrays make changes and writes back (Alpha x plus y) \\
-DOT & Sum of the product of two arrays (Dot Product) \\ \bottomrule
-\end{tabular}%
-}
-\end{table}
+\includegraphics[width=\textwidth,keepaspectratio]{imgs/img01.png}
+\end{figure} 
 
-The benchmarks above were run on Stampede2 following two approaches. The first the code runs on the compute Node by requesting a flat quadrant and executing the code on that node. The second approach uses the $numactl$ command to run the code using the MCDRAM on the computer node. 
-
-The benchmarks were run with a min array size of 30 Bytes and three different max array sizes (20Mb, 25Mb, and 30Mb).This report only highlights the results when using the largest array size (30Mb) as the goal is to stress the last level cache and setting the number of tests between the min and max array size to 50. The same parameters were used for all benchmarks, compilers and nodes. To calculate the size of the array at the $n$ iteration the following metric was used:
-
-\begin{table}[ht]
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{cc}
-\textbf{Benchmark} & \textbf{Array Size (Metric) } \\  \midrule
-FILL  & $(\text{n\_iteration})(8 \text{ bytes/double})(1 \text{ double/iteration})$ \\
-COPY & $(\text{n\_iteration})(8 \text{ bytes/double})(2 \text{ double/iteration})$ \\
-AXPY & $(\text{n\_iteration})(8 \text{ bytes/double})(3 \text{ double/iteration})$ \\
-DOT & $(\text{n\_iteration})(8 \text{ bytes/double})(2 \text{ double/iteration})$ \\ \bottomrule
-\end{tabular}%
-}
-\end{table}
 
 \newpage
-
-\subsection{Benchmark Results}
 
 In Figure.1 Stampede2 compute node using the GNU compiler, we can see how the benchmark that uses most bandwidth is the \textsc{COPY} benchmark, with a top performance at $26kb$ right before filling the $32kb$ L1 cache then we see another drop at approximately after 534kb array size when L2 cache gets  filled. The other benchmarks seem to behave more or less similarly, some of them show some drops but nothing close to what the \textsc{COPY} benchmark experience.
 
 \begin{figure}[htb]
-\caption{Stampede2 Compute Node - GNU Compiler}\label{fig:benchmark01}
+\caption{Strong Scaling - Efficiency (Sp/P)}\label{fig:benchmark01}
 \centering
-\includegraphics[width=\textwidth,keepaspectratio]{imgs/img01.png}
+\includegraphics[width=\textwidth,keepaspectratio]{imgs/img02.png}
 \end{figure} 
+
+\newpage
+
+\subsection{Weak scalability}
+When the nbody problem size particles assigned to each processing element stays constant and additional elements are used to solve the nbbody problem. Now in Figure.2 we change the compiler to Intel's C++ compiler and we can see significant changes on all the benchmarks. The most prominent change from the previous figure is the \textsc{AXPY}  
+
+benchmark that peeks approximately around $40kb$ with a much higher bandwidth almost 120 times higher compared with the GNU compiler.  The \textsc{FILL} benchmark also shows signs of a significant drop with a peek at 32kb and $100$Gb\/s to $40$Gb\/s  after the $L1$ gets filled.
+
+\begin{figure}[htb]
+\caption{Weak Scaling - Speed-Up (T1/Tp)}\label{fig:benchmark02}
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{imgs/img03.png}
+\end{figure}
 
 \newpage
 
 Now in Figure.2 we change the compiler to Intel's C++ compiler and we can see significant changes on all the benchmarks. The most prominent change from the previous figure is the \textsc{AXPY}  benchmark that peeks approximately around $40kb$ with a much higher bandwidth almost 120 times higher compared with the GNU compiler.  The \textsc{FILL} benchmark also shows signs of a significant drop with a peek at 32kb and $100$Gb\/s to $40$Gb\/s  after the $L1$ gets filled.
 
 \begin{figure}[htb]
-\caption{Stampede2 Compute Node - Intel Compiler}\label{fig:benchmark02}
+\caption{Weak Scaling - Efficiency (Sp/P)}\label{fig:benchmark02}
 \centering
-\includegraphics[width=\textwidth,keepaspectratio]{imgs/img02.png}
+\includegraphics[width=\textwidth,keepaspectratio]{imgs/img04.png}
 \end{figure}
 
-\newpage
 
 %----------------------------------------------------------------
 %	SECTION 3 - REFERENCE
@@ -169,6 +163,244 @@ Stampede2 User Guide -- Managing Memory \\ \url{https://portal.tacc.utexas.edu/u
 
 Introduction to High Performance Scientific Computing -- Victor Eijkhout \\ \url{http://pages.tacc.utexas.edu/~eijkhout/istc/istc.html}
 \end{flushleft}
+
+\newpage
+
+
+\begin{table}[]
+\centering
+\caption{Strong Scaling Benchmark - Number of Particles: 1000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n1000} & \textbf{speed-up-n1000} & \textbf{efficiency-n1000} \\ \midrule
+1 & 2.699547 & 1.00 & 1.00 \\
+2 & 1.342266 & 2.01 & 1.01 \\
+4 & 0.767273 & 3.52 & 0.88 \\
+8 & 0.465877 & 5.79 & 0.72 \\
+16 & 0.340848 & 7.92 & 0.50 \\
+32 & 0.378338 & 7.14 & 0.22 \\
+64 & 0.527209 & 5.12 & 0.08 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Strong Scaling Benchmark - Number of Particles: 2000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n2000} & \textbf{speed-up-n2000} & \textbf{efficiency-n2000} \\ \midrule
+1 & 10.702174 & 1.00 & 1.00 \\
+2 & 5.170901 & 2.07 & 1.03 \\
+4 & 2.755932 & 3.88 & 0.97 \\
+8 & 1.468389 & 7.29 & 0.91 \\
+16 & 0.846486 & 12.64 & 0.79 \\
+32 & 0.636906 & 16.80 & 0.53 \\
+64 & 0.689989 & 15.51 & 0.24 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Strong Scaling Benchmark - Number of Particles: 4000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n4000} & \textbf{speed-up-n4000} & \textbf{efficiency-n4000} \\ \midrule
+1 & 42.174895 & 1.00 & 1.00 \\
+2 & 20.477445 & 2.06 & 1.03 \\
+4 & 10.593958 & 3.98 & 1.00 \\
+8 & 5.375854 & 7.85 & 0.98 \\
+16 & 2.804787 & 15.04 & 0.94 \\
+32 & 1.598818 & 26.38 & 0.82 \\
+64 & 1.155382 & 36.50 & 0.57 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Strong Scaling Benchmark - Number of Particles: 8000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n8000} & \textbf{speed-up-n8000} & \textbf{efficiency-n8000} \\ \midrule
+1 & 161.399121 & 1.00 & 1.00 \\
+2 & 80.410162 & 2.01 & 1.00 \\
+4 & 41.872722 & 3.85 & 0.96 \\
+8 & 21.005236 & 7.68 & 0.96 \\
+16 & 10.634796 & 15.18 & 0.95 \\
+32 & 5.517657 & 29.25 & 0.91 \\
+64 & 3.109065 & 51.91 & 0.81 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Weak Scaling Benchmark - Number of Particles: 1000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n1000} & \textbf{speed-up-n1000} & \textbf{efficiency-n1000} \\ \midrule
+1 & 2.551973 & 1.00 & 1.00 \\
+2 & 1.307288 & 1.95 & 0.98 \\
+4 & 0.713981 & 3.57 & 0.89 \\
+8 & 0.407256 & 6.27 & 0.78 \\
+16 & 0.27913 & 9.14 & 0.57 \\
+32 & 0.303005 & 8.42 & 0.26 \\
+64 & 0.447266 & 5.71 & 0.09 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\caption{Weak Scaling Benchmark - Number of Particles: 2000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n2000} & \textbf{speed-up-n2000} & \textbf{efficiency-n2000} \\ \midrule
+1 & 10.067885 & 1.00 & 1.00 \\
+2 & 5.085486 & 1.98 & 0.99 \\
+4 & 2.698663 & 3.73 & 0.93 \\
+8 & 1.399622 & 7.19 & 0.90 \\
+16 & 0.78047 & 12.90 & 0.81 \\
+32 & 0.555237 & 18.13 & 0.57 \\
+64 & 0.574328 & 17.53 & 0.27 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Weak Scaling Benchmark - Number of Particles: 4000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n4000} & \textbf{speed-up-n4000} & \textbf{efficiency-n4000} \\ \midrule
+1 & 39.98665 & 1.00 & 1.00 \\
+2 & 20.032609 & 2.00 & 1.00 \\
+4 & 10.537717 & 3.79 & 0.95 \\
+8 & 5.324176 & 7.51 & 0.94 \\
+16 & 2.753726 & 14.52 & 0.91 \\
+32 & 1.53249 & 26.09 & 0.82 \\
+64 & 1.075133 & 37.19 & 0.58 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\caption{Weak Scaling Benchmark - Number of Particles: 8000}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n8000} & \textbf{speed-up-n8000} & \textbf{efficiency-n8000} \\ \midrule
+1 & 158.33655 & 1.00 & 1.00 \\
+2 & 79.404148 & 1.99 & 1.00 \\
+4 & 41.873768 & 3.78 & 0.95 \\
+8 & 20.95203 & 7.56 & 0.94 \\
+16 & 10.574536 & 14.97 & 0.94 \\
+32 & 5.472768 & 28.93 & 0.90 \\
+64 & 3.098319 & 51.10 & 0.80 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+\begin{figure}[]
+\caption{OpenMP Pragmas for Acceleration Function}\label{fig:benchmark01}
+\begin{lstlisting}
+template <typename ValueType>
+void accel_register (	ValueType * __RESTRICT pos, 
+			ValueType * __RESTRICT vel, 
+			ValueType * __RESTRICT mass, 
+			ValueType * __RESTRICT acc, 
+			const int n)
+{
+   #pragma omp parallel
+    {
+    #pragma omp for
+       for (int i = 0; i < n; ++i)
+       {
+          ValueType ax = 0, ay = 0, az = 0;
+          const ValueType xi = pos_array(i,0);
+          const ValueType yi = pos_array(i,1);
+          const ValueType zi = pos_array(i,2);
+          for (int j = 0; j < n; ++j)
+          {
+             /* Position vector from i to j and the distance^2. */
+             ValueType rx = pos_array(j,0) - xi;
+             ValueType ry = pos_array(j,1) - yi;
+             ValueType rz = pos_array(j,2) - zi;
+             ValueType dsq = rx*rx + ry*ry + rz*rz + TINY2;
+             ValueType m_invR3 = mass[j] / (dsq * std::sqrt(dsq));
+    
+             ax += rx * m_invR3;
+             ay += ry * m_invR3;
+             az += rz * m_invR3;
+          }
+    
+          acc_array(i,0) = G * ax;
+          acc_array(i,1) = G * ay;
+          acc_array(i,2) = G * az;
+       }
+    }
+}
+\end{lstlisting}
+\end{figure}
+
+\begin{figure}[]
+\caption{OpenMP Pragmas for Update Function}\label{fig:benchmark01}
+\begin{lstlisting}
+template <typename ValueType>
+void update (ValueType pos[], ValueType vel[], ValueType mass[], ValueType acc[], const int n, ValueType h)
+{
+    #pragma omp parallel
+    {
+    #pragma omp for
+       for (int i = 0; i < n; ++i)
+          for (int k = 0; k < NDIM; ++k)
+          {
+             pos_array(i,k) += vel_array(i,k)*h + acc_array(i,k)*h*h/2;
+             vel_array(i,k) += acc_array(i,k)*h;
+          }
+    }
+}
+\end{lstlisting}
+\end{figure}
+
+\begin{figure}[]
+\caption{OpenMP Pragmas for Search Function}\label{fig:benchmark01}
+\begin{lstlisting}
+template <typename ValueType>
+void search (ValueType pos[], ValueType vel[], ValueType mass[], ValueType acc[], const int n)
+{
+  ValueType minv = 1e10, maxv = 0, ave = 0;
+  #pragma omp parallel default(none) shared(minv,maxv,ave)
+  {
+  #pragma omp for reduction(+:ave) reduction(max:maxc) reduction(min:minv)       
+   for (int i = 0; i < n; ++i)
+   {
+         ValueType vmag = 0;
+         for (int k = 0; k < NDIM; ++k)
+         	vmag += (vel_array(i,k) * vel_array(i,k));
+         vmag = sqrt(vmag);
+         maxv = std::max(maxv, vmag);
+         minv = std::min(minv, vmag);
+         ave += vmag;
+    }
+   printf("min/max/ave velocity = %e, %e, %e\n", minv, maxv, ave/n);
+  }
+}
+\end{lstlisting}
+\end{figure}
 
 \begin{table}[]
 \centering
@@ -201,47 +433,5 @@ Introduction to High Performance Scientific Computing -- Victor Eijkhout \\ \url
 }
 \end{table}
 
-\begin{table}[]
-\centering
-\caption{Stampede2 Compute Node - GNU Compiler}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}llllll@{}}
-\toprule
-\textbf{Size (iterations)} & \textbf{Fill (MB/s)} & \textbf{Copy} & \textbf{AXPY} & \textbf{DOT} & \textbf{Uncertainty (\%)} \\ \midrule
-30 & 4393.162231 & 11104.6881 & 9336.596419 & 3051.421911 & 1.90\% \\
-47 & 5350.378441 & 12565.39118 & 10220.65398 & 3209.223289 & 1.50\% \\
-73 & 5853.695055 & 11687.71559 & 11702.86902 & 3316.590107 & 1.10\% \\
-114 & 6116.984412 & 18242.91233 & 13398.08149 & 3388.55338 & 0.70\% \\
-178 & 6427.522021 & 22800.19441 & 14194.47704 & 3438.065904 & 0.50\% \\
-279 & 6698.122428 & 25768.72093 & 14527.06717 & 3472.020319 & 0.30\% \\
-435 & 6824.597812 & 31305.48923 & 14986.95631 & 3493.9909 & 0.20\% \\
-679 & 6911.333146 & 33345.25901 & 15297.0655 & 3507.619116 & 0.10\% \\
-1060 & 6948.028771 & 33650.79479 & 15578.51236 & 3515.477478 & 0.10\% \\
-1656 & 6985.001187 & 35089.74094 & 15680.55274 & 3520.668913 & 0.10\% \\
-2586 & 7012.81148 & 24271.79651 & 15462.08087 & 3521.383827 & 0.00\% \\
-4038 & 7029.597848 & 25202.06851 & 15531.84052 & 3525.104143 & 0.00\% \\
-6305 & 7044.938436 & 25549.57693 & 15502.22589 & 3527.599249 & 0.00\% \\
-9846 & 7050.075265 & 26072.88131 & 15498.96218 & 3529.112917 & 0.00\% \\
-15374 & 7051.78082 & 26124.29129 & 15519.55808 & 3528.904854 & 0.00\% \\
-24008 & 7050.994641 & 26121.05296 & 15482.61471 & 3527.958451 & 0.00\% \\
-37488 & 7051.782966 & 20421.04818 & 15437.97559 & 3523.761178 & 0.00\% \\
-58539 & 7042.233872 & 20459.72158 & 14530.19158 & 3463.650355 & 0.00\% \\
-91410 & 6996.433371 & 20445.17519 & 11782.12811 & 3306.784882 & 0.00\% \\
-142738 & 6248.110944 & 15491.29423 & 11778.74414 & 3309.431658 & 0.00\% \\
-222889 & 6290.558991 & 13109.06205 & 11746.50454 & 3311.366333 & 0.00\% \\
-348047 & 6464.796754 & 12858.42716 & 11715.18304 & 3313.983805 & 0.00\% \\
-543483 & 6477.457041 & 12841.93352 & 11772.74996 & 3316.270979 & 0.00\% \\
-848661 & 6489.448093 & 12842.14791 & 11843.17557 & 3319.445295 & 0.00\% \\
-1325203 & 6485.506785 & 12838.69628 & 11761.03164 & 3314.821514 & 0.00\% \\
-2069336 & 6480.942411 & 12851.09811 & 11653.18953 & 3309.260037 & 0.00\% \\
-3231315 & 6477.659875 & 12842.6458 & 11513.15796 & 3300.587295 & 0.00\% \\
-5045773 & 6487.756168 & 12849.37284 & 11543.48494 & 3313.220334 & 0.00\% \\
-7879091 & 6483.470428 & 12836.38542 & 11605.7627 & 3304.53413 & 0.00\% \\
-12303381 & 6488.676065 & 12838.86536 & 11641.5715 & 3308.75048 & 0.00\% \\
-19212013 & 6481.651785 & 12834.44793 & 11610.01186 & 3306.78088 & 0.00\% \\
-30000000 & 6470.497548 & 12835.64937 & 11548.34264 & 3302.602269 & 0.00\% \\ \bottomrule
-\end{tabular}%
-}
-\end{table}
 
 \end{document}
