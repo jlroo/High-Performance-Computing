@@ -101,7 +101,8 @@ Jose Luis Rodriguez
 \section{Overview}
 
 This report highlights the procedures and results of running the nbody3 C++ code that predicts the individual motion of a group of celestial objects (particles) interacting with each other gravitationally. The program also runs a series of experiments and generates a benchmark (max, min and average speed) utilizing the Stampede2 supercomputer at The University of Texas at Austin?s Texas Advanced Computing Center (TACC). The nbody3 code utilize Intel C++ library compilers and the OpenMP library in order to parallelize the serial code details and speci?cations to follow.
-The n-body problem code performs two major benchmarks in order to compute strong scalability and weak scalability. The program was compiled in serial and parallel each version was tested with 1,000, 2,000, 4,000, and 8,000 particles and 1, 2, 4, 8, 16, 32, and 64 threads, all tests ran with the same number of steps (-s 500). The average time per number of particles was recored in order to compute the strong scalability. This method also allows to compute the weak scalability test as we are keeping a constant workload per-thread when the number of particles increase the number of threads also increased. To ?nd out the number of particles needed per thread the parallel code was executed keeping the number of particles and steps constant (n=1000, s=200) while increasing the number of threats.
+
+The n-body problem code performs two major benchmarks in order to compute strong scalability and weak scalability. The program was compiled in serial and parallel each version was tested with 1,000, 2,000, 4,000, and 8,000 particles and 1, 2, 4, 8, 16, 32, and 64 threads, all tests ran with the same number of steps (-s 500). The average time per number of particles was recored in order to compute the strong scalability. This method also allows to compute the weak scalability test as we are keeping a constant workload per-thread when the number of particles increase the number of threads also increased. To ?nd out the number of particles needed per thread the parallel code was executed keeping the number of particles and steps constant (n=1000, s=200) while increasing the number of threats.
 
 \section{Benchmark Analysis}
 
@@ -109,18 +110,20 @@ This report highlights the procedures and results of running the nbody3 C++ code
 
 In order to perform the benchmarks in parallel, pragmas ( statements tell the compiler to use the OpenMP framework to parallelize the code) were used on the outer for loops of the accelerate, update and search functions. In the later also a reduction on the min, max and average velocity was used, snippets of the code can be found in the reference.
 
-\subsection{Strong scalability}When the nbody problem particles size stays ?xed or increased as the number of processing elements are increased. In Figure.1 Stampede2 compute node using the GNU compiler, we can see how the benchmark that uses most bandwidth is the \textsc{COPY} benchmark, with a top performance at $26kb$
+\subsection{Strong scalability}
+When computing the strong scalability for the nbody problem the particles size stays fixed while the number of threads increase. In Figure.1 this benchmark was perform on 1000, 2000, 4000 and 8000 particles and for each set of particles the benchmark was run with 1, 2, 4, $\dots$ threads. We can see in the chart how the nbody problem follows shows the strong scalability principle as its almost a perfect speedup ( execution time goes down with the number of threads).
 
 \begin{figure}[htb]
 \caption{Strong Scaling - Speed-Up (T1/Tp)}\label{fig:benchmark01}
 \centering
-\includegraphics[width=\textwidth,keepaspectratio]{imgs/img01.png}
+\includegraphics[width=15cm,keepaspectratio]{imgs/img01.png}
 \end{figure} 
-
 
 \newpage
 
-In Figure.1 Stampede2 compute node using the GNU compiler, we can see how the benchmark that uses most bandwidth is the \textsc{COPY} benchmark, with a top performance at $26kb$ right before filling the $32kb$ L1 cache then we see another drop at approximately after 534kb array size when L2 cache gets  filled. The other benchmarks seem to behave more or less similarly, some of them show some drops but nothing close to what the \textsc{COPY} benchmark experience.
+The other measure to identify how far the nbody problem is from the ideal speed we compute the efficient. In Figure.2 we can see how as the threads increased depending of the particles sized the efficiency of the parallel program decreased. 
+
+This is due to that in many cases starting the parallelize regions creates an overhead that when the problem size doesnt scale proportionally to the number of threads the program efficiency decreased significantly. 
 
 \begin{figure}[htb]
 \caption{Strong Scaling - Efficiency (Sp/P)}\label{fig:benchmark01}
@@ -131,9 +134,10 @@ In Figure.1 Stampede2 compute node using the GNU compiler, we can see how the be
 \newpage
 
 \subsection{Weak scalability}
-When the nbody problem size particles assigned to each processing element stays constant and additional elements are used to solve the nbbody problem. Now in Figure.2 we change the compiler to Intel's C++ compiler and we can see significant changes on all the benchmarks. The most prominent change from the previous figure is the \textsc{AXPY}  
 
-benchmark that peeks approximately around $40kb$ with a much higher bandwidth almost 120 times higher compared with the GNU compiler.  The \textsc{FILL} benchmark also shows signs of a significant drop with a peek at 32kb and $100$Gb\/s to $40$Gb\/s  after the $L1$ gets filled.
+A more realistic accurate way to measure the speed-up, efficiency of a parallel program, would distribute the data amount all threads in order to avoid idling due to some threads having less data to process. To summarize when we use more than thread communications between threads increased which creates an overhead. Now when the data is not distributed evenly between threads then we would have some threads idling. These are some of the reason why the actual speedup and efficiency of the parallel program decreased. For the case of weak scalability on the nbody problem as the particles and threads increase we want to keep the amount of data per thread to stay constant or as close to constant as possible to achieve constant execution time. 
+
+In Figure.3 we can see how there is a near perfect scalability as the threads and particles increased.
 
 \begin{figure}[htb]
 \caption{Weak Scaling - Speed-Up (T1/Tp)}\label{fig:benchmark02}
@@ -143,7 +147,7 @@ benchmark that peeks approximately around $40kb$ with a much higher bandwidth al
 
 \newpage
 
-Now in Figure.2 we change the compiler to Intel's C++ compiler and we can see significant changes on all the benchmarks. The most prominent change from the previous figure is the \textsc{AXPY}  benchmark that peeks approximately around $40kb$ with a much higher bandwidth almost 120 times higher compared with the GNU compiler.  The \textsc{FILL} benchmark also shows signs of a significant drop with a peek at 32kb and $100$Gb\/s to $40$Gb\/s  after the $L1$ gets filled.
+For the case of week scalability efficiency in Figure.4 the numbers of particles are given by the recursive function $ P_i = \sqrt{2} \times P_{i-1} $. We can see how for the first couple of threads efficiency is constant or close to constant as the amount of data that each thread process stays close to constant.
 
 \begin{figure}[htb]
 \caption{Weak Scaling - Efficiency (Sp/P)}\label{fig:benchmark02}
@@ -246,17 +250,34 @@ Introduction to High Performance Scientific Computing -- Victor Eijkhout \\ \url
 \begin{tabular}{@{}cccc@{}}
 \toprule
 \textbf{Threads} & \textbf{runtime-n1000} & \textbf{speed-up-n1000} & \textbf{efficiency-n1000} \\ \midrule
-1 & 2.551973 & 1.00 & 1.00 \\
-2 & 1.307288 & 1.95 & 0.98 \\
-4 & 0.713981 & 3.57 & 0.89 \\
-8 & 0.407256 & 6.27 & 0.78 \\
-16 & 0.27913 & 9.14 & 0.57 \\
-32 & 0.303005 & 8.42 & 0.26 \\
-64 & 0.447266 & 5.71 & 0.09 \\ \bottomrule
+1 & 2.609648 & 1.00 & 1.00 \\
+2 & 1.346056 & 1.94 & 0.97 \\
+4 & 0.759546 & 3.44 & 0.86 \\
+8 & 0.471636 & 5.53 & 0.69 \\
+16 & 0.356043 & 7.33 & 0.46 \\
+32 & 0.393292 & 6.64 & 0.21 \\
+64 & 0.57277 & 4.56 & 0.07 \\ \bottomrule
 \end{tabular}%
 }
 \end{table}
 
+\begin{table}[]
+\centering
+\caption{Weak Scaling Benchmark - Number of Particles: 1414}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n1414} & \textbf{speed-up-n1414} & \textbf{efficiency-n1414} \\ \midrule
+1 & 5.316273 & 1.00 & 1.00 \\
+2 & 2.788752 & 1.91 & 0.95 \\
+4 & 1.497149 & 3.55 & 0.89 \\
+8 & 0.825781 & 6.44 & 0.80 \\
+16 & 0.538592 & 9.87 & 0.62 \\
+32 & 0.499729 & 10.64 & 0.33 \\
+64 & 0.667798 & 7.96 & 0.12 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
 
 \begin{table}[]
 \centering
@@ -265,13 +286,31 @@ Introduction to High Performance Scientific Computing -- Victor Eijkhout \\ \url
 \begin{tabular}{@{}cccc@{}}
 \toprule
 \textbf{Threads} & \textbf{runtime-n2000} & \textbf{speed-up-n2000} & \textbf{efficiency-n2000} \\ \midrule
-1 & 10.067885 & 1.00 & 1.00 \\
-2 & 5.085486 & 1.98 & 0.99 \\
-4 & 2.698663 & 3.73 & 0.93 \\
-8 & 1.399622 & 7.19 & 0.90 \\
-16 & 0.78047 & 12.90 & 0.81 \\
-32 & 0.555237 & 18.13 & 0.57 \\
-64 & 0.574328 & 17.53 & 0.27 \\ \bottomrule
+1 & 10.186014 & 1.00 & 1.00 \\
+2 & 5.148521 & 1.98 & 0.99 \\
+4 & 2.757893 & 3.69 & 0.92 \\
+8 & 1.468954 & 6.93 & 0.87 \\
+16 & 0.852953 & 11.94 & 0.75 \\
+32 & 0.647286 & 15.74 & 0.49 \\
+64 & 0.688234 & 14.80 & 0.23 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Weak Scaling Benchmark - Number of Particles: 2828}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n2828} & \textbf{speed-up-n2828} & \textbf{efficiency-n2828} \\ \midrule
+1 & 20.007112 & 1.00 & 1.00 \\
+2 & 10.115954 & 1.98 & 0.99 \\
+4 & 5.331802 & 3.75 & 0.94 \\
+8 & 2.751072 & 7.27 & 0.91 \\
+16 & 1.495437 & 13.38 & 0.84 \\
+32 & 0.960981 & 20.82 & 0.65 \\
+64 & 0.854334 & 23.42 & 0.37 \\ \bottomrule
 \end{tabular}%
 }
 \end{table}
@@ -283,17 +322,34 @@ Introduction to High Performance Scientific Computing -- Victor Eijkhout \\ \url
 \begin{tabular}{@{}cccc@{}}
 \toprule
 \textbf{Threads} & \textbf{runtime-n4000} & \textbf{speed-up-n4000} & \textbf{efficiency-n4000} \\ \midrule
-1 & 39.98665 & 1.00 & 1.00 \\
-2 & 20.032609 & 2.00 & 1.00 \\
-4 & 10.537717 & 3.79 & 0.95 \\
-8 & 5.324176 & 7.51 & 0.94 \\
-16 & 2.753726 & 14.52 & 0.91 \\
-32 & 1.53249 & 26.09 & 0.82 \\
-64 & 1.075133 & 37.19 & 0.58 \\ \bottomrule
+1 & 40.344163 & 1.00 & 1.00 \\
+2 & 20.077003 & 2.01 & 1.00 \\
+4 & 10.612086 & 3.80 & 0.95 \\
+8 & 5.409125 & 7.46 & 0.93 \\
+16 & 2.822763 & 14.29 & 0.89 \\
+32 & 1.659283 & 24.31 & 0.76 \\
+64 & 1.192224 & 33.84 & 0.53 \\ \bottomrule
 \end{tabular}%
 }
 \end{table}
 
+\begin{table}[]
+\centering
+\caption{Weak Scaling Benchmark - Number of Particles: 5657}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Threads} & \textbf{runtime-n5657} & \textbf{speed-up-n5657} & \textbf{efficiency-n5657} \\ \midrule
+1 & 76.810418 & 1.00 & 1.00 \\
+2 & 38.630002 & 1.99 & 0.99 \\
+4 & 20.254395 & 3.79 & 0.95 \\
+8 & 10.229366 & 7.51 & 0.94 \\
+16 & 5.252118 & 14.62 & 0.91 \\
+32 & 2.839027 & 27.06 & 0.85 \\
+64 & 1.781306 & 43.12 & 0.67 \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
 
 \begin{table}[]
 \centering
@@ -302,13 +358,13 @@ Introduction to High Performance Scientific Computing -- Victor Eijkhout \\ \url
 \begin{tabular}{@{}cccc@{}}
 \toprule
 \textbf{Threads} & \textbf{runtime-n8000} & \textbf{speed-up-n8000} & \textbf{efficiency-n8000} \\ \midrule
-1 & 158.33655 & 1.00 & 1.00 \\
-2 & 79.404148 & 1.99 & 1.00 \\
-4 & 41.873768 & 3.78 & 0.95 \\
-8 & 20.95203 & 7.56 & 0.94 \\
-16 & 10.574536 & 14.97 & 0.94 \\
-32 & 5.472768 & 28.93 & 0.90 \\
-64 & 3.098319 & 51.10 & 0.80 \\ \bottomrule
+1 & 159.344296 & 1.00 & 1.00 \\
+2 & 79.801012 & 2.00 & 1.00 \\
+4 & 41.869284 & 3.81 & 0.95 \\
+8 & 21.055475 & 7.57 & 0.95 \\
+16 & 10.666953 & 14.94 & 0.93 \\
+32 & 5.562885 & 28.64 & 0.90 \\
+64 & 3.178754 & 50.13 & 0.78 \\ \bottomrule
 \end{tabular}%
 }
 \end{table}
