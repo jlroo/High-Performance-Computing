@@ -41,15 +41,7 @@ clean: clean_common
 # done  > $t-output.log ; done
 #  
 # weak
-# s=$( printf "%.0f" $(echo "sqrt ( 2 ) * 2000" | bc -l) )
-# for i in 1 2 4 8 16 32 64; do var=$( printf "%.0f" $(echo "sqrt ( $i ) * 1000" | bc -l) ); echo $var; done
-# for t in 1 2 4 8 16 32 64; \
-# do export OMP_NUM_THREADS=$t; \
-# n=$( printf "%.0f" $(echo "sqrt ( $t ) * 1000" | bc -l) ); \
-# ./parallel-nbody3 -n $n -s 500; 2>/dev/null; \
-# done > weak-outputv2.log
-
-
+# for i in 1 2 4 8 16 32 64; do export OMP_NUM_THREADS=$i; for t in 1 2 4 8 16 32 64; do n=$( printf "%.0f" $(echo "sqrt ( $t ) * 1000" | bc -l) ); echo $OMP_NUM_THREADS ./parallel-nbody3 -n $n -s 500 2>/dev/null; done > $i-weak-output.log; done
 
 
 
