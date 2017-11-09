@@ -137,7 +137,7 @@ This is due to that in many cases starting the parallelize regions creates an ov
 
 A more realistic accurate way to measure the speed-up, efficiency of a parallel program, would distribute the data amount all threads in order to avoid idling due to some threads having less data to process. To summarize when we use more than thread communications between threads increased which creates an overhead. Now when the data is not distributed evenly between threads then we would have some threads idling. These are some of the reason why the actual speedup and efficiency of the parallel program decreased. For the case of weak scalability on the nbody problem as the particles and threads increase we want to keep the amount of data per thread to stay constant or as close to constant as possible to achieve constant execution time. 
 
-In Figure.3 we can see how there is a near perfect scalability as the threads and particles increased.
+In Figure.3 we can see how as the number of particles and threads increase the speed-up stays more or less constant, with some variation at the tails of the chart. 
 
 \begin{figure}[htb]
 \caption{Weak Scaling - Speed-Up (T1/Tp)}\label{fig:benchmark02}
@@ -147,10 +147,10 @@ In Figure.3 we can see how there is a near perfect scalability as the threads an
 
 \newpage
 
-For the case of week scalability efficiency in Figure.4 the numbers of particles are given by the recursive function $ P_i = \sqrt{2} \times P_{i-1} $. We can see how for the first couple of threads efficiency is constant or close to constant as the amount of data that each thread process stays close to constant.
+For the case of weak scalability efficiency in Figure.4 the numbers of particles are given by the recursive function $ P_i = \sqrt{2} \times P_{i-1} $. We can see how as the number of particles and threads increase efficiency also increases.
 
 \begin{figure}[htb]
-\caption{Weak Scaling - Efficiency (Sp/P)}\label{fig:benchmark02}
+\caption{Weak Scaling - Efficiency ($T_1/T_p$)}\label{fig:benchmark02}
 \centering
 \includegraphics[width=\textwidth,keepaspectratio]{imgs/img04.png}
 \end{figure}
