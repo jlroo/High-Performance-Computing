@@ -306,10 +306,10 @@ if ((i) >= argc) \
                 acc[index(i,k)] = 0;
         }
         
-        callMPI(MPI_Bcast(pos, 1, MPI_INT, ROOT, MPI_COMM_WORLD));
-        callMPI(MPI_Bcast(vel, 1, MPI_INT, ROOT, MPI_COMM_WORLD));
-        callMPI(MPI_Bcast(mass, 1, MPI_INT, ROOT, MPI_COMM_WORLD));
-        callMPI(MPI_Bcast(acc, 1, MPI_INT, ROOT, MPI_COMM_WORLD));
+        callMPI(MPI_Bcast(pos, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
+        callMPI(MPI_Bcast(vel, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
+        callMPI(MPI_Bcast(mass, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
+        callMPI(MPI_Bcast(acc, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
 
     }
 
@@ -340,29 +340,29 @@ if ((i) >= argc) \
         
         myTimer_t t3 = getTimeStamp();
         
-        callMPI(MPI_Gather(pos, n, MPI_INT,
-                   pos, n, MPI_INT,
+        callMPI(MPI_Gather(pos, n, MPI_DOUBLE,
+                   pos, n, MPI_DOUBLE,
                    ROOT, MPI_COMM_WORLD));
         
-        callMPI(MPI_Bcast(pos, 1, MPI_INT, ROOT, MPI_COMM_WORLD));
+        callMPI(MPI_Bcast(pos, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
         
-        callMPI(MPI_Gather(vel, n, MPI_INT,
-                   vel, n, MPI_INT,
+        callMPI(MPI_Gather(vel, n, MPI_DOUBLE,
+                   vel, n, MPI_DOUBLE,
                    ROOT, MPI_COMM_WORLD));
         
-        callMPI(MPI_Bcast(vel, 1, MPI_INT, ROOT, MPI_COMM_WORLD));
+        callMPI(MPI_Bcast(vel, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
 
-        callMPI(MPI_Gather(mass, n, MPI_INT,
-                   mass, n, MPI_INT,
+        callMPI(MPI_Gather(mass, n, MPI_DOUBLE,
+                   mass, n, MPI_DOUBLE,
                    ROOT, MPI_COMM_WORLD));
         
-        callMPI(MPI_Bcast(mass, 1, MPI_INT, ROOT, MPI_COMM_WORLD));
+        callMPI(MPI_Bcast(mass, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
         
-        callMPI(MPI_Gather(acc, n, MPI_INT,
-                   acc, n, MPI_INT,
+        callMPI(MPI_Gather(acc, n, MPI_DOUBLE,
+                   acc, n, MPI_DOUBLE,
                    ROOT, MPI_COMM_WORLD));
         
-        callMPI(MPI_Bcast(acc, 1, MPI_INT, ROOT, MPI_COMM_WORLD));
+        callMPI(MPI_Bcast(acc, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
         
         myTimer_t t4 = getTimeStamp();
         // HW3: The time-step is finished here. Gather the results.

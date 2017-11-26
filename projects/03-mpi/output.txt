@@ -5,20 +5,20 @@ Alignment      = 8 bytes
 ValueType      = double
 Format         = StructureOfArrays
 min/max/ave velocity = 2.343067e-01, 4.122301e+01, 1.374960e+03
-min/max/ave velocity = 2.148340e+00, 6.391150e+03, 2.845758e+04
-min/max/ave velocity = 1.290061e+00, 6.391150e+03, 2.550926e+04
-min/max/ave velocity = 1.554886e+00, 6.391150e+03, 2.497401e+04
-min/max/ave velocity = 1.614632e+00, 6.391150e+03, 2.476973e+04
-min/max/ave velocity = 1.646785e+00, 6.391150e+03, 2.465892e+04
-min/max/ave velocity = 1.679356e+00, 6.391150e+03, 2.459036e+04
-min/max/ave velocity = 1.708430e+00, 6.391150e+03, 2.454287e+04
-min/max/ave velocity = 1.733379e+00, 6.391150e+03, 2.450840e+04
-min/max/ave velocity = 1.754662e+00, 6.391150e+03, 2.448233e+04
-Root[0]: Average time = 6.556670 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Root[0]: accel-time[6.282230] update-time[0.011720] search-time[0.033130] mpi-time[0.229230]
-Root[0]: Average time = 6.560490 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Root[0]: accel-time[6.129370] update-time[0.015310] search-time[0.045100] mpi-time[0.370280]
-Root[1]: Average time = 6.560490 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Root[1]: Average time = 6.556670 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Root[1]: accel-time[6.282230] update-time[0.011720] search-time[0.033130] mpi-time[0.229230]
-Root[1]: accel-time[6.129370] update-time[0.015310] search-time[0.045100] mpi-time[0.370280]
+min/max/ave velocity = 4.144378e+00, 4.015627e+03, 6.578338e+04
+min/max/ave velocity = 2.129304e+00, 4.015446e+03, 6.523696e+04
+min/max/ave velocity = 3.632953e+00, 4.015420e+03, 6.536482e+04
+min/max/ave velocity = 1.452490e+00, 4.015402e+03, 6.521644e+04
+min/max/ave velocity = 1.775454e+00, 4.015386e+03, 6.528365e+04
+min/max/ave velocity = 1.857368e+00, 4.015367e+03, 6.525134e+04
+min/max/ave velocity = 2.300055e+00, 4.015338e+03, 6.511627e+04
+min/max/ave velocity = 1.191451e+00, 4.015245e+03, 6.503287e+04
+min/max/ave velocity = 3.754127e+00, 4.016839e+03, 6.579918e+04
+Root[0]: Average time = 5.437060 (ms) per step with 1000 elements, 54.69 KB over 100 steps
+Root[0]: accel-time[5.208430] update-time[0.009650] search-time[0.012370] mpi-time[0.206160]
+Root[0]: Average time = 5.440860 (ms) per step with 1000 elements, 54.69 KB over 100 steps
+Root[0]: accel-time[5.176660] update-time[0.010760] search-time[0.030140] mpi-time[0.222610]
+Root[1]: Average time = 5.440860 (ms) per step with 1000 elements, 54.69 KB over 100 steps
+Root[1]: accel-time[5.176660] update-time[0.010760] search-time[0.030140] mpi-time[0.222610]
+Root[1]: Average time = 5.437060 (ms) per step with 1000 elements, 54.69 KB over 100 steps
+Root[1]: accel-time[5.208430] update-time[0.009650] search-time[0.012370] mpi-time[0.206160]
