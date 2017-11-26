@@ -340,9 +340,6 @@ if ((i) >= argc) \
         
         myTimer_t t3 = getTimeStamp();
         
-        MPI_Gather(&sub_avg, 1, MPI_FLOAT, sub_avgs, 1, MPI_FLOAT, 0,
-                   MPI_COMM_WORLD);
-        
         callMPI(MPI_Gather(&pos, 1, MPI_DOUBLE,
                    pos, 1, MPI_DOUBLE,
                    ROOT, MPI_COMM_WORLD));
