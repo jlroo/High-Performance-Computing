@@ -340,26 +340,29 @@ if ((i) >= argc) \
         
         myTimer_t t3 = getTimeStamp();
         
-        callMPI(MPI_Gather(pos, n, MPI_DOUBLE,
-                   pos, n, MPI_DOUBLE,
+        MPI_Gather(&sub_avg, 1, MPI_FLOAT, sub_avgs, 1, MPI_FLOAT, 0,
+                   MPI_COMM_WORLD);
+        
+        callMPI(MPI_Gather(&pos, 1, MPI_DOUBLE,
+                   pos, 1, MPI_DOUBLE,
                    ROOT, MPI_COMM_WORLD));
         
         callMPI(MPI_Bcast(pos, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
         
-        callMPI(MPI_Gather(vel, n, MPI_DOUBLE,
-                   vel, n, MPI_DOUBLE,
+        callMPI(MPI_Gather(&vel, 1, MPI_DOUBLE,
+                   vel, 1, MPI_DOUBLE,
                    ROOT, MPI_COMM_WORLD));
         
         callMPI(MPI_Bcast(vel, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
 
-        callMPI(MPI_Gather(mass, n, MPI_DOUBLE,
-                   mass, n, MPI_DOUBLE,
+        callMPI(MPI_Gather(&mass, 1, MPI_DOUBLE,
+                   mass, 1, MPI_DOUBLE,
                    ROOT, MPI_COMM_WORLD));
         
         callMPI(MPI_Bcast(mass, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
         
-        callMPI(MPI_Gather(acc, n, MPI_DOUBLE,
-                   acc, n, MPI_DOUBLE,
+        callMPI(MPI_Gather(&acc, 1, MPI_DOUBLE,
+                   acc, 1, MPI_DOUBLE,
                    ROOT, MPI_COMM_WORLD));
         
         callMPI(MPI_Bcast(acc, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
