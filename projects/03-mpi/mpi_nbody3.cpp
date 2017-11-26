@@ -182,9 +182,9 @@ void search (ValueType pos[],
     }
     
     double g_maxv;
-    callMPI(MPI_Reduce(&maxv, &g_maxv, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD));
+    callMPI(MPI_Reduce(&maxv, &g_maxv, 1, MPI_DOUBLE, MPI_MAX, ROOT, MPI_COMM_WORLD));
     double g_minv;
-    callMPI(MPI_Reduce(&minv, &g_minv, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD));
+    callMPI(MPI_Reduce(&minv, &g_minv, 1, MPI_DOUBLE, MPI_MIN, ROOT, MPI_COMM_WORLD));
     double g_ave;
     callMPI(MPI_Reduce(&ave, &g_ave, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD));
     
