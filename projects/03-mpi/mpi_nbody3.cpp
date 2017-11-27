@@ -22,7 +22,6 @@
 // exit.
 
 #include <my_mpi_header.h>
-
 #ifndef __RESTRICT
 #  define __RESTRICT
 #endif
@@ -49,7 +48,7 @@ const ValueType G = 1.0;
 const ValueType TINY = std::numeric_limits<ValueType>::epsilon();
 const ValueType TINY2 = TINY*TINY;
 const int ROOT = 0;
-//#define Enable_ArrayOfStructures
+#define Enable_ArrayOfStructures
 #if defined(Enable_ArrayOfStructures) || defined(__AOS)
 #  ifndef Enable_ArrayOfStructures
 #    define Enable_ArrayOfStructures
@@ -181,22 +180,16 @@ void search (ValueType pos[],
         ave += vmag;
     }
     
-    double g_maxv;
-    callMPI(MPI_Reduce(&maxv, &g_maxv, 1, MPI_DOUBLE, MPI_MAX, ROOT, MPI_COMM_WORLD));
-    double g_minv;
-    callMPI(MPI_Reduce(&minv, &g_minv, 1, MPI_DOUBLE, MPI_MIN, ROOT, MPI_COMM_WORLD));
-    double g_ave;
-    callMPI(MPI_Reduce(&ave, &g_ave, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD));
+    ValueType g_maxv;
+    callMPI(MPI_Reduce(&maxv, &g_maxv, 1, MPI_VALUE_TYPE, MPI_MAX, ROOT, MPI_COMM_WORLD));
+    ValueType g_minv;
+    callMPI(MPI_Reduce(&minv, &g_minv, 1, MPI_VALUE_TYPE, MPI_MIN, ROOT, MPI_COMM_WORLD));
+    ValueType g_ave;
+    callMPI(MPI_Reduce(&ave, &g_ave, 1, MPI_VALUE_TYPE, MPI_SUM, ROOT, MPI_COMM_WORLD));
     
-    // HW3: The ave, maxv, minv terms are local to each rank so far.
-    // You need to find the global (net) results across all ranks
-    // with parallel reduction operations.
-    // MPI_Reduce( maxv, minv, ave) only one rank print this print
-    // statement
     if (myRank==ROOT) {
-        printf("min/max/ave velocity = %e, %e, %e\n", g_minv, g_maxv, g_ave);
+        printf("min/max/ave velocity = %e, %e, %e\n", g_minv, g_maxv, g_ave/n);
     }
-    callMPI( MPI_Barrier(MPI_COMM_WORLD) );
 }
 
 void help()
@@ -305,13 +298,12 @@ if ((i) >= argc) \
             for (int k = 0; k < NDIM; ++k)
                 acc[index(i,k)] = 0;
         }
-        
-        callMPI(MPI_Bcast(pos, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
-        callMPI(MPI_Bcast(vel, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
-        callMPI(MPI_Bcast(mass, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
-        callMPI(MPI_Bcast(acc, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
-
     }
+
+    callMPI(MPI_Bcast(pos, n*3, MPI_VALUE_TYPE, ROOT, MPI_COMM_WORLD));
+    callMPI(MPI_Bcast(vel, n*3, MPI_VALUE_TYPE, ROOT, MPI_COMM_WORLD));
+    callMPI(MPI_Bcast(mass, n, MPI_VALUE_TYPE, ROOT, MPI_COMM_WORLD));
+    callMPI(MPI_Bcast(acc, n*3, MPI_VALUE_TYPE, ROOT, MPI_COMM_WORLD));
 
 
     // Run the step several times.
@@ -340,38 +332,26 @@ if ((i) >= argc) \
         
         myTimer_t t3 = getTimeStamp();
         
-        callMPI(MPI_Gather(&pos, 1, MPI_DOUBLE,
-                   pos, 1, MPI_DOUBLE,
-                   ROOT, MPI_COMM_WORLD));
-        
-        callMPI(MPI_Bcast(pos, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
-        
-        callMPI(MPI_Gather(&vel, 1, MPI_DOUBLE,
-                   vel, 1, MPI_DOUBLE,
-                   ROOT, MPI_COMM_WORLD));
-        
-        callMPI(MPI_Bcast(vel, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
 
-        callMPI(MPI_Gather(&mass, 1, MPI_DOUBLE,
-                   mass, 1, MPI_DOUBLE,
-                   ROOT, MPI_COMM_WORLD));
+        std::vector<int> counts(numProcs);
+        std::vector<int> displ(numProcs);
+        int partition_ranges;
+        for (int i=0; i<numProcs; i++) {
+            int pstart, pend;
+            partition_range( 0, n, numProcs, myRank, pstart, pend );
+            counts[i]=(pend-pstart)*3;
+        }
+
+        displ[0] = 0;
+        for (int i = 1; i < numProcs; ++i)
+            displ[i] = displ[i-1] + counts[i-1];
         
-        callMPI(MPI_Bcast(mass, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
         
-        callMPI(MPI_Gather(&acc, 1, MPI_DOUBLE,
-                   acc, 1, MPI_DOUBLE,
-                   ROOT, MPI_COMM_WORLD));
-        
-        callMPI(MPI_Bcast(acc, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
+        callMPI(MPI_Allgatherv(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL,
+                                pos, &counts[0], &displ[0], MPI_VALUE_TYPE,
+                                MPI_COMM_WORLD ));
         
         myTimer_t t4 = getTimeStamp();
-        // HW3: The time-step is finished here. Gather the results.
-        // Each range has updated only part of the particles but all
-        // ranks need the updated positions for all particles in order
-        // to do the next step. Be careful with the data layout as
-        // either Array-of-structures or Structures-of-arrays. Each call
-        // to the MPI functions needs contiguous data so think about
-        // how the data is ordered.
         
         t_accel += getElapsedTime(t0,t1);
         t_update += getElapsedTime(t1,t2);
@@ -386,55 +366,24 @@ if ((i) >= argc) \
     // HW3: Extra Credit: Find the average / min / max function times for
     // each rank and see if there's a signficant variation.
     
-    for (int cnt = 0; cnt < numProcs; ++cnt)
+    /*
+    for (int i = 0; i < numProcs; ++i)
     {
-        if (cnt==ROOT) {
-            
-            printf("Root[%d]: Average time = %f (ms) per step with %d elements, %.2f KB over %d steps\n", cnt, t_calc*1000.0/num_steps, n, nkbytes, num_steps);
-            printf("Root[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", cnt,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
-
-            //fclose(fp);
-            // Print out the positions (if not too large)
-            if (n < 50)
-            {
-                for (int i = 0; i < n; ++i)
-                {
-                    for (int k = 0; k < NDIM; ++k)
-                        fprintf(stderr,"%f ", pos[index(i,k)]);
-                    for (int k = 0; k < NDIM; ++k)
-                        fprintf(stderr,"%f ", vel[index(i,k)]);
-                    
-                    fprintf(stderr,"%f\n", mass[i]);
-                }
-            }
-            callMPI( MPI_Barrier(MPI_COMM_WORLD) );
-        }
-        else{
-            if (cnt != ROOT)
-            {
-                printf("Root[%d]: Average time = %f (ms) per step with %d elements, %.2f KB over %d steps\n", cnt, t_calc*1000.0/num_steps, n, nkbytes, num_steps);
-                printf("Root[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", cnt,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
-                
-                //fclose(fp);
-                
-                // Print out the positions (if not too large)
-                
-                if (n < 50)
-                {
-                    for (int i = 0; i < n; ++i)
-                    {
-                        for (int k = 0; k < NDIM; ++k)
-                            fprintf(stderr,"%f ", pos[index(i,k)]);
-                        for (int k = 0; k < NDIM; ++k)
-                            fprintf(stderr,"%f ", vel[index(i,k)]);
-                        
-                        fprintf(stderr,"%f\n", mass[i]);
-                    }
-                }
-            }
-        }
-        callMPI( MPI_Barrier(MPI_COMM_WORLD) );
+        if (myRank == i)
+            printf("I'm rank %d\n", i);
+        MPI_Barrier(MPI_COMM_WORLD);
     }
+    */
+    
+    
+    if (myRank==ROOT) {
+        printf("Root[%d]: Average time = %f (ms) per step with %d elements, %.2f KB over %d steps\n", myRank, t_calc*1000.0/num_steps, n, nkbytes, num_steps);
+        printf("Root[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", myRank,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
+    }
+    // reduction per rank
+    
+    printf("Rank[%d]: Average time = %f (ms) per step with %d elements, %.2f KB over %d steps\n", myRank, t_calc*1000.0/num_steps, n, nkbytes, num_steps);
+    printf("Rank[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", myRank,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
     
     Deallocate(pos);
     Deallocate(vel);
