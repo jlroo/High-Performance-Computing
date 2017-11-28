@@ -3,12 +3,12 @@ High Performance Computing
 
 ### Reports
 * **Stream Benchmark Report:** [memory-bandwidth](../master/projects/01-stream/01-report/00-stream-report.pdf)
-* **OpenMP Threading Report:** [openmp-nbody-benchmarks](../master/projects/02-OpenMP/01-repor/00-openmp-report.pdf)
+* **OpenMP Threading Report:** [openmp-nbody-benchmarks](../master/projects/02-openMP/01-report/00-openmp-report.pdf)
 * **DN-body with MPI Report:** [mpi-distributed-memory](../master/projects/03-mpi/01-report)
 
 ### Implementation (C++)
 * **Stream Benchmark Code:** [memory-bandwidth](../master/projects/01-stream/02-code)
-* **OpenMP Threading Code:** [openmp-nbody-benchmarks](../master/projects/02-OpenMP/02-code)
+* **OpenMP Threading Code:** [openmp-nbody-benchmarks](../master/projects/02-openMP/02-code)
 * **DN-body with MPI Code:** [mpi-distributed-memory](../master/projects/03-mpi/02-code)
 -----
 
