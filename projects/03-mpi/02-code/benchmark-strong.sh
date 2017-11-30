@@ -10,8 +10,4 @@
 
 # Launch MPI code...
 
-for i in 1 2 4 8 16 32 64 128 256;
-    do for n in 1000 2000 4000 8000 16000;
-        do ibrun -n $i ./mpi_nbody3 -n $n; 2>/dev/null;
-    done > $i-strong-output.log;
-done;
+for i in 1 2 4 8 16 32 64 128 256; do for n in 1000 2000 4000 8000 16000; do ibrun -n $i ./mpi_nbody3 -n $n; 2>/dev/null; done > $i-strong-output.log; done;

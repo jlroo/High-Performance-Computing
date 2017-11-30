@@ -1,0 +1,144 @@
+TACC:  Starting up job 469617 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 2.458533e-01, 2.904400e+01, 2.636857e+00
+min/max/ave velocity = 5.589022e+00, 1.243122e+03, 5.232863e+01
+min/max/ave velocity = 4.429486e+00, 1.243119e+03, 4.811707e+01
+min/max/ave velocity = 4.219912e+00, 1.243119e+03, 4.748246e+01
+min/max/ave velocity = 4.121452e+00, 1.243118e+03, 4.726351e+01
+min/max/ave velocity = 4.071669e+00, 1.243118e+03, 4.712275e+01
+min/max/ave velocity = 4.041052e+00, 1.243118e+03, 4.703484e+01
+min/max/ave velocity = 4.020119e+00, 1.243118e+03, 4.697420e+01
+min/max/ave velocity = 4.004863e+00, 1.243118e+03, 4.692985e+01
+min/max/ave velocity = 3.993244e+00, 1.243118e+03, 4.689606e+01
+Root[0]: Average time = 3.372020 (ms) per step with 1000 elements, 54.69 KB over 100 steps
+Root[0]: accel-time[3.300177] update-time[0.003210] search-time[0.015222] mpi-time[0.052054]
+Total Ranks[8] Standard Deviation: 0.000041
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 469617 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 4.422248e-01, 6.067984e+01, 3.796798e+00
+min/max/ave velocity = 1.856300e+00, 2.983143e+04, 9.637486e+01
+min/max/ave velocity = 1.506328e+00, 2.983143e+04, 9.372045e+01
+min/max/ave velocity = 1.539383e+00, 2.983143e+04, 9.322630e+01
+min/max/ave velocity = 1.550717e+00, 2.983143e+04, 9.300991e+01
+min/max/ave velocity = 1.558362e+00, 2.983143e+04, 9.288897e+01
+min/max/ave velocity = 1.563937e+00, 2.983143e+04, 9.281146e+01
+min/max/ave velocity = 1.568203e+00, 2.983143e+04, 9.276154e+01
+min/max/ave velocity = 1.571581e+00, 2.983143e+04, 9.272167e+01
+min/max/ave velocity = 1.574323e+00, 2.983143e+04, 9.269223e+01
+Root[0]: Average time = 6.719666 (ms) per step with 1414 elements, 77.33 KB over 100 steps
+Root[0]: accel-time[6.655157] update-time[0.004504] search-time[0.012763] mpi-time[0.045918]
+Total Ranks[8] Standard Deviation: 0.000058
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 469617 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 6.328585e-01, 4.165014e+01, 5.034776e+00
+min/max/ave velocity = 1.372677e+00, 3.264269e+03, 6.379268e+01
+min/max/ave velocity = 1.445715e+00, 3.264268e+03, 6.153528e+01
+min/max/ave velocity = 1.579977e+00, 3.264268e+03, 6.102025e+01
+min/max/ave velocity = 1.662793e+00, 3.264268e+03, 6.078950e+01
+min/max/ave velocity = 1.715310e+00, 3.264268e+03, 6.065814e+01
+min/max/ave velocity = 1.750506e+00, 3.264268e+03, 6.057331e+01
+min/max/ave velocity = 1.775437e+00, 3.264268e+03, 6.051418e+01
+min/max/ave velocity = 1.793920e+00, 3.264268e+03, 6.046944e+01
+min/max/ave velocity = 1.808125e+00, 3.264268e+03, 6.043468e+01
+Root[0]: Average time = 13.351066 (ms) per step with 2000 elements, 109.38 KB over 100 steps
+Root[0]: accel-time[13.177229] update-time[0.006239] search-time[0.025337] mpi-time[0.140827]
+Total Ranks[8] Standard Deviation: 0.000093
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 469617 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 5.323755e-01, 9.000937e+01, 7.082785e+00
+min/max/ave velocity = 2.578305e+00, 1.360350e+04, 7.618544e+01
+min/max/ave velocity = 2.498748e+00, 1.360350e+04, 7.355619e+01
+min/max/ave velocity = 2.579011e+00, 1.360350e+04, 7.298821e+01
+min/max/ave velocity = 2.706665e+00, 1.360350e+04, 7.266252e+01
+min/max/ave velocity = 2.588269e+00, 1.360350e+04, 7.246963e+01
+min/max/ave velocity = 2.504615e+00, 1.360350e+04, 7.234538e+01
+min/max/ave velocity = 2.444519e+00, 1.360350e+04, 7.225647e+01
+min/max/ave velocity = 2.398698e+00, 1.360350e+04, 7.218958e+01
+min/max/ave velocity = 2.362383e+00, 1.360350e+04, 7.213827e+01
+Root[0]: Average time = 26.658679 (ms) per step with 2828 elements, 154.66 KB over 100 steps
+Root[0]: accel-time[26.579640] update-time[0.007959] search-time[0.012963] mpi-time[0.056571]
+Total Ranks[8] Standard Deviation: 0.000075
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 469617 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 8.039278e-01, 1.741028e+02, 9.976321e+00
+min/max/ave velocity = 6.335042e+00, 4.635060e+03, 1.381239e+02
+min/max/ave velocity = 6.243500e+00, 4.635059e+03, 1.374973e+02
+min/max/ave velocity = 6.251424e+00, 4.635059e+03, 1.373483e+02
+min/max/ave velocity = 6.242934e+00, 4.635059e+03, 1.372804e+02
+min/max/ave velocity = 6.231600e+00, 4.635059e+03, 1.372560e+02
+min/max/ave velocity = 6.221533e+00, 4.635059e+03, 1.372316e+02
+min/max/ave velocity = 6.214155e+00, 4.635059e+03, 1.372146e+02
+min/max/ave velocity = 6.210270e+00, 4.635059e+03, 1.372020e+02
+min/max/ave velocity = 6.210598e+00, 4.635059e+03, 1.371923e+02
+Root[0]: Average time = 53.162772 (ms) per step with 4000 elements, 218.75 KB over 100 steps
+Root[0]: accel-time[53.000886] update-time[0.010342] search-time[0.016271] mpi-time[0.133179]
+Total Ranks[8] Standard Deviation: 0.000072
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 469617 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 6.734384e-01, 3.060314e+02, 1.426646e+01
+min/max/ave velocity = 8.534874e+00, 9.261865e+03, 1.578195e+02
+min/max/ave velocity = 8.439257e+00, 9.261864e+03, 1.573120e+02
+min/max/ave velocity = 8.430185e+00, 9.261864e+03, 1.571753e+02
+min/max/ave velocity = 8.426697e+00, 9.261864e+03, 1.571130e+02
+min/max/ave velocity = 8.424758e+00, 9.261864e+03, 1.570766e+02
+min/max/ave velocity = 8.423514e+00, 9.261864e+03, 1.570535e+02
+min/max/ave velocity = 8.422648e+00, 9.261864e+03, 1.570370e+02
+min/max/ave velocity = 8.422011e+00, 9.261864e+03, 1.570244e+02
+min/max/ave velocity = 8.421522e+00, 9.261864e+03, 1.570149e+02
+Root[0]: Average time = 106.272832 (ms) per step with 5657 elements, 309.37 KB over 100 steps
+Root[0]: accel-time[106.081665] update-time[0.040919] search-time[0.018497] mpi-time[0.129182]
+Total Ranks[8] Standard Deviation: 0.000296
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 469617 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 1.403953e-01, 1.303425e+03, 1.962770e+01
+min/max/ave velocity = 9.698857e+00, 9.633686e+03, 2.142787e+02
+min/max/ave velocity = 9.768535e+00, 9.633685e+03, 2.138946e+02
+min/max/ave velocity = 9.787878e+00, 9.633685e+03, 2.137946e+02
+min/max/ave velocity = 9.795976e+00, 9.633685e+03, 2.137484e+02
+min/max/ave velocity = 9.800034e+00, 9.633685e+03, 2.137218e+02
+min/max/ave velocity = 9.802364e+00, 9.633685e+03, 2.137045e+02
+min/max/ave velocity = 9.803843e+00, 9.633685e+03, 2.136924e+02
+min/max/ave velocity = 9.804854e+00, 9.633685e+03, 2.136834e+02
+min/max/ave velocity = 9.805584e+00, 9.633685e+03, 2.136766e+02
+Root[0]: Average time = 211.969660 (ms) per step with 8000 elements, 437.50 KB over 100 steps
+Root[0]: accel-time[211.567605] update-time[0.057174] search-time[0.029548] mpi-time[0.312942]
+Total Ranks[8] Standard Deviation: 0.000078
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 469617 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 2.781378e+00, 9.846743e+02, 2.739287e+01
+min/max/ave velocity = 6.479504e+00, 1.015966e+04, 1.735425e+02
+min/max/ave velocity = 6.420035e+00, 1.015966e+04, 1.729182e+02
+min/max/ave velocity = 6.405592e+00, 1.015966e+04, 1.727334e+02
+min/max/ave velocity = 6.399419e+00, 1.015966e+04, 1.726460e+02
+min/max/ave velocity = 6.396003e+00, 1.015966e+04, 1.725947e+02
+min/max/ave velocity = 6.393831e+00, 1.015966e+04, 1.725611e+02
+min/max/ave velocity = 6.392325e+00, 1.015966e+04, 1.725371e+02
+min/max/ave velocity = 6.391220e+00, 1.015966e+04, 1.725193e+02
+min/max/ave velocity = 6.390373e+00, 1.015966e+04, 1.725056e+02
+Root[0]: Average time = 424.201289 (ms) per step with 11314 elements, 618.73 KB over 100 steps
+Root[0]: accel-time[423.204538] update-time[0.081041] search-time[0.081145] mpi-time[0.831235]
+Total Ranks[8] Standard Deviation: 0.000454
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 469617 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 2.438454e+00, 7.247885e+02, 3.845768e+01
+min/max/ave velocity = 1.276982e+01, 5.863773e+04, 7.624082e+02
+min/max/ave velocity = 1.281002e+01, 5.863773e+04, 7.623607e+02
+min/max/ave velocity = 1.281824e+01, 5.863773e+04, 7.623471e+02
+min/max/ave velocity = 1.282203e+01, 5.863773e+04, 7.623406e+02
+min/max/ave velocity = 1.282425e+01, 5.863773e+04, 7.623368e+02
+min/max/ave velocity = 1.282571e+01, 5.863773e+04, 7.623344e+02
+min/max/ave velocity = 1.282675e+01, 5.863773e+04, 7.623326e+02
+min/max/ave velocity = 1.282753e+01, 5.863773e+04, 7.623313e+02
+min/max/ave velocity = 1.282813e+01, 5.863773e+04, 7.623303e+02
+Root[0]: Average time = 847.380427 (ms) per step with 16000 elements, 875.00 KB over 100 steps
+Root[0]: accel-time[845.142774] update-time[0.114536] search-time[0.256764] mpi-time[1.862354]
+Total Ranks[8] Standard Deviation: 0.000900
+TACC:  Shutdown complete. Exiting. 

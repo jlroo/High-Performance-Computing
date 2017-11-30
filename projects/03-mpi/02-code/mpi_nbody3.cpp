@@ -392,7 +392,7 @@ if ((i) >= argc) \
     if (myRank==ROOT) {
         printf("Root[%d]: Average time = %f (ms) per step with %d elements, %.2f KB over %d steps\n", myRank, t_calc*1000.0/num_steps, n, nkbytes, num_steps);
         printf("Root[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", myRank,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
-        printf("Total Ranks[%d] Standard Deviation: %f",numProcs,world_sd);
+        printf("Total Ranks[%d] Standard Deviation: %f\n",numProcs,world_sd);
 	}
     
     Deallocate(pos);
