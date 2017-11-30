@@ -1,0 +1,77 @@
+TACC:  Starting up job 466464 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 2.458533e-01, 2.904400e+01, 2.636857e+00
+TACC:  MPI job exited with code: 14 
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 466464 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 6.328585e-01, 4.165014e+01, 5.034776e+00
+min/max/ave velocity = 1.858891e-01, 4.948203e+03, 6.040461e+01
+min/max/ave velocity = 3.144289e-01, 4.948202e+03, 5.791909e+01
+min/max/ave velocity = 4.453777e-01, 4.948202e+03, 5.794971e+01
+min/max/ave velocity = 3.844867e-01, 4.948202e+03, 5.858359e+01
+min/max/ave velocity = 3.697701e-01, 4.948202e+03, 5.960900e+01
+min/max/ave velocity = 4.146753e-01, 4.948202e+03, 6.072657e+01
+min/max/ave velocity = 2.208525e-01, 4.948202e+03, 6.185501e+01
+min/max/ave velocity = 2.198440e-01, 4.948202e+03, 6.286171e+01
+min/max/ave velocity = 2.889318e-01, 4.948202e+03, 6.395592e+01
+Root[0]: Average time = 3.451287 (ms) per step with 2000 elements, 109.38 KB over 100 steps
+Root[0]: accel-time[3.336863] update-time[0.002019] search-time[0.020251] mpi-time[0.090719]
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 189564 RUNNING AT c455-032
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+   Intel(R) MPI Library troubleshooting guide:
+      https://software.intel.com/node/561764
+===================================================================================
+TACC:  MPI job exited with code: 6 
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 466464 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 8.039278e-01, 1.741028e+02, 9.976321e+00
+min/max/ave velocity = 6.335042e+00, 4.635060e+03, 1.381239e+02
+min/max/ave velocity = 6.243500e+00, 4.635059e+03, 1.374973e+02
+min/max/ave velocity = 6.251424e+00, 4.635059e+03, 1.373483e+02
+min/max/ave velocity = 6.242934e+00, 4.635059e+03, 1.372804e+02
+min/max/ave velocity = 6.231600e+00, 4.635059e+03, 1.372560e+02
+min/max/ave velocity = 6.221533e+00, 4.635059e+03, 1.372316e+02
+min/max/ave velocity = 6.214155e+00, 4.635059e+03, 1.372146e+02
+min/max/ave velocity = 6.210270e+00, 4.635059e+03, 1.372020e+02
+min/max/ave velocity = 6.210598e+00, 4.635059e+03, 1.371923e+02
+Root[0]: Average time = 13.554977 (ms) per step with 4000 elements, 218.75 KB over 100 steps
+Root[0]: accel-time[13.198607] update-time[0.004141] search-time[0.032934] mpi-time[0.316139]
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 466464 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 1.403953e-01, 1.303425e+03, 1.962770e+01
+min/max/ave velocity = 9.698857e+00, 9.633686e+03, 2.142787e+02
+min/max/ave velocity = 9.768535e+00, 9.633685e+03, 2.138946e+02
+min/max/ave velocity = 9.787878e+00, 9.633685e+03, 2.137946e+02
+min/max/ave velocity = 9.795976e+00, 9.633685e+03, 2.137484e+02
+min/max/ave velocity = 9.800034e+00, 9.633685e+03, 2.137218e+02
+min/max/ave velocity = 9.802364e+00, 9.633685e+03, 2.137045e+02
+min/max/ave velocity = 9.803843e+00, 9.633685e+03, 2.136924e+02
+min/max/ave velocity = 9.804854e+00, 9.633685e+03, 2.136834e+02
+min/max/ave velocity = 9.805584e+00, 9.633685e+03, 2.136766e+02
+Root[0]: Average time = 53.472172 (ms) per step with 8000 elements, 437.50 KB over 100 steps
+Root[0]: accel-time[53.113918] update-time[0.016775] search-time[0.028766] mpi-time[0.308771]
+TACC:  Shutdown complete. Exiting. 
+TACC:  Starting up job 466464 
+TACC:  Starting parallel tasks... 
+min/max/ave velocity = 2.438454e+00, 7.247885e+02, 3.845768e+01
+min/max/ave velocity = 1.276982e+01, 5.863773e+04, 7.624082e+02
+min/max/ave velocity = 1.281002e+01, 5.863773e+04, 7.623607e+02
+min/max/ave velocity = 1.281824e+01, 5.863773e+04, 7.623471e+02
+min/max/ave velocity = 1.282203e+01, 5.863773e+04, 7.623406e+02
+min/max/ave velocity = 1.282425e+01, 5.863773e+04, 7.623368e+02
+min/max/ave velocity = 1.282571e+01, 5.863773e+04, 7.623344e+02
+min/max/ave velocity = 1.282675e+01, 5.863773e+04, 7.623326e+02
+min/max/ave velocity = 1.282753e+01, 5.863773e+04, 7.623313e+02
+min/max/ave velocity = 1.282813e+01, 5.863773e+04, 7.623303e+02
+Root[0]: Average time = 214.911856 (ms) per step with 16000 elements, 875.00 KB over 100 steps
+Root[0]: accel-time[212.937903] update-time[0.031691] search-time[0.036839] mpi-time[1.899281]
+TACC:  Shutdown complete. Exiting. 

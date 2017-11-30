@@ -190,6 +190,7 @@ void search (ValueType pos[],
     if (myRank==ROOT) {
         printf("min/max/ave velocity = %e, %e, %e\n", g_minv, g_maxv, g_ave/n);
     }
+    callMPI(MPI_Barrier(MPI_COMM_WORLD));
 }
 
 void help()
@@ -378,12 +379,15 @@ if ((i) >= argc) \
     
     if (myRank==ROOT) {
         printf("Root[%d]: Average time = %f (ms) per step with %d elements, %.2f KB over %d steps\n", myRank, t_calc*1000.0/num_steps, n, nkbytes, num_steps);
-        printf("Root[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", myRank,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
-    }
+
+    printf("Root[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", myRank,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
+	}
+
+//    callMPI(MPI_Barrier(MPI_COMM_WORLD));
     // reduction per rank
     
-    printf("Rank[%d]: Average time = %f (ms) per step with %d elements, %.2f KB over %d steps\n", myRank, t_calc*1000.0/num_steps, n, nkbytes, num_steps);
-    printf("Rank[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", myRank,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
+//    printf("Rank[%d]: Average time = %f (ms) per step with %d elements, %.2f KB over %d steps\n", myRank, t_calc*1000.0/num_steps, n, nkbytes, num_steps);
+//    printf("Rank[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", myRank,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
     
     Deallocate(pos);
     Deallocate(vel);

@@ -1,4 +1,4 @@
-COMMON	= ../common
+COMMON	= ../../common
 
 DBG      ?=
 MPICXX   ?= mpicxx
