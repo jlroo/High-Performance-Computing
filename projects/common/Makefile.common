@@ -1,6 +1,6 @@
 COMMON_OBJS = my_timer.o
 COMMON_DEPS = $(COMMON_OBJS:.o=.d)
-COMMON_LIBS = -lrt
+#COMMON_LIBS = -lrt
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
