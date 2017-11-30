@@ -1,63 +1,19 @@
-TACC:  Starting up job 465975 
+TACC:  Starting up job 468038 
 TACC:  Starting parallel tasks... 
 min/max/ave velocity = 2.458533e-01, 2.904400e+01, 2.636857e+00
-min/max/ave velocity = 1.833983e+00, 1.687972e+03, 4.780833e+01
-min/max/ave velocity = 7.090819e-02, 1.687970e+03, 4.360522e+01
-min/max/ave velocity = 5.031129e-02, 1.687970e+03, 4.301747e+01
-min/max/ave velocity = 6.671360e-02, 1.687970e+03, 4.278227e+01
-min/max/ave velocity = 6.322343e-02, 1.687970e+03, 4.269559e+01
-min/max/ave velocity = 6.960526e-02, 1.687970e+03, 4.267332e+01
-min/max/ave velocity = 1.045366e-01, 1.687970e+03, 4.269679e+01
-min/max/ave velocity = 2.369230e-02, 1.687970e+03, 4.273895e+01
-min/max/ave velocity = 2.326657e-02, 1.687970e+03, 4.280182e+01
-Root[0]: Average time = 1.718417 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Root[0]: accel-time[1.664997] update-time[0.001861] search-time[0.013087] mpi-time[0.037315]
-Rank[0]: Average time = 1.718417 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[0]: accel-time[1.664997] update-time[0.001861] search-time[0.013087] mpi-time[0.037315]
-Rank[1]: Average time = 1.718591 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[1]: accel-time[1.659718] update-time[0.001699] search-time[0.008395] mpi-time[0.047907]
-Rank[5]: Average time = 1.718641 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[5]: accel-time[1.659976] update-time[0.001706] search-time[0.008323] mpi-time[0.047758]
-Rank[12]: Average time = 1.718692 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[12]: accel-time[1.635574] update-time[0.001783] search-time[0.010617] mpi-time[0.069854]
-Rank[2]: Average time = 1.718533 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[2]: accel-time[1.659891] update-time[0.001724] search-time[0.008392] mpi-time[0.047284]
-Rank[3]: Average time = 1.718444 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[3]: accel-time[1.663227] update-time[0.001994] search-time[0.007691] mpi-time[0.044490]
-Rank[4]: Average time = 1.718615 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[4]: accel-time[1.662365] update-time[0.001782] search-time[0.008063] mpi-time[0.045371]
-Rank[6]: Average time = 1.718624 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[6]: accel-time[1.660951] update-time[0.001704] search-time[0.008197] mpi-time[0.046751]
-Rank[7]: Average time = 1.718615 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[7]: accel-time[1.662998] update-time[0.001704] search-time[0.007901] mpi-time[0.045128]
-Rank[8]: Average time = 1.718567 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[8]: accel-time[1.636300] update-time[0.001743] search-time[0.010454] mpi-time[0.069034]
-Rank[9]: Average time = 1.718635 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[9]: accel-time[1.635909] update-time[0.001774] search-time[0.010549] mpi-time[0.069280]
-Rank[10]: Average time = 1.718712 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[10]: accel-time[1.633943] update-time[0.001690] search-time[0.010928] mpi-time[0.071171]
-Rank[11]: Average time = 1.718661 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[11]: accel-time[1.644768] update-time[0.001814] search-time[0.009665] mpi-time[0.061360]
-Rank[13]: Average time = 1.718454 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[13]: accel-time[1.635846] update-time[0.001766] search-time[0.010357] mpi-time[0.069282]
-Rank[14]: Average time = 1.718521 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[14]: accel-time[1.634161] update-time[0.001698] search-time[0.010532] mpi-time[0.071195]
-Rank[15]: Average time = 1.718482 (ms) per step with 1000 elements, 54.69 KB over 100 steps
-Rank[15]: accel-time[1.638121] update-time[0.001783] search-time[0.010162] mpi-time[0.067181]
-
-===================================================================================
-=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
-=   PID 202569 RUNNING AT c455-001
-=   EXIT CODE: 6
-=   CLEANING UP REMAINING PROCESSES
-=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
-===================================================================================
-   Intel(R) MPI Library troubleshooting guide:
-      https://software.intel.com/node/561764
-===================================================================================
-TACC:  MPI job exited with code: 6 
+min/max/ave velocity = 5.589022e+00, 1.243122e+03, 5.232863e+01
+min/max/ave velocity = 4.429486e+00, 1.243119e+03, 4.811707e+01
+min/max/ave velocity = 4.219912e+00, 1.243119e+03, 4.748246e+01
+min/max/ave velocity = 4.121452e+00, 1.243118e+03, 4.726351e+01
+min/max/ave velocity = 4.071669e+00, 1.243118e+03, 4.712275e+01
+min/max/ave velocity = 4.041052e+00, 1.243118e+03, 4.703484e+01
+min/max/ave velocity = 4.020119e+00, 1.243118e+03, 4.697420e+01
+min/max/ave velocity = 4.004863e+00, 1.243118e+03, 4.692985e+01
+min/max/ave velocity = 3.993244e+00, 1.243118e+03, 4.689606e+01
+Root[0]: Average time = 1.740081 (ms) per step with 1000 elements, 54.69 KB over 100 steps
+Root[0]: accel-time[1.678062] update-time[0.002084] search-time[0.013100] mpi-time[0.045563]
 TACC:  Shutdown complete. Exiting. 
-TACC:  Starting up job 465975 
+TACC:  Starting up job 468038 
 TACC:  Starting parallel tasks... 
 min/max/ave velocity = 6.328585e-01, 4.165014e+01, 5.034776e+00
 min/max/ave velocity = 1.372677e+00, 3.264269e+03, 6.379268e+01
@@ -69,42 +25,10 @@ min/max/ave velocity = 1.750506e+00, 3.264268e+03, 6.057331e+01
 min/max/ave velocity = 1.775437e+00, 3.264268e+03, 6.051418e+01
 min/max/ave velocity = 1.793920e+00, 3.264268e+03, 6.046944e+01
 min/max/ave velocity = 1.808125e+00, 3.264268e+03, 6.043468e+01
-Root[0]: Average time = 6.742107 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Root[0]: accel-time[6.655936] update-time[0.003737] search-time[0.014153] mpi-time[0.066694]
-Rank[0]: Average time = 6.742107 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[0]: accel-time[6.655936] update-time[0.003737] search-time[0.014153] mpi-time[0.066694]
-Rank[1]: Average time = 6.742467 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[1]: accel-time[6.583437] update-time[0.003097] search-time[0.015156] mpi-time[0.139834]
-Rank[2]: Average time = 6.742434 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[2]: accel-time[6.632006] update-time[0.003304] search-time[0.010153] mpi-time[0.095569]
-Rank[3]: Average time = 6.742388 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[3]: accel-time[6.634992] update-time[0.003443] search-time[0.010007] mpi-time[0.092762]
-Rank[5]: Average time = 6.742497 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[5]: accel-time[6.625666] update-time[0.003046] search-time[0.011078] mpi-time[0.101683]
-Rank[6]: Average time = 6.742112 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[6]: accel-time[6.633902] update-time[0.003260] search-time[0.009287] mpi-time[0.094083]
-Rank[8]: Average time = 6.742337 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[8]: accel-time[6.638223] update-time[0.003125] search-time[0.009823] mpi-time[0.090251]
-Rank[9]: Average time = 6.742506 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[9]: accel-time[6.625555] update-time[0.003091] search-time[0.011048] mpi-time[0.101791]
-Rank[10]: Average time = 6.742234 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[10]: accel-time[6.624947] update-time[0.003070] search-time[0.010620] mpi-time[0.102660]
-Rank[11]: Average time = 6.742358 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[11]: accel-time[6.640665] update-time[0.003274] search-time[0.009474] mpi-time[0.087726]
-Rank[12]: Average time = 6.742504 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[12]: accel-time[6.624908] update-time[0.003099] search-time[0.010726] mpi-time[0.102576]
-Rank[14]: Average time = 6.742184 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[14]: accel-time[6.576983] update-time[0.003094] search-time[0.015631] mpi-time[0.145478]
-Rank[15]: Average time = 6.742447 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[15]: accel-time[6.637690] update-time[0.003070] search-time[0.009876] mpi-time[0.090818]
-Rank[4]: Average time = 6.742310 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[4]: accel-time[6.632970] update-time[0.003093] search-time[0.009991] mpi-time[0.095152]
-Rank[7]: Average time = 6.742349 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[7]: accel-time[6.626289] update-time[0.003104] search-time[0.010894] mpi-time[0.101139]
-Rank[13]: Average time = 6.742440 (ms) per step with 2000 elements, 109.38 KB over 100 steps
-Rank[13]: accel-time[6.633822] update-time[0.003032] search-time[0.010191] mpi-time[0.094508]
+Root[0]: Average time = 6.735508 (ms) per step with 2000 elements, 109.38 KB over 100 steps
+Root[0]: accel-time[6.650232] update-time[0.003404] search-time[0.016097] mpi-time[0.064555]
 TACC:  Shutdown complete. Exiting. 
-TACC:  Starting up job 465975 
+TACC:  Starting up job 468038 
 TACC:  Starting parallel tasks... 
 min/max/ave velocity = 8.039278e-01, 1.741028e+02, 9.976321e+00
 min/max/ave velocity = 6.335042e+00, 4.635060e+03, 1.381239e+02
@@ -116,42 +40,10 @@ min/max/ave velocity = 6.221533e+00, 4.635059e+03, 1.372316e+02
 min/max/ave velocity = 6.214155e+00, 4.635059e+03, 1.372146e+02
 min/max/ave velocity = 6.210270e+00, 4.635059e+03, 1.372020e+02
 min/max/ave velocity = 6.210598e+00, 4.635059e+03, 1.371923e+02
-Root[0]: Average time = 26.779491 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Root[0]: accel-time[26.580711] update-time[0.006641] search-time[0.015397] mpi-time[0.174233]
-Rank[0]: Average time = 26.779491 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[0]: accel-time[26.580711] update-time[0.006641] search-time[0.015397] mpi-time[0.174233]
-Rank[1]: Average time = 26.780074 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[1]: accel-time[26.501721] update-time[0.005860] search-time[0.011841] mpi-time[0.258951]
-Rank[9]: Average time = 26.779480 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[9]: accel-time[26.510723] update-time[0.006431] search-time[0.013599] mpi-time[0.246485]
-Rank[10]: Average time = 26.779787 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[10]: accel-time[26.494422] update-time[0.006398] search-time[0.015095] mpi-time[0.261574]
-Rank[11]: Average time = 26.779264 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[11]: accel-time[26.294155] update-time[0.006179] search-time[0.035084] mpi-time[0.441591]
-Rank[12]: Average time = 26.779383 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[12]: accel-time[26.522533] update-time[0.006463] search-time[0.011995] mpi-time[0.236057]
-Rank[13]: Average time = 26.779094 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[13]: accel-time[26.300755] update-time[0.006234] search-time[0.032971] mpi-time[0.437013]
-Rank[14]: Average time = 26.779286 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[14]: accel-time[26.267210] update-time[0.006136] search-time[0.037007] mpi-time[0.467287]
-Rank[15]: Average time = 26.779306 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[15]: accel-time[26.309471] update-time[0.006137] search-time[0.032882] mpi-time[0.428853]
-Rank[2]: Average time = 26.780056 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[2]: accel-time[26.256597] update-time[0.005691] search-time[0.036476] mpi-time[0.479689]
-Rank[3]: Average time = 26.780331 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[3]: accel-time[26.481706] update-time[0.006257] search-time[0.014769] mpi-time[0.275700]
-Rank[4]: Average time = 26.780375 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[4]: accel-time[26.291552] update-time[0.005766] search-time[0.035492] mpi-time[0.446120]
-Rank[5]: Average time = 26.780139 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[5]: accel-time[26.495903] update-time[0.005851] search-time[0.015237] mpi-time[0.261756]
-Rank[6]: Average time = 26.780181 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[6]: accel-time[26.261575] update-time[0.005751] search-time[0.038925] mpi-time[0.472420]
-Rank[7]: Average time = 26.779857 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[7]: accel-time[26.294593] update-time[0.006073] search-time[0.037453] mpi-time[0.439744]
-Rank[8]: Average time = 26.779800 (ms) per step with 4000 elements, 218.75 KB over 100 steps
-Rank[8]: accel-time[26.491356] update-time[0.006504] search-time[0.016564] mpi-time[0.262946]
+Root[0]: Average time = 27.437409 (ms) per step with 4000 elements, 218.75 KB over 100 steps
+Root[0]: accel-time[27.213772] update-time[0.006266] search-time[0.023650] mpi-time[0.191554]
 TACC:  Shutdown complete. Exiting. 
-TACC:  Starting up job 465975 
+TACC:  Starting up job 468038 
 TACC:  Starting parallel tasks... 
 min/max/ave velocity = 1.403953e-01, 1.303425e+03, 1.962770e+01
 min/max/ave velocity = 9.698857e+00, 9.633686e+03, 2.142787e+02
@@ -163,42 +55,10 @@ min/max/ave velocity = 9.802364e+00, 9.633685e+03, 2.137045e+02
 min/max/ave velocity = 9.803843e+00, 9.633685e+03, 2.136924e+02
 min/max/ave velocity = 9.804854e+00, 9.633685e+03, 2.136834e+02
 min/max/ave velocity = 9.805584e+00, 9.633685e+03, 2.136766e+02
-Root[0]: Average time = 106.437563 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Root[0]: accel-time[105.875808] update-time[0.030017] search-time[0.055300] mpi-time[0.472788]
-Rank[0]: Average time = 106.437563 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[0]: accel-time[105.875808] update-time[0.030017] search-time[0.055300] mpi-time[0.472788]
-Rank[6]: Average time = 106.437436 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[6]: accel-time[105.655624] update-time[0.029356] search-time[0.063136] mpi-time[0.687127]
-Rank[2]: Average time = 106.437948 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[2]: accel-time[105.797712] update-time[0.029729] search-time[0.051458] mpi-time[0.555519]
-Rank[3]: Average time = 106.437934 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[3]: accel-time[106.120019] update-time[0.029498] search-time[0.017954] mpi-time[0.267051]
-Rank[4]: Average time = 106.437464 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[4]: accel-time[105.797590] update-time[0.028951] search-time[0.051427] mpi-time[0.557254]
-Rank[5]: Average time = 106.437782 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[5]: accel-time[105.755094] update-time[0.029488] search-time[0.051000] mpi-time[0.599493]
-Rank[8]: Average time = 106.438034 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[8]: accel-time[105.778055] update-time[0.028964] search-time[0.052172] mpi-time[0.576629]
-Rank[9]: Average time = 106.437632 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[9]: accel-time[105.688886] update-time[0.029586] search-time[0.058348] mpi-time[0.658163]
-Rank[10]: Average time = 106.437780 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[10]: accel-time[105.794134] update-time[0.028907] search-time[0.050317] mpi-time[0.562399]
-Rank[11]: Average time = 106.437791 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[11]: accel-time[105.790151] update-time[0.028941] search-time[0.050713] mpi-time[0.565638]
-Rank[12]: Average time = 106.437662 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[12]: accel-time[105.803054] update-time[0.029298] search-time[0.049416] mpi-time[0.553600]
-Rank[13]: Average time = 106.437773 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[13]: accel-time[105.843147] update-time[0.029862] search-time[0.046430] mpi-time[0.514940]
-Rank[14]: Average time = 106.437712 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[14]: accel-time[105.904719] update-time[0.029460] search-time[0.041050] mpi-time[0.459858]
-Rank[15]: Average time = 106.438086 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[15]: accel-time[105.803613] update-time[0.029464] search-time[0.052121] mpi-time[0.550594]
-Rank[1]: Average time = 106.437786 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[1]: accel-time[105.786022] update-time[0.029640] search-time[0.053412] mpi-time[0.565673]
-Rank[7]: Average time = 106.437690 (ms) per step with 8000 elements, 437.50 KB over 100 steps
-Rank[7]: accel-time[105.791390] update-time[0.029293] search-time[0.049439] mpi-time[0.565242]
+Root[0]: Average time = 106.252028 (ms) per step with 8000 elements, 437.50 KB over 100 steps
+Root[0]: accel-time[105.968592] update-time[0.029593] search-time[0.019336] mpi-time[0.231389]
 TACC:  Shutdown complete. Exiting. 
-TACC:  Starting up job 465975 
+TACC:  Starting up job 468038 
 TACC:  Starting parallel tasks... 
 min/max/ave velocity = 2.438454e+00, 7.247885e+02, 3.845768e+01
 min/max/ave velocity = 1.276982e+01, 5.863773e+04, 7.624082e+02
@@ -210,38 +70,6 @@ min/max/ave velocity = 1.282571e+01, 5.863773e+04, 7.623344e+02
 min/max/ave velocity = 1.282675e+01, 5.863773e+04, 7.623326e+02
 min/max/ave velocity = 1.282753e+01, 5.863773e+04, 7.623313e+02
 min/max/ave velocity = 1.282813e+01, 5.863773e+04, 7.623303e+02
-Root[0]: Average time = 425.009543 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Root[0]: accel-time[424.262362] update-time[0.059286] search-time[0.081503] mpi-time[0.601965]
-Rank[0]: Average time = 425.009543 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[0]: accel-time[424.262362] update-time[0.059286] search-time[0.081503] mpi-time[0.601965]
-Rank[2]: Average time = 425.009758 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[2]: accel-time[424.063310] update-time[0.057819] search-time[0.053438] mpi-time[0.831531]
-Rank[8]: Average time = 425.010081 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[8]: accel-time[422.172264] update-time[0.058484] search-time[0.275210] mpi-time[2.500701]
-Rank[9]: Average time = 425.010048 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[9]: accel-time[422.388734] update-time[0.058353] search-time[0.212134] mpi-time[2.347141]
-Rank[15]: Average time = 425.009511 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[15]: accel-time[424.109844] update-time[0.058994] search-time[0.038421] mpi-time[0.797876]
-Rank[1]: Average time = 425.010117 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[1]: accel-time[422.376912] update-time[0.058465] search-time[0.277895] mpi-time[2.293011]
-Rank[3]: Average time = 425.009914 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[3]: accel-time[423.803854] update-time[0.058330] search-time[0.110992] mpi-time[1.033247]
-Rank[4]: Average time = 425.010087 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[4]: accel-time[422.361053] update-time[0.058270] search-time[0.249639] mpi-time[2.337784]
-Rank[5]: Average time = 425.009880 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[5]: accel-time[422.455077] update-time[0.058207] search-time[0.207035] mpi-time[2.286295]
-Rank[6]: Average time = 425.009904 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[6]: accel-time[422.049440] update-time[0.058132] search-time[0.278778] mpi-time[2.620099]
-Rank[7]: Average time = 425.009925 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[7]: accel-time[422.662491] update-time[0.058538] search-time[0.183896] mpi-time[2.101566]
-Rank[10]: Average time = 425.010033 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[10]: accel-time[422.061405] update-time[0.058421] search-time[0.286243] mpi-time[2.600794]
-Rank[11]: Average time = 425.010064 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[11]: accel-time[422.094495] update-time[0.058860] search-time[0.280457] mpi-time[2.572386]
-Rank[12]: Average time = 425.009647 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[12]: accel-time[424.055989] update-time[0.058497] search-time[0.049593] mpi-time[0.841136]
-Rank[13]: Average time = 425.009642 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[13]: accel-time[422.290519] update-time[0.058582] search-time[0.266060] mpi-time[2.390755]
-Rank[14]: Average time = 425.009726 (ms) per step with 16000 elements, 875.00 KB over 100 steps
-Rank[14]: accel-time[422.208113] update-time[0.058938] search-time[0.273457] mpi-time[2.465143]
+Root[0]: Average time = 426.905125 (ms) per step with 16000 elements, 875.00 KB over 100 steps
+Root[0]: accel-time[425.603207] update-time[0.059426] search-time[0.258536] mpi-time[0.979756]
 TACC:  Shutdown complete. Exiting. 

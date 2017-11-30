@@ -339,7 +339,7 @@ if ((i) >= argc) \
         int partition_ranges;
         for (int i=0; i<numProcs; i++) {
             int pstart, pend;
-            partition_range( 0, n, numProcs, myRank, pstart, pend );
+            partition_range( 0, n, numProcs, i, pstart, pend );
             counts[i]=(pend-pstart)*3;
         }
 
