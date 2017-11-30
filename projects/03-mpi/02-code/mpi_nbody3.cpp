@@ -4,38 +4,24 @@
 #include <float.h>
 #include <math.h>
 #include <string.h>
-
 #include <vector>
 #include <limits>
 #include <cmath>
-
 #include <my_timer.h>
 #include <aligned_allocator.h>
-
-// HW3: Include the main MPI header.
-//#include <mpi.h>
-
-// HW3: Include this helper header to define the callMPI() macro.
-// callMPI( MPI_Yxxx ) will call an MPI library function and test
-// the return handle for errors. If errors are present, it will
-// attempt to decode the error and print a useful message and then
-// exit.
-
 #include <my_mpi_header.h>
+
+/**
+ BASE CODE BY: Dr. Christopher Stone
+ Loyola University Chicago
+ Computer Science Department
+ **/
+
 #ifndef __RESTRICT
 #  define __RESTRICT
 #endif
-
 #define NDIM (3)
 
-// HW3: MPI_FLOAT and MPI_DOUBLE are the MPI_Datatype parameters
-// that you should pass to the MPI_* communication functions. The
-// code is configured so that you can switch between double's and
-// float's (if you ever wanted to), I created a special parameter
-// MPI_VALUE_TYPE that takes the appropriate value depending on
-// the desired datatype. So, use MPI_VALUE_TYPE instead of MPI_FLOAT
-// or MPI_DOUBLE directly to ensure the code doesn't break if the
-// datatype is changed.
 #ifdef USE_FLOAT
 typedef float  ValueType;
 const MPI_Datatype MPI_VALUE_TYPE = MPI_FLOAT;
@@ -60,8 +46,6 @@ const int ROOT = 0;
 #  define index(i,j) ((i) + (j)*n)
 #endif
 
-// HW3: This is a useful function for partitioning an iteration
-// space uniforming w/o any overlap.
 int partition_range (const int global_start, const int global_end,
                      const int num_partitions, const int rank,
                      int& local_start, int& local_end)
@@ -144,7 +128,6 @@ void update (ValueType pos[],
     callMPI( MPI_Comm_rank(MPI_COMM_WORLD,&myRank)   );
     int partition_start, partition_end;
     partition_range( 0, n, numProcs, myRank, partition_start, partition_end );
-    // HW3: Split up the iteration space.
     for (int i = partition_start; i < partition_end; ++i)
         for (int k = 0; k < NDIM; ++k)
         {
@@ -166,7 +149,6 @@ void search (ValueType pos[],
     int partition_start, partition_end;
     partition_range( 0, n, numProcs, myRank, partition_start, partition_end );
     ValueType minv = 1e10, maxv = 0, ave = 0;
-    // HW3: Split up the iteration space.
     
     for (int i = partition_start; i < partition_end; ++i)
     {
@@ -269,7 +251,6 @@ if ((i) >= argc) \
     Allocate(mass, n);
     
     if (myRank==ROOT) {
-        // HW3: Only the master (0) rank should write these lines.
         fprintf(stderr,"Number Objects = %d\n", n);
         fprintf(stderr,"Number Steps   = %d\n", num_steps);
         fprintf(stderr,"Timestep size  = %g\n", dt);
@@ -310,7 +291,6 @@ if ((i) >= argc) \
     // Run the step several times.
     myTimer_t t_start = getTimeStamp();
     
-    // HW3: Add another time to measure the total time in the MPI library.
     double t_accel = 0, t_update = 0, t_search = 0, t_mpi;
     int flnum = 0;
     for (int step = 0; step < num_steps; ++step)
@@ -363,32 +343,23 @@ if ((i) >= argc) \
     
     float nkbytes = (float)((size_t)7 * sizeof(ValueType) * (size_t)n) / 1024.0f;
     
-    // HW3: Only the master (0) rank should write the this line.
-    // HW3: Extra Credit: Find the average / min / max function times for
-    // each rank and see if there's a signficant variation.
-    
-    
-    /*variables used for gathering timing statistics*/
+    /* variables used to calculate time standard deviation */
     double world_avg;
     double world_diff;
     double world_sd;
     double rank_avg,sum_difference;
-
     
+    /* compute time standard deviation */
     rank_avg = t_calc*1000.0/num_steps;
-    
-    /*compute time, and global average time */
     callMPI(MPI_Reduce(&rank_avg, &world_avg, 1, MPI_DOUBLE, MPI_SUM,ROOT,MPI_COMM_WORLD));
-    /*synchronize all processes*/
-    //MPI_Barrier(MPI_COMM_WORLD);
     world_avg = world_avg/numProcs;
     callMPI(MPI_Bcast(&world_avg, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD));
+    
     sum_difference = (rank_avg - world_avg)*(rank_avg - world_avg);
     callMPI(MPI_Reduce(&sum_difference, &world_diff, 1, MPI_DOUBLE, MPI_SUM,ROOT,MPI_COMM_WORLD));
     world_sd = sqrt(world_diff/numProcs);
     
-    /*synchronize all processes*/
-    //MPI_Barrier(MPI_COMM_WORLD);
+    
     if (myRank==ROOT) {
         printf("Root[%d]: Average time = %f (ms) per step with %d elements, %.2f KB over %d steps\n", myRank, t_calc*1000.0/num_steps, n, nkbytes, num_steps);
         printf("Root[%d]: accel-time[%f] update-time[%f] search-time[%f] mpi-time[%f]\n", myRank,t_accel*1000/num_steps, t_update*1000/num_steps, t_search*1000/num_steps, t_mpi*1000/num_steps);
