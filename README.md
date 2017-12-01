@@ -4,7 +4,7 @@ High Performance Computing
 ### Reports
 * **Stream Benchmark Report:** [memory-bandwidth](../master/projects/01-stream/01-report/00-stream-report.pdf)
 * **OpenMP Threading Report:** [openmp-nbody-benchmarks](../master/projects/02-openMP/01-report/00-openmp-report.pdf)
-* **DN-body with MPI Report:** [mpi-distributed-memory](../master/projects/03-mpi/01-report/02-nbody-mpi-report.pdf)
+* **DN-body with MPI Report:** [mpi-distributed-memory](../master/projects/03-mpi/01-report/00-nbody-mpi-report.pdf)
 
 ### Implementation (C++)
 * **Stream Benchmark Code:** [memory-bandwidth](../master/projects/01-stream/02-code)
