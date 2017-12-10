@@ -42,7 +42,8 @@ void tagSearch(const vector<string> &data,
 #pragma omp parallel
     {
         vector<string> vec_private;
-#pragma omp for nowait
+//#pragma omp for nowait
+#pragma omp for schedule(static) nowait
         for(int i=0; i<nsize; i++) {
             string smatch = data[i].substr(data[i].find(fixtag.c_str())+num_start,num_end);
             vec_private.push_back(smatch);
@@ -54,10 +55,13 @@ void tagSearch(const vector<string> &data,
 
 
 void dateVolume(vector<string> &data, map<string, int> &count_dates, size_t nsize){
-#pragma omp parallel for default(shared)
+
+//#pragma omp parallel for default(shared)
+#pragma omp for schedule(static) ordered
     for (int i = 0; i < nsize; ++i)
     {
-    #pragma omp atomic update
+    //#pragma omp atomic update
+    #pragma omp ordered
         count_dates[data[i]]+=1;
     }
 }

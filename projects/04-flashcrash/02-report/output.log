@@ -1,0 +1,63 @@
+for t in 1 2 4 8 16 32 64 128; do export OMP_NUM_THREADS=$t; ./fixanalyzer -p "/work/05191/jlroo/stampede2/data/01/XCME_MD_ES_20100104_20100108" -t 52 -n 4 -m 8; done
+
+volume[20100103] = 25255
+volume[20100104] = 2258085
+volume[20100105] = 2460950
+volume[20100106] = 2719005
+volume[20100107] = 3000561
+volume[20100108] = 2780924
+Total Volume = 13244780
+Read Time: 35.4887
+Search Time: 7.36884
+Volume Time: 1.68396
+
+real	0m48.479s
+user	0m24.900s
+sys	0m23.453s
+volume[20100103] = 25255
+volume[20100104] = 2258085
+volume[20100105] = 2460950
+volume[20100106] = 2719005
+volume[20100107] = 3000561
+volume[20100108] = 2780924
+Total Volume = 13244780
+Read Time: 24.4229
+Search Time: 4.36698
+Volume Time: 0.972908
+
+real	0m33.943s
+user	0m25.589s
+sys	0m13.494s
+volume[20100104] = 1
+volume[20100105] = 2460950
+volume[20100106] = 2719005
+volume[20100107] = 3000559
+volume[20100108] = 2780923
+Total Volume = 10961438
+Read Time: 23.3777
+Search Time: 2.64885
+Volume Time: 0.943715
+
+real	0m31.166s
+user	0m28.369s
+sys	0m12.843s
+Segmentation fault
+
+real	0m27.122s
+user	0m24.565s
+sys	0m13.179s
+Segmentation fault
+
+real	0m26.637s
+user	0m30.943s
+sys	0m13.677s
+volume[20100103] = 25255
+volume[20100104] = 2258075
+volume[20100105] = 2460911
+volume[20100106] = 2718886
+volume[20100107] = 3000561
+volume[20100108] = 2780809
+Total Volume = 13244497
+Read Time: 23.7011
+Search Time: 1.70181
+Volume Time: 0.841856

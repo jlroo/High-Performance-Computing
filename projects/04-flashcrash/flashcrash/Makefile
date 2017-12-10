@@ -30,5 +30,6 @@ fixanalyzer: util.o $(COMMON_OBJS)
 clean: clean_common
 	/bin/rm -fv $(EXEC) *.o *.optrpt
 
+## for t in 1 2 4 8 16 32 64; do export OMP_NUM_THREADS=$t;time ./fixanalyzer -p "/work/05191/jlroo/stampede2/data/01/XCME_MD_ES_20100104_20100108" -t 52 -n 4 -m 8; done
 
 
