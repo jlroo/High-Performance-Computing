@@ -1,0 +1,12 @@
+
+
+
+Stampede2
+https://portal.tacc.utexas.edu/user-guides/stampede2
+
+Wrangler 
+https://portal.tacc.utexas.edu/user-guides/wrangler
+
+
+Introduction to Data Analysis with Hadoop
+https://portal.tacc.utexas.edu/documents/10157/1119900/HadoopIntroTrainingJun12.pdf/4845646f-ba92-4260-9b7e-d70462580e46
