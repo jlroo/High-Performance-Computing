@@ -1,5 +1,4 @@
-for t in 1 2 4 8 16 32 64 128; do export OMP_NUM_THREADS=$t; ./fixanalyzer -p "/work/05191/jlroo/stampede2/data/01/XCME_MD_ES_20100104_20100108" -t 52 -n 4 -m 8; done
-
+c458-002[knl](1008)$ for t in 1 2 4 8 16 32 64; do export OMP_NUM_THREADS=$t; ./fixanalyzer -p "/work/05191/jlroo/stampede2/data/01/XCME_MD_ES_20100104_20100108" -t 52 -n 4 -m 8; done
 volume[20100103] = 25255
 volume[20100104] = 2258085
 volume[20100105] = 2460950
@@ -7,13 +6,9 @@ volume[20100106] = 2719005
 volume[20100107] = 3000561
 volume[20100108] = 2780924
 Total Volume = 13244780
-Read Time: 35.4887
-Search Time: 7.36884
-Volume Time: 1.68396
-
-real	0m48.479s
-user	0m24.900s
-sys	0m23.453s
+Read Time: 23.3192
+Search Time: 8.81029
+Volume Time: 3.34078
 volume[20100103] = 25255
 volume[20100104] = 2258085
 volume[20100105] = 2460950
@@ -21,43 +16,59 @@ volume[20100106] = 2719005
 volume[20100107] = 3000561
 volume[20100108] = 2780924
 Total Volume = 13244780
-Read Time: 24.4229
-Search Time: 4.36698
-Volume Time: 0.972908
-
-real	0m33.943s
-user	0m25.589s
-sys	0m13.494s
-volume[20100104] = 1
+Read Time: 23.1507
+Search Time: 5.19979
+Volume Time: 3.29997
+volume[20100103] = 25255
+volume[20100104] = 2258085
 volume[20100105] = 2460950
 volume[20100106] = 2719005
-volume[20100107] = 3000559
-volume[20100108] = 2780923
-Total Volume = 10961438
-Read Time: 23.3777
-Search Time: 2.64885
-Volume Time: 0.943715
-
-real	0m31.166s
-user	0m28.369s
-sys	0m12.843s
-Segmentation fault
-
-real	0m27.122s
-user	0m24.565s
-sys	0m13.179s
-Segmentation fault
-
-real	0m26.637s
-user	0m30.943s
-sys	0m13.677s
-volume[20100103] = 25255
-volume[20100104] = 2258075
-volume[20100105] = 2460911
-volume[20100106] = 2718886
 volume[20100107] = 3000561
-volume[20100108] = 2780809
-Total Volume = 13244497
-Read Time: 23.7011
-Search Time: 1.70181
-Volume Time: 0.841856
+volume[20100108] = 2780924
+Total Volume = 13244780
+Read Time: 23.1654
+Search Time: 3.05344
+Volume Time: 3.25047
+volume[20100103] = 25255
+volume[20100104] = 2258085
+volume[20100105] = 2460950
+volume[20100106] = 2719005
+volume[20100107] = 3000561
+volume[20100108] = 2780924
+Total Volume = 13244780
+Read Time: 23.3457
+Search Time: 2.07764
+Volume Time: 3.14272
+volume[20100103] = 25255
+volume[20100104] = 2258085
+volume[20100105] = 2460950
+volume[20100106] = 2719005
+volume[20100107] = 3000561
+volume[20100108] = 2780924
+Total Volume = 13244780
+Read Time: 23.1448
+Search Time: 1.71634
+Volume Time: 3.22706
+volume[20100103] = 25255
+volume[20100104] = 2258085
+volume[20100105] = 2460950
+volume[20100106] = 2719005
+volume[20100107] = 3000561
+volume[20100108] = 2780924
+Total Volume = 13244780
+Read Time: 24.3143
+Search Time: 1.79243
+Volume Time: 3.27961
+volume[20100103] = 25255
+volume[20100104] = 2258085
+volume[20100105] = 2460950
+volume[20100106] = 2719005
+volume[20100107] = 3000561
+volume[20100108] = 2780924
+Total Volume = 13244780
+Read Time: 23.9788
+Search Time: 2.00706
+Volume Time: 3.28234
+
+/home1/05191/jlroo/high-performance/projects/04-flashcrash/flashcrash
+for t in 1 2 4 8 16 32 64; do export OMP_NUM_THREADS=$t; for i in $(ls $WORK/data/05); do ./fixanalyzer -p $i -t 52 -n 4 -m 8; done; done

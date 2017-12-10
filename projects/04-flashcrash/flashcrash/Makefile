@@ -30,6 +30,10 @@ fixanalyzer: util.o $(COMMON_OBJS)
 clean: clean_common
 	/bin/rm -fv $(EXEC) *.o *.optrpt
 
-## for t in 1 2 4 8 16 32 64; do export OMP_NUM_THREADS=$t;time ./fixanalyzer -p "/work/05191/jlroo/stampede2/data/01/XCME_MD_ES_20100104_20100108" -t 52 -n 4 -m 8; done
+
+# sbatch -J dvolume -p normal -N 1 -n 128 -t 09:00:00 benchmark.sh
+# for t in 1 2 4 6 8 16 32 64; do export OMP_NUM_THREADS=$t; for i in $(ls $WORK/data/05/);do $HOME/fixanalyzer -p $i -t 52 -n 4 -m 8 > $t-${i:11:17}.log; done; done
+
+
 
 

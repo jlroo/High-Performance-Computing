@@ -165,29 +165,31 @@ if ((i) >= argc) \
     
     double t_read = 0, t_search = 0, t_volume = 0;
     
-    // Run the step several times.
+    // Record time spent in each function.
     myTimer_t t0 = getTimeStamp();
     read_fix(path.c_str(), data);
+    
     myTimer_t t1 = getTimeStamp();
     size_t n = data.size();
     tagSearch(data, search, fixtag,num_start,num_end, n);
+    
     myTimer_t t2 = getTimeStamp();
     dateVolume(search, volume, n);
+    
     myTimer_t t3 = getTimeStamp();
 
     t_read = getElapsedTime(t0,t1);
     t_search = getElapsedTime(t1,t2);
     t_volume = getElapsedTime(t2,t3);
     
+    std::cout << "date,volume"<<std::endl;
     for (auto& iter : volume)  {
-        std::cout << "volume[" << iter.first << "] = " << iter.second <<std::endl;
+        std::cout << iter.first << "," << iter.second <<std::endl;
+        //std::cout << "volume[" << iter.first << "] = " << iter.second <<std::endl;
         week_volume +=iter.second;
     }
-    
-    std::cout << "Total Volume = " << week_volume <<std::endl;
-    std::cout << "Read Time: " << t_read <<std::endl;
-    std::cout << "Search Time: " << t_search <<std::endl;
-    std::cout << "Volume Time: " << t_volume <<std::endl;
+    std::cout << "total_msgs,read_time,search_time,volume_time" <<std::endl;
+    std::cout << week_volume << "," << t_read  << "," <<  t_search << "," << t_volume <<std::endl;
     
     return 0;
 }
