@@ -19,10 +19,12 @@
 
 using namespace std;
 
-void help()
+void help(const char* prg)
 {
+    if (prg) fprintf(stderr,"%s:\n", prg);
     fprintf(stderr,"\t--help | -h       : Print help message.\n");
     fprintf(stderr,"\t--path | -p       : Complete path to the fixdata.\n");
+    fprintf(stderr,"\t--tag | -t        : FixTag to search in the data e.i 52.\n");
     fprintf(stderr,"\t--start_tag | -b  : FixTag start, default (\x01).\n");
     fprintf(stderr,"\t--end_tag | -e    : FixTag end, default ('=').\n");
     fprintf(stderr,"\t--num_start | -n  : Index # for the start of the string.\n");
@@ -91,19 +93,10 @@ int main (int argc, char* argv[])
 #define check_index(i,str) \
 if ((i) >= argc) \
 { fprintf(stderr,"Missing 2nd argument for %s\n", str); return 1; }
-        
-        fprintf(stderr,"\t--help | -h       : Print help message.\n");
-        fprintf(stderr,"\t--path | -p       : Complete path to the fixdata.\n");
-        fprintf(stderr,"\t--start_tag | -b  : FixTag start, default (\x01).\n");
-        fprintf(stderr,"\t--end_tag | -e    : FixTag end, default ('=').\n");
-        fprintf(stderr,"\t--num_start | -n  : Index # for the start of the string.\n");
-        fprintf(stderr,"\t--num_end | -m    : Index # for the end of the string.\n");
-        fprintf(stderr,"\t--search | -r     : Search for an string in the fixdata.\n");
-        
         if ( strcmp(argv[i],"-h") == 0 || strcmp(argv[i],"--help") == 0)
         {
-            help();
-            return 1;
+            help(argv[0]);
+            return 0;
         }
         else if (strcmp(argv[i],"--path") == 0 || strcmp(argv[i],"-p") == 0)
         {
@@ -136,8 +129,8 @@ if ((i) >= argc) \
         else
         {
             fprintf(stderr,"Unknown option %s\n", argv[i]);
-            help();
-            return 1;
+            help(argv[0]);
+            return 0;
         }
     }
     
@@ -155,7 +148,6 @@ if ((i) >= argc) \
     read_fix(path.c_str(), data);
     size_t n = data.size();
     tagSearch(data, search, fixtag,num_start,num_end, n);
-
     dateVolume(search, volume, n);
     
     for (auto& iter : volume)  {
