@@ -1,0 +1,12 @@
+
+
+## Useful Commands
+
+# Change compiler
+# CXX=icpc make
+
+# Use idev flat-quadrant command
+#
+# idev -p flat-quadrant
+#
+# /work/05191/jlroo/stampede2

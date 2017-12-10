@@ -1,0 +1,65 @@
+WARNING: LAUNCHER_WORKDIR variable not set. Using current directory.
+/opt/apps/launcher/launcher-3.1/paramrun: line 171: [: -eq: unary operator expected
+Launcher: Setup complete.
+
+------------- SUMMARY ---------------
+   Number of hosts:    1
+   Working directory:  /work/05191/jlroo/stampede2/data
+   Processes per host: 16
+   Total processes:    16
+   Total jobs:         16
+   Scheduling method:  dynamic
+/opt/apps/launcher/launcher-3.1/paramrun: line 211: [: -eq: unary operator expected
+
+-------------------------------------
+Launcher: Starting parallel tasks...
+Warning: Permanently added 'c421-011' (ECDSA) to the list of known hosts.
+Launcher: Task 5 running job 3 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100222_20100226.bz2)
+Launcher: Task 8 running job 2 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100726_20100730.bz2)
+Launcher: Task 10 running job 1 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100215_20100219.bz2)
+Launcher: Task 2 running job 5 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100301_20100305.bz2)
+Launcher: Task 12 running job 4 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100802_20100806.bz2)
+Launcher: Task 9 running job 7 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100308_20100312.bz2)
+Launcher: Task 3 running job 6 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100809_20100813.bz2)
+Launcher: Task 14 running job 8 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100816_20100820.bz2)
+Launcher: Task 15 running job 9 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100315_20100319.bz2)
+Launcher: Task 13 running job 10 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100823_20100827.bz2)
+Launcher: Task 1 running job 12 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100830_20100903.bz2)
+Launcher: Task 6 running job 11 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100322_20100326.bz2)
+Launcher: Task 4 running job 13 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100329_20100402.bz2)
+Launcher: Task 0 running job 14 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100906_20100910.bz2)
+Launcher: Task 11 running job 15 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100405_20100409.bz2)
+Launcher: Task 7 running job 16 on c421-011.stampede2.tacc.utexas.edu (bunzip2 $WORK/data/raw/XCME_MD_ES_20100913_20100917.bz2)
+Launcher: Job 13 completed in 1062 seconds.
+Launcher: Task 4 done. Exiting.
+Launcher: Job 15 completed in 1138 seconds.
+Launcher: Task 11 done. Exiting.
+Launcher: Job 1 completed in 1209 seconds.
+Launcher: Task 10 done. Exiting.
+Launcher: Job 7 completed in 1257 seconds.
+Launcher: Task 9 done. Exiting.
+Launcher: Job 5 completed in 1345 seconds.
+Launcher: Task 2 done. Exiting.
+Launcher: Job 9 completed in 1374 seconds.
+Launcher: Task 15 done. Exiting.
+Launcher: Job 3 completed in 1627 seconds.
+Launcher: Task 5 done. Exiting.
+Launcher: Job 8 completed in 1631 seconds.
+Launcher: Task 14 done. Exiting.
+Launcher: Job 11 completed in 1671 seconds.
+Launcher: Task 6 done. Exiting.
+Launcher: Job 14 completed in 2009 seconds.
+Launcher: Task 0 done. Exiting.
+Launcher: Job 16 completed in 2162 seconds.
+Launcher: Task 7 done. Exiting.
+Launcher: Job 4 completed in 2476 seconds.
+Launcher: Task 12 done. Exiting.
+Launcher: Job 6 completed in 2842 seconds.
+Launcher: Task 3 done. Exiting.
+Launcher: Job 12 completed in 2927 seconds.
+Launcher: Task 1 done. Exiting.
+Launcher: Job 2 completed in 3369 seconds.
+Launcher: Task 8 done. Exiting.
+Launcher: Job 10 completed in 3600 seconds.
+Launcher: Task 13 done. Exiting.
+Launcher: Done. Job exited without errors

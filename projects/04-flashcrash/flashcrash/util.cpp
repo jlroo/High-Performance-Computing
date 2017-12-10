@@ -1,19 +1,21 @@
-//
-//  util.cpp
-//  flash
-//
-//  Created by Jose Luis Rodriguez on 11/15/17.
-//  Copyright © 2017 Jose Luis Rodriguez. All rights reserved.
-//
 
-// icpc -qopenmp -qopt-report util.cpp
-// install_name_tool -change @rpath/libiomp5.dylib /opt/intel/compilers_and_libraries_2018.1.126/mac/compiler/lib/libiomp5.dylib a.out
+/**
+  util.cpp
+  flash
+
+  Created by Jose Luis Rodriguez on 11/15/17.
+  Copyright © 2017 Jose Luis Rodriguez. All rights reserved.
+  
+  icpc -qopenmp -qopt-report util.cpp
+  install_name_tool -change @rpath/libiomp5.dylib /opt/intel/compilers_and_libraries_2018.1.126/mac/compiler/lib/libiomp5.dylib a.out
+
+**/
 
 #include "util.hpp"
-#include <iostream> // std::cout
-#include <fstream>  // std::ifstream
-#include <unordered_set>
+#include <iostream> 
+#include <fstream>
 #include <map>
+
 
 using namespace std;
 
@@ -25,17 +27,13 @@ void help()
 
 void tagSearch(const vector<string> &data,
                vector<string> &search,
-               string fixtag, size_t nsize) {
-    
-    char *buf = new char[fixtag.length() + 1];
-    strcpy(buf, fixtag.c_str());
-    
+               string fixtag, size_t nsize) { 
 #pragma omp parallel
     {
         vector<string> vec_private;
 #pragma omp for nowait
         for(int i=0; i<nsize; i++) {
-            string smatch = data[i].substr(data[i].find(buf)+4,8);
+            string smatch = data[i].substr(data[i].find(fixtag.c_str())+4,8);
             vec_private.push_back(smatch);
         }
 #pragma omp critical
@@ -54,20 +52,20 @@ void dateVolume(vector<string> &data, map<string, int> &count_dates, size_t nsiz
 }
 
 
+
 int main (int argc, char* argv[])
 {
     
-    /*
+   /** 
     if (argc < 2)
     {
         std::cerr << "filename not specified\n";
         return 1;
     }
-        
      **/
-    
-    string path = "/Users/jlroo/cme/data/2010/XCME";
-    //string path = "/Users/jlroo/cme/data/2010/XCME_MD_ES_20100104_20100108";
+     
+    //const char * path = "/Users/jlroo/cme/data/2010/XCME";
+    string  path = "/work/05191/jlroo/stampede2/data/01/XCME_MD_ES_20100104_20100108"; 
     string fixtag;
     const char * tag_start = "\x01";
     const char * tag_end = "=";
@@ -77,38 +75,32 @@ int main (int argc, char* argv[])
     vector<string> search;
     map<string, int> volume;
     
-    read_fix(path, data);
+    read_fix(path.c_str(), data);
     size_t n = data.size();
     fixtag = tag_start + fixtag + tag_end;
     
     tagSearch(data, search, fixtag, n);
     dateVolume(search, volume, n);
-    
+
     int wk_volume = 0;
-    std::cout << "date, volume\n" <<std::endl;
-    for (const auto &p : volume) {
-        //std::cout << "volume[" << p.first << "] = " << p.second << '\n';
-        std::cout << "volume[" << p.first << "] = " << p.second << '\n';
-        wk_volume +=p.second;
+
+    map<string, int>::iterator iter;
+    for ( iter = volume.begin(); iter != volume.end(); iter++ )
+    {
+        std::cout << "volume[" << iter -> first << "] = " << iter -> second << '\n';
+        wk_volume +=iter -> second;
+    }   
+
+    /** 
+    int wk_volume = 0;
+    //std::cout << "date, volume\n" <<std::endl;
+    for (auto& iter : volume)  {
+        std::cout << "volume[" << iter.first << "] = " << iter.second << '\n';
+        wk_volume +=iter.second;
     }
-    
-    std::cout << wk_volume <<std::endl;
-    
-    //int count = 0;
-    //Counter(search,count);
-    
-    /**
-    
-     for(std::vector<string>::iterator it = search.begin(); it != search.end(); ++it)
-     std::cout << *it <<std::endl;
-     
-     
-    //cout<<fixtag<<endl;
-    //cout<<n<<endl;
-    //cout<<search[0]<<std::endl;
-    //cout<<data[10000]<<std::endl;
+    std::cout << "Total Volume = " << wk_volume <<std::endl;
     **/
-    
     return 0;
 }
+
 

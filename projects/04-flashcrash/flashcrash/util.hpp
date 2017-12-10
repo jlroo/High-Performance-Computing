@@ -17,7 +17,7 @@
 using namespace std;
 
 
-bool read_fix(string filename, vector<string> &data) {
+bool read_fix(const char *filename, vector<string> &data) {
     
     string line;
     ifstream fixfile;
