@@ -15,13 +15,14 @@
 #include <iostream> 
 #include <fstream>
 #include <map>
-
+#include <cstring>
 
 using namespace std;
 
 void help()
 {
     fprintf(stderr,"\t--help | -h       : Print help message.\n");
+    fprintf(stderr,"\t--path | -p       : Complete path to the fixdata.\n");
     fprintf(stderr,"\t--start_tag | -b  : FixTag start, default (\x01).\n");
     fprintf(stderr,"\t--end_tag | -e    : FixTag end, default ('=').\n");
     fprintf(stderr,"\t--num_start | -n  : Index # for the start of the string.\n");
@@ -91,8 +92,8 @@ int main (int argc, char* argv[])
 if ((i) >= argc) \
 { fprintf(stderr,"Missing 2nd argument for %s\n", str); return 1; }
         
-        
         fprintf(stderr,"\t--help | -h       : Print help message.\n");
+        fprintf(stderr,"\t--path | -p       : Complete path to the fixdata.\n");
         fprintf(stderr,"\t--start_tag | -b  : FixTag start, default (\x01).\n");
         fprintf(stderr,"\t--end_tag | -e    : FixTag end, default ('=').\n");
         fprintf(stderr,"\t--num_start | -n  : Index # for the start of the string.\n");
