@@ -19,16 +19,15 @@
 
 using namespace std;
 
-void help(const char* prg)
+void help()
 {
-    if (prg) fprintf(stderr,"%s:\n", prg);
     fprintf(stderr,"\t--help | -h       : Print help message.\n");
     fprintf(stderr,"\t--path | -p       : Complete path to the fixdata.\n");
     fprintf(stderr,"\t--tag | -t        : FixTag to search in the data e.i 52.\n");
-    fprintf(stderr,"\t--start_tag | -b  : FixTag start, default (\x01).\n");
-    fprintf(stderr,"\t--end_tag | -e    : FixTag end, default ('=').\n");
     fprintf(stderr,"\t--num_start | -n  : Index # for the start of the string.\n");
     fprintf(stderr,"\t--num_end | -m    : Index # for the end of the string.\n");
+    fprintf(stderr,"\t--start_tag | -b  : FixTag start, default (\x01).\n");
+    fprintf(stderr,"\t--end_tag | -e    : FixTag end, default ('=').\n");
     fprintf(stderr,"\t--search | -r     : Search for an string in the fixdata.\n");
 }
 
@@ -95,42 +94,56 @@ if ((i) >= argc) \
 { fprintf(stderr,"Missing 2nd argument for %s\n", str); return 1; }
         if ( strcmp(argv[i],"-h") == 0 || strcmp(argv[i],"--help") == 0)
         {
-            help(argv[0]);
-            return 0;
+            help();
+            return 1;
         }
         else if (strcmp(argv[i],"--path") == 0 || strcmp(argv[i],"-p") == 0)
         {
+            check_index(i+1,"--path|-p");
+            i++;
             path = argv[i];
         }
         else if (strcmp(argv[i],"--tag") == 0 || strcmp(argv[i],"-t") == 0)
         {
+            check_index(i+1,"--tag|-t");
+            i++;
             fixtag = argv[i];
-        }
-        else if (strcmp(argv[i],"--tag_start") == 0 || strcmp(argv[i],"-s") == 0)
-        {
-            tag_start = argv[i];
-        }
-        else if (strcmp(argv[i],"--tag_end") == 0 || strcmp(argv[i],"-d") == 0)
-        {
-            tag_end = argv[i];
         }
         else if (strcmp(argv[i],"--num_start") == 0 || strcmp(argv[i],"-n") == 0)
         {
+            check_index(i+1,"--num_start|-n");
+            i++;
             num_start = atoi( argv[i] );
         }
         else if (strcmp(argv[i],"--num_end") == 0 || strcmp(argv[i],"-m") == 0)
         {
+            check_index(i+1,"--num_end|-m");
+            i++;
             num_end = atoi( argv[i] );
+        }
+        else if (strcmp(argv[i],"--tag_start") == 0 || strcmp(argv[i],"-s") == 0)
+        {
+            check_index(i+1,"--tag_start|-s");
+            i++;
+            tag_start = argv[i];
+        }
+        else if (strcmp(argv[i],"--tag_end") == 0 || strcmp(argv[i],"-d") == 0)
+        {
+            check_index(i+1,"--tag_end|-d");
+            i++;
+            tag_end = argv[i];
         }
         else if (strcmp(argv[i],"--search") == 0 || strcmp(argv[i],"-r") == 0)
         {
+            check_index(i+1,"--search|-r");
+            i++;
             tag_search = argv[i];
         }
         else
         {
             fprintf(stderr,"Unknown option %s\n", argv[i]);
-            help(argv[0]);
-            return 0;
+            help();
+            return 1;
         }
     }
     
