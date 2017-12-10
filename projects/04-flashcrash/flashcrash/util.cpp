@@ -42,7 +42,6 @@ void tagSearch(const vector<string> &data,
 #pragma omp parallel
     {
         vector<string> vec_private;
-//#pragma omp for nowait
 #pragma omp for schedule(static) nowait
         for(int i=0; i<nsize; i++) {
             string smatch = data[i].substr(data[i].find(fixtag.c_str())+num_start,num_end);
@@ -55,10 +54,9 @@ void tagSearch(const vector<string> &data,
 
 
 void dateVolume(vector<string> &data, map<string, int> &count_dates, size_t nsize){
-
 #pragma omp parallel
     {
-         map<string, int> count_private;
+        map<string, int> count_private;
         #pragma omp for schedule(static) nowait
         for (int i = 0; i < nsize; ++i)
         {
@@ -75,21 +73,21 @@ void dateVolume(vector<string> &data, map<string, int> &count_dates, size_t nsiz
 int main (int argc, char* argv[])
 {
     
-    //string path;
+    string path;
     string fixtag;
-    //int num_start = 0;
-    //int num_end = 0;
+    int num_start = 0;
+    int num_end = 0;
     const char * tag_search= NULL;
-    //const char * tag_start = NULL;
-    //const char * tag_end = NULL;
+    const char * tag_start = NULL;
+    const char * tag_end = NULL;
     
-    string path = "/Users/jlroo/cme/data/2010/XCME";
+    //string path = "/Users/jlroo/cme/data/2010/XCME";
     //string  path = "/work/05191/jlroo/stampede2/data/01/XCME_MD_ES_20100104_20100108";
-    const char * tag_start = "\x01";
-    const char * tag_end = "=";
-    fixtag = "52";
-    int num_start = 4;
-    int num_end = 8;
+    //const char * tag_start = "\x01";
+    //const char * tag_end = "=";
+    //fixtag = "52";
+    //int num_start = 4;
+    //int num_end = 8;
     
     vector<string> data;
     vector<string> search;
@@ -170,21 +168,21 @@ if ((i) >= argc) \
     double t_read = 0, t_search = 0, t_volume = 0;
     
     // Record time spent in each function.
-    //myTimer_t t0 = getTimeStamp();
+    myTimer_t t0 = getTimeStamp();
     read_fix(path.c_str(), data);
     
-    //myTimer_t t1 = getTimeStamp();
+    myTimer_t t1 = getTimeStamp();
     size_t n = data.size();
     tagSearch(data, search, fixtag,num_start,num_end, n);
     
-    //myTimer_t t2 = getTimeStamp();
+    myTimer_t t2 = getTimeStamp();
     dateVolume(search, volume, n);
     
-    //myTimer_t t3 = getTimeStamp();
+    myTimer_t t3 = getTimeStamp();
 
-    //t_read = getElapsedTime(t0,t1);
-    //t_search = getElapsedTime(t1,t2);
-    //t_volume = getElapsedTime(t2,t3);
+    t_read = getElapsedTime(t0,t1);
+    t_search = getElapsedTime(t1,t2);
+    t_volume = getElapsedTime(t2,t3);
     
     std::cout << "date,volume"<<std::endl;
     for (auto& iter : volume)  {
