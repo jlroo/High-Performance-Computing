@@ -339,6 +339,7 @@ if ((i) >= argc) \
         t_search += getElapsedTime(t2,t3);
         t_mpi += getElapsedTime(t3,t4);
     }
+    
     double t_calc = getElapsedTime( t_start, getTimeStamp());
     
     float nkbytes = (float)((size_t)7 * sizeof(ValueType) * (size_t)n) / 1024.0f;
