@@ -59,17 +59,42 @@ void searchBuffer(char * buffer,
                   string fixtag,
                   int num_start,
                   int num_end) {
+    
+    std::vector<int> idx_start, idx_end;
+
 #pragma omp parallel
     {
         vector<string> vec_private;
+        int k =0;
 #pragma omp for schedule(static) nowait
-        int k = 0;
         for(int n = 0; n < index_end.size(); n++) {
             string line;
             for (int i = k; i < index_end[n]; i++) {
                 line+=buffer[i];
                 k+=1;
             }
+            string smatch = line.substr(line.find(fixtag.c_str())+num_start,num_end);
+            vec_private.push_back(smatch);
+        }
+#pragma omp critical
+        search.insert(search.end(), vec_private.begin(), vec_private.end());
+    }
+}
+
+void searchBuff(char * buffer,
+                  vector<string> &search,
+                  map<int,int> &idx_range,
+                  string fixtag,
+                  int num_start,
+                  int num_end) {
+    
+#pragma omp parallel
+    {
+        vector<string> vec_private;
+#pragma omp for schedule(static) nowait
+        for (auto& iter : idx_range)  {
+            int numchars = iter.second-iter.first;
+            string line = std::string(&buffer[iter.first], &buffer[iter.first] + numchars);
             string smatch = line.substr(line.find(fixtag.c_str())+num_start,num_end);
             vec_private.push_back(smatch);
         }
@@ -97,6 +122,8 @@ void dateVolume(vector<string> &data, map<string, int> &count_dates, size_t nsiz
 
 int main (int argc, char* argv[])
 {
+    
+    
     string path;
     string fixtag;
     int num_start = 0;
@@ -213,14 +240,16 @@ if ((i) >= argc) \
     size_t buff_size;
     char * buffer = read_buffer(path.c_str(), buff_size);
     myTimer_t t1 = getTimeStamp();
-    KMPSearch(line_end, buffer, index_end, buff_size);
+    std:map<int,int> range;
+    KMPSearch(line_end, buffer, index_end, buff_size, range);
     myTimer_t t2 = getTimeStamp();
-    searchBuffer(buffer, index_end, search, fixtag, num_start, num_end);
+    searchBuff(buffer, search, range, fixtag, num_start, num_end);
     //tagSearch(data, search, fixtag,num_start,num_end, n);
     myTimer_t t3 = getTimeStamp();
     size_t n = index_end.size();
     dateVolume(search, volume, n);
     myTimer_t t4 = getTimeStamp();
+    
     t_read = getElapsedTime(t0,t1);
     t_endline = getElapsedTime(t1,t2);
     t_search = getElapsedTime(t2,t3);
