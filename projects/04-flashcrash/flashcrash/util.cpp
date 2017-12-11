@@ -136,10 +136,11 @@ int main (int argc, char* argv[])
     string fixtag;
     int num_start = 0;
     int num_end = 0;
+    int use_buffer = 0;
     const char * tag_start = NULL;
     const char * tag_end = NULL;
     const char * line_end = NULL;
-    const char * tag_search= NULL;
+    const char * tag_search = NULL;
 
     /**
     const char * line_end = NULL;
@@ -154,6 +155,7 @@ int main (int argc, char* argv[])
     int num_end = 8;
     **/
     
+    vector<string> data;
     vector<string> search;
     vector<int64_t> ixdrange;
     map<string, int> volume;
@@ -217,6 +219,12 @@ if ((i) >= argc) \
             i++;
             tag_search = argv[i];
         }
+        else if (strcmp(argv[i],"--buffer") == 0 || strcmp(argv[i],"-b") == 0)
+        {
+            check_index(i+1,"--buffer|-b");
+            i++;
+            use_buffer = 1;
+        }
         else
         {
             fprintf(stderr,"Unknown option %s\n", argv[i]);
@@ -244,37 +252,62 @@ if ((i) >= argc) \
     double t_read = 0, t_endline = 0 , t_search = 0, t_volume = 0;
     
     // Record time spent in each function.
-    myTimer_t t0 = getTimeStamp();
-    //read_fix(path.c_str(), data);
-    size_t buff_size;
-    char * buffer = read_buffer(path.c_str(), buff_size);
-    myTimer_t t1 = getTimeStamp();
-    KMPSearch(line_end, buffer, ixdrange, buff_size);
     
-    myTimer_t t2 = getTimeStamp();
-    searchBuff(buffer, search, ixdrange, fixtag, num_start, num_end);
-    //tagSearch(data, search, fixtag,num_start,num_end, n);
-    myTimer_t t3 = getTimeStamp();
-    size_t n = search.size();
-    
-    dateVolume(search, volume, n);
-    myTimer_t t4 = getTimeStamp();
-
-    t_read = getElapsedTime(t0,t1);
-    t_endline = getElapsedTime(t1,t2);
-    t_search = getElapsedTime(t2,t3);
-    t_volume = getElapsedTime(t3,t4);
-
-    std::cout << "date,volume"<<std::endl;
-    for (auto& iter : volume)  {
-        std::cout << iter.first << "," << iter.second <<std::endl;
-        //std::cout << "volume[" << iter.first << "] = " << iter.second <<std::endl;
-        week_volume +=iter.second;
+    if (use_buffer==0) {
+        myTimer_t t0 = getTimeStamp();
+        read_fix(path.c_str(), data);
+        myTimer_t t1 = getTimeStamp();
+        const size_t N = data.size();
+        tagSearch(data, search, fixtag,num_start,num_end, N);
+        myTimer_t t2 = getTimeStamp();
+        size_t n = search.size();
+        dateVolume(search, volume, n);
+        myTimer_t t3 = getTimeStamp();
+        t_read = getElapsedTime(t0,t1);
+        t_search = getElapsedTime(t1,t2);
+        t_volume = getElapsedTime(t2,t3);
+        
+        std::cout << "date,volume"<<std::endl;
+        for (auto& iter : volume)  {
+            std::cout << iter.first << "," << iter.second <<std::endl;
+            //std::cout << "volume[" << iter.first << "] = " << iter.second <<std::endl;
+            week_volume +=iter.second;
+        }
+        std::cout << "total_msgs,read_time,search_time,volume_time" <<std::endl;
+        std::cout << week_volume << "," << t_read  << "," <<  t_search << "," << t_volume <<std::endl;
+        
+    }else{
+        size_t buff_size;
+        myTimer_t t0 = getTimeStamp();
+        char * buffer = read_buffer(path.c_str(), buff_size);
+        myTimer_t t1 = getTimeStamp();
+        KMPSearch(line_end, buffer, ixdrange, buff_size);
+        myTimer_t t2 = getTimeStamp();
+        searchBuff(buffer, search, ixdrange, fixtag, num_start, num_end);
+        myTimer_t t3 = getTimeStamp();
+        size_t n = search.size();
+        dateVolume(search, volume, n);
+        myTimer_t t4 = getTimeStamp();
+        
+        t_read = getElapsedTime(t0,t1);
+        t_endline = getElapsedTime(t1,t2);
+        t_search = getElapsedTime(t2,t3);
+        t_volume = getElapsedTime(t3,t4);
+        
+        std::cout << "date,volume"<<std::endl;
+        for (auto& iter : volume)  {
+            std::cout << iter.first << "," << iter.second <<std::endl;
+            //std::cout << "volume[" << iter.first << "] = " << iter.second <<std::endl;
+            week_volume +=iter.second;
+        }
+        std::cout << "total_msgs,read_time,search_kmp,search_time,volume_time" <<std::endl;
+        std::cout   << week_volume << ","
+                    << t_read << ","
+                    << t_endline << ","
+                    << t_search << ","
+                    << t_volume <<std::endl;
     }
-    
-    std::cout << "total_msgs,read_time,search_time,volume_time" <<std::endl;
-    std::cout << week_volume << "," << t_read  << "," <<  t_search << "," << t_volume <<std::endl;
-    
+
     return 0;
 }
 
