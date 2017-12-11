@@ -13,7 +13,7 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
-//#include<bits/stdc++>
+#include <string.h>
 
 using namespace std;
 
@@ -81,10 +81,10 @@ void computeLPSArray(const char *pat, size_t M, int *lps)
 
 
 // Prints occurrences of txt[] in pat[]
-void KMPSearch(const char *pat, const char *txt, vector<int> &end_lines)
+void KMPSearch(const char *pat, const char *txt, vector<int> &end_lines, size_t N)
 {
     size_t M = strlen(pat);
-    size_t N = strlen(txt);
+    //size_t N = strlen(txt);
     
     // create lps[] that will hold the longest prefix suffix
     // values for pattern
@@ -124,7 +124,7 @@ void KMPSearch(const char *pat, const char *txt, vector<int> &end_lines)
 };
 
 // Read the file all at once.
-char * read_buffer(const char *filename)
+char * read_buffer(const char *filename, size_t &length)
 {
     char * buffer = NULL;
     std::ifstream is (filename, std::ifstream::binary);
@@ -132,7 +132,7 @@ char * read_buffer(const char *filename)
     {
         // get length of file:
         is.seekg (0, is.end);
-        const size_t length = is.tellg();
+        length = is.tellg();
         is.seekg (0, is.beg);
         
         //char * buffer = new char [length];
