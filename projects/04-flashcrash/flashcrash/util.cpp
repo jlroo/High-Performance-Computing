@@ -96,9 +96,7 @@ void searchBuff(char * buffer,
         const size_t nsize = ixdrange.size();
 #pragma omp for schedule(static) nowait
         for (int i=0; i<nsize; i++) {
-            if (i+1 == nsize) {
-                break;
-            }else{
+            if (i+1 != nsize) {
                 int numchars = ixdrange[i+1] - ixdrange[i] ;
                 string line = std::string(&buffer[ixdrange[i]], &buffer[ixdrange[i]] + numchars);
                 string smatch = line.substr(line.find(fixtag.c_str()) + num_start,num_end);
