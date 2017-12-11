@@ -237,7 +237,8 @@ if ((i) >= argc) \
     }
     
     if (line_end == NULL)  {
-        line_end = "\n";
+        const char endline = '\n';
+        line_end = &endline;
     }
     
     double t_read = 0, t_endline = 0 , t_search = 0, t_volume = 0;

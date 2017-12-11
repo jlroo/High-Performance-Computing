@@ -42,7 +42,7 @@ bool read_fix(const char *filename, vector<string> &data) {
 };
 
 // Fills lps[] for given patttern pat[0..M-1]
-void computeLPSArray(const char *pat, size_t M, int *lps)
+void computeLPSArray(const char *pat, size_t M, uint64_t *lps)
 {
     // length of the previous longest prefix suffix
     int len = 0;
@@ -86,12 +86,13 @@ void KMPSearch(const char *pat, const char *txt,
                vector<int> &idxrange,
                size_t N)
 {
-    size_t M = strlen(pat);
+    uint64_t M = strlen(pat);
     //size_t N = strlen(txt);
     
     // create lps[] that will hold the longest prefix suffix
     // values for pattern
-    int lps[M];
+    uint64_t *lps = new uint64_t[M];
+    //int lps[M];
     // Preprocess the pattern (calculate lps[] array)
     computeLPSArray(pat, M, lps);
     
