@@ -59,12 +59,12 @@ void searchBuffer(char * buffer,
                   string fixtag,
                   int num_start,
                   int num_end) {
-    int k = 0;
 #pragma omp parallel
     {
         vector<string> vec_private;
 #pragma omp for schedule(static) nowait
-        for(int n=0; n < index_end.size(); n++) {
+        int k = 0;
+        for(int n = 0; n < index_end.size(); n++) {
             string line;
             for (int i = k; i < index_end[n]; i++) {
                 line+=buffer[i];
@@ -105,10 +105,13 @@ int main (int argc, char* argv[])
     const char * tag_end = NULL;
     const char * line_end = NULL;
     const char * tag_search= NULL;
+    
     /**
+    const char * line_end = NULL;
+    const char * tag_search= NULL;
     string fixtag = "52";
-    //string path = "/Users/jlroo/cme/data/2010/XCME";
-    string path = "/Users/jlroo/cme/data/2010/XCME_MD_ES_20100104_20100108";
+    string path = "/Users/jlroo/cme/data/2010/XCME";
+    //string path = "/Users/jlroo/cme/data/2010/XCME_MD_ES_20100104_20100108";
     //string  path = "/work/05191/jlroo/stampede2/data/01/XCME_MD_ES_20100104_20100108";
     const char * tag_start = "\x01";
     const char * tag_end = "=";
@@ -222,6 +225,7 @@ if ((i) >= argc) \
     t_endline = getElapsedTime(t1,t2);
     t_search = getElapsedTime(t2,t3);
     t_volume = getElapsedTime(t3,t4);
+    
     std::cout << "date,volume"<<std::endl;
     for (auto& iter : volume)  {
         std::cout << iter.first << "," << iter.second <<std::endl;
