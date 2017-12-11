@@ -15,6 +15,7 @@
 #include <iostream> 
 #include <fstream>
 #include <map>
+#include <list>
 #include <cstring>
 #include <my_timer.h>
 
@@ -53,6 +54,31 @@ void tagSearch(const vector<string> &data,
 }
 
 
+void searchBuffer(char * buffer,
+                  const vector<int> &index_end,
+                  vector<string> &search,
+                  string fixtag,
+                  int num_start,
+                  int num_end) {
+    int k = 0;
+#pragma omp parallel
+    {
+        vector<string> vec_private;
+#pragma omp for schedule(static) nowait
+        for(int n=0; n < index_end.size(); n++) {
+            string line;
+            for (int i = k; i < index_end[n]; i++) {
+                line+=buffer[i];
+                k+=1;
+            }
+            string smatch = line.substr(line.find(fixtag.c_str())+num_start,num_end);
+            vec_private.push_back(smatch);
+        }
+#pragma omp critical
+        search.insert(search.end(), vec_private.begin(), vec_private.end());
+    }
+}
+
 void dateVolume(vector<string> &data, map<string, int> &count_dates, size_t nsize){
 #pragma omp parallel
     {
@@ -72,16 +98,17 @@ void dateVolume(vector<string> &data, map<string, int> &count_dates, size_t nsiz
 
 int main (int argc, char* argv[])
 {
-    
     string path;
     string fixtag;
     int num_start = 0;
     int num_end = 0;
-    const char * tag_search= NULL;
     const char * tag_start = NULL;
     const char * tag_end = NULL;
-    
-    //string path = "/Users/jlroo/cme/data/2010/XCME";
+    const char * tag_search= NULL;
+    const char * line_end = NULL;
+
+    //string fixtag;
+    //string path = "/Users/jlroo/cme/data/2010/XCME_MD_ES_20100104_20100108";
     //string  path = "/work/05191/jlroo/stampede2/data/01/XCME_MD_ES_20100104_20100108";
     //const char * tag_start = "\x01";
     //const char * tag_end = "=";
@@ -89,8 +116,10 @@ int main (int argc, char* argv[])
     //int num_start = 4;
     //int num_end = 8;
     
+    
     vector<string> data;
     vector<string> search;
+    vector<int> index_end;
     map<string, int> volume;
     int week_volume = 0;
     
@@ -140,6 +169,12 @@ if ((i) >= argc) \
             i++;
             tag_end = argv[i];
         }
+        else if (strcmp(argv[i],"--line_end") == 0 || strcmp(argv[i],"-l") == 0)
+        {
+            check_index(i+1,"--line_end|-l");
+            i++;
+            line_end = argv[i];
+        }
         else if (strcmp(argv[i],"--search") == 0 || strcmp(argv[i],"-r") == 0)
         {
             check_index(i+1,"--search|-r");
@@ -165,24 +200,30 @@ if ((i) >= argc) \
         fixtag = tag_start + fixtag + tag_end;
     }
     
-    double t_read = 0, t_search = 0, t_volume = 0;
+    if (line_end == NULL)  {
+        line_end = "\n";
+    }
+    
+    double t_read = 0, t_endline = 0 , t_search = 0, t_volume = 0;
     
     // Record time spent in each function.
     myTimer_t t0 = getTimeStamp();
-    read_fix(path.c_str(), data);
-    
+    //read_fix(path.c_str(), data);
+    char * buffer = read_buffer(path.c_str());
     myTimer_t t1 = getTimeStamp();
-    size_t n = data.size();
-    tagSearch(data, search, fixtag,num_start,num_end, n);
-    
+    KMPSearch(line_end, buffer, index_end);
     myTimer_t t2 = getTimeStamp();
-    dateVolume(search, volume, n);
-    
+    searchBuffer(buffer, index_end, search, fixtag, num_start, num_end);
+    //tagSearch(data, search, fixtag,num_start,num_end, n);
     myTimer_t t3 = getTimeStamp();
+    size_t n = index_end.size();
+    dateVolume(search, volume, n);
+    myTimer_t t4 = getTimeStamp();
 
     t_read = getElapsedTime(t0,t1);
-    t_search = getElapsedTime(t1,t2);
-    t_volume = getElapsedTime(t2,t3);
+    t_endline = getElapsedTime(t1,t2);
+    t_search = getElapsedTime(t2,t3);
+    t_volume = getElapsedTime(t3,t4);
     
     std::cout << "date,volume"<<std::endl;
     for (auto& iter : volume)  {
