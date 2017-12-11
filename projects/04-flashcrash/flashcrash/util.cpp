@@ -85,7 +85,7 @@ void searchBuffer(char * buffer,
 
 void searchBuff(char * buffer,
                   vector<string> &search,
-                  vector<int> &ixdrange,
+                  vector<int64_t> &ixdrange,
                   string &fixtag,
                   int num_start,
                   int num_end) {
@@ -155,7 +155,7 @@ int main (int argc, char* argv[])
     **/
     
     vector<string> search;
-    vector<int> ixdrange;
+    vector<int64_t> ixdrange;
     map<string, int> volume;
     int week_volume = 0;
     
