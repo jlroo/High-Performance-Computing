@@ -90,20 +90,18 @@ void searchBuff(char * buffer,
                   int num_start,
                   int num_end) {
     
+    int n = ixdrange.size();
 #pragma omp parallel default(none)
     {
-        int numchars = 0;
-        int n = ixdrange.size();
         vector<string> vec_private;
-        string smatch;
 #pragma omp for schedule(static) nowait
         for (int i=0; i<n; i++) {
             if (i+1 == n) {
                 break;
             }else{
-                numchars = ixdrange[i+1] - ixdrange[i] ;
+                int numchars = ixdrange[i+1] - ixdrange[i] ;
                 string line = std::string(&buffer[ixdrange[i]], &buffer[ixdrange[i]] + numchars);
-                smatch = line.substr(line.find(fixtag.c_str()) + num_start,num_end);
+                string smatch = line.substr(line.find(fixtag.c_str()) + num_start,num_end);
                 vec_private.push_back(smatch);
             }
         }
