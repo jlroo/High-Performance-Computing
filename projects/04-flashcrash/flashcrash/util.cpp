@@ -86,14 +86,14 @@ void searchBuffer(char * buffer,
 void searchBuff(char * buffer,
                   vector<string> &search,
                   vector<int> &ixdrange,
-                const size_t &nsize,
                   string &fixtag,
                   int num_start,
                   int num_end) {
     
-#pragma omp parallel default(none)
+#pragma omp parallel
     {
         vector<string> vec_private;
+        const size_t nsize = ixdrange.size();
 #pragma omp for schedule(static) nowait
         for (int i=0; i<nsize; i++) {
             if (i+1 == nsize) {
@@ -253,8 +253,7 @@ if ((i) >= argc) \
     KMPSearch(line_end, buffer, ixdrange, buff_size);
     
     myTimer_t t2 = getTimeStamp();
-    const size_t nsize = ixdrange.size();
-    searchBuff(buffer, search, ixdrange, nsize, fixtag, num_start, num_end);
+    searchBuff(buffer, search, ixdrange, fixtag, num_start, num_end);
     //tagSearch(data, search, fixtag,num_start,num_end, n);
     myTimer_t t3 = getTimeStamp();
     size_t n = search.size();
