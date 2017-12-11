@@ -42,7 +42,7 @@ bool read_fix(const char *filename, vector<string> &data) {
 };
 
 // Fills lps[] for given patttern pat[0..M-1]
-void computeLPSArray(const char *pat, size_t M, uint64_t *lps)
+void computeLPSArray(const char *pat, uint64_t M, uint64_t *lps)
 {
     // length of the previous longest prefix suffix
     int len = 0;
@@ -84,7 +84,7 @@ void computeLPSArray(const char *pat, size_t M, uint64_t *lps)
 // Prints occurrences of txt[] in pat[]
 void KMPSearch(const char *pat, const char *txt,
                vector<int> &idxrange,
-               size_t N)
+               uint64_t N)
 {
     uint64_t M = strlen(pat);
     //size_t N = strlen(txt);
@@ -132,7 +132,7 @@ void KMPSearch(const char *pat, const char *txt,
 };
 
 // Read the file all at once.
-char * read_buffer(const char *filename, size_t &length)
+char * read_buffer(const char *filename, uint64_t &length)
 {
     char * buffer = NULL;
     std::ifstream is (filename, std::ifstream::binary);
