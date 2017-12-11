@@ -16,6 +16,8 @@
 #include <fstream>
 #include <map>
 #include <list>
+//#include <cstring>
+#include <string>
 #include <my_timer.h>
 
 using namespace std;
@@ -68,7 +70,7 @@ void searchBuffer(char * buffer,
         int k =0;
 #pragma omp for schedule(static) nowait
         for(int n = 0; n < index_end.size(); n++) {
-            string line;
+            string line = "";
             for (int i = k; i < index_end[n]; i++) {
                 line+=buffer[i];
                 k+=1;
@@ -83,35 +85,45 @@ void searchBuffer(char * buffer,
 
 void searchBuff(char * buffer,
                   vector<string> &search,
-                  map<int,int> &idx_range,
+                  vector<int> ixdrange,
                   string fixtag,
                   int num_start,
                   int num_end) {
     
-#pragma omp parallel default(none) shared(search)
+#pragma omp parallel default(none)
     {
+        int numchars = 0;
+        int n = ixdrange.size();
         vector<string> vec_private;
+        string smatch;
 #pragma omp for schedule(static) nowait
-        for (auto& iter : idx_range)  {
-            int numchars = iter.second-iter.first;
-            string line = std::string(&buffer[iter.first], &buffer[iter.first] + numchars);
-            string smatch = line.substr(line.find(fixtag.c_str())+num_start,num_end);
-            vec_private.push_back(smatch);
+        for (int i=0; i<n; i++) {
+            if (i+1 == n) {
+                break;
+            }else{
+                numchars = ixdrange[i+1] - ixdrange[i] ;
+                string line = std::string(&buffer[ixdrange[i]], &buffer[ixdrange[i]] + numchars);
+                smatch = line.substr(line.find(fixtag.c_str()) + num_start,num_end);
+                vec_private.push_back(smatch);
+            }
         }
 #pragma omp critical
         search.insert(search.end(), vec_private.begin(), vec_private.end());
     }
 }
 
-void dateVolume(vector<string> &data, map<string, int> &count_dates, size_t nsize){
+
+
+void dateVolume(vector<string> &search, map<string, int> &count_dates, size_t nsize){
 #pragma omp parallel
     {
         map<string, int> count_private;
         #pragma omp for schedule(static) nowait
         for (int i = 0; i < nsize; ++i)
         {
-            count_private[data[i]]+=1;
+            count_private[search[i]]+=1;
         }
+        
         #pragma omp critical
         for (auto& iter : count_private)  {
             count_dates[iter.first] +=iter.second;
@@ -132,7 +144,7 @@ int main (int argc, char* argv[])
     const char * tag_end = NULL;
     const char * line_end = NULL;
     const char * tag_search= NULL;
-    
+
     /**
     const char * line_end = NULL;
     const char * tag_search= NULL;
@@ -147,7 +159,7 @@ int main (int argc, char* argv[])
     **/
     
     vector<string> search;
-    vector<int> index_end;
+    vector<int> ixdrange;
     map<string, int> volume;
     int week_volume = 0;
     
@@ -240,27 +252,29 @@ if ((i) >= argc) \
     size_t buff_size;
     char * buffer = read_buffer(path.c_str(), buff_size);
     myTimer_t t1 = getTimeStamp();
-    std:map<int,int> range;
-    KMPSearch(line_end, buffer, index_end, buff_size, range);
+    KMPSearch(line_end, buffer, ixdrange, buff_size);
+    
     myTimer_t t2 = getTimeStamp();
-    searchBuff(buffer, search, range, fixtag, num_start, num_end);
+    searchBuff(buffer, search, ixdrange, fixtag, num_start, num_end);
     //tagSearch(data, search, fixtag,num_start,num_end, n);
     myTimer_t t3 = getTimeStamp();
-    size_t n = index_end.size();
+    size_t n = search.size();
+    
     dateVolume(search, volume, n);
     myTimer_t t4 = getTimeStamp();
-    
+
     t_read = getElapsedTime(t0,t1);
     t_endline = getElapsedTime(t1,t2);
     t_search = getElapsedTime(t2,t3);
     t_volume = getElapsedTime(t3,t4);
-    
+
     std::cout << "date,volume"<<std::endl;
     for (auto& iter : volume)  {
         std::cout << iter.first << "," << iter.second <<std::endl;
         //std::cout << "volume[" << iter.first << "] = " << iter.second <<std::endl;
         week_volume +=iter.second;
     }
+    
     std::cout << "total_msgs,read_time,search_time,volume_time" <<std::endl;
     std::cout << week_volume << "," << t_read  << "," <<  t_search << "," << t_volume <<std::endl;
     

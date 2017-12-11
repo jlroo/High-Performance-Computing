@@ -82,7 +82,9 @@ void computeLPSArray(const char *pat, size_t M, int *lps)
 
 
 // Prints occurrences of txt[] in pat[]
-void KMPSearch(const char *pat, const char *txt, vector<int> &end_lines, size_t N, map<int, int> &range)
+void KMPSearch(const char *pat, const char *txt,
+               vector<int> &idxrange,
+               size_t N)
 {
     size_t M = strlen(pat);
     //size_t N = strlen(txt);
@@ -90,7 +92,6 @@ void KMPSearch(const char *pat, const char *txt, vector<int> &end_lines, size_t 
     // create lps[] that will hold the longest prefix suffix
     // values for pattern
     int lps[M];
-    int idx=0;
     // Preprocess the pattern (calculate lps[] array)
     computeLPSArray(pat, M, lps);
     
@@ -107,13 +108,11 @@ void KMPSearch(const char *pat, const char *txt, vector<int> &end_lines, size_t 
         if (j == M)
         {
             //printf("Found pattern at index %d n", i-j);
-            end_lines.push_back(1+i-j);
-            if(range.size()==0){
-                range[0]=i-j;
-                idx=i-j;
+            if(idxrange.size()==0){
+                idxrange.push_back(0);
+                idxrange.push_back(i-j+1);
             }else{
-                range[idx]=i-j;
-                idx = i-j;
+                idxrange.push_back(i-j+1);
             }
             j = lps[j-1];
         }
