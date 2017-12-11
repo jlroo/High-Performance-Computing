@@ -85,9 +85,9 @@ void searchBuffer(char * buffer,
 
 void searchBuff(char * buffer,
                   vector<string> &search,
-                  vector<int> ixdrange,
-                const size_t nsize,
-                  string fixtag,
+                  vector<int> &ixdrange,
+                const size_t &nsize,
+                  string &fixtag,
                   int num_start,
                   int num_end) {
     
