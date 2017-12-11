@@ -88,7 +88,7 @@ void searchBuff(char * buffer,
                   int num_start,
                   int num_end) {
     
-#pragma omp parallel
+#pragma omp parallel default(none) shared(search)
     {
         vector<string> vec_private;
 #pragma omp for schedule(static) nowait
