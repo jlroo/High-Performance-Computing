@@ -246,7 +246,7 @@ if ((i) >= argc) \
     // Record time spent in each function.
     myTimer_t t0 = getTimeStamp();
     //read_fix(path.c_str(), data);
-    uint64_t buff_size;
+    size_t buff_size;
     char * buffer = read_buffer(path.c_str(), buff_size);
     myTimer_t t1 = getTimeStamp();
     KMPSearch(line_end, buffer, ixdrange, buff_size);
