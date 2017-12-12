@@ -73,26 +73,9 @@
 
 %
 %----------------------------------------------------------------------------------------
-%% BEGIN: topmatter
+%% BEGIN: HEADER
 %----------------------------------------------------------------------------------------
 %
-
-%	1) Project title
-%
-%	2) What algorithm are you targeting and why?
-%
-%	- 2-3 sentences (or bullets) will suffice but more is always welcome. Tell us what the algorithm does and why you selected this for optimization / 
-%	parallelization.
-%
-%	3) How do you plan to improve the performance through parallelism?
-%
-%	- 2-3 sentences (or bullets), again more is good. Tell us what type of parallelism (and optimization) you'll implement and how. This can be data (vector), 
-%	thread, or distributed memory parallelism. Memory efficiency, though not parallelism, can be another tool to use. You need at least 1 form of 
-%	parallelism.
-
-%??Data: Weekly Raw Market Transactions in milliseconds - (FIX/FAST - https://en.wikipedia.org/wiki/FAST_protocol) ~ 30M transactions
-%Problem: Process raw transactional data (daily, hour, minute, second - volume), (filtering - map, reduce) in particular during month/weeks before and during the fast crash of 2010 ( https://en.wikipedia.org/wiki/2010_Flash_Crash )
-
 
 
 \title{COMP 464 - High Performance Computing \\ High Frequency Trading \& 2010 Market Flash Crash} % Title
@@ -103,8 +86,7 @@ Jose Luis Rodriguez
 \date{\today} % Date for the report
 
 %
-%% END: topmatter
-%%------------------------------
+%------------------------------
 
 \begin{document}
 
@@ -124,10 +106,7 @@ The turmoil of the afternoon of May 6, 2010 in futures and securities markets we
 
 \newpage
 
-As computational capabilities continue to grow exponentially and financial markets around the world are increasingly dependable on automated systems it is worth to spend some time analysis the market depth data of the weeks leading to and the day of May 6, 2010 to have a better understanding of market behavior during this high volatility period and to compare some of this project findings with official report to congress from the CFTC and SEC. The data used in this project is from CME Group and corresponds to market depth transactions in milliseconds of the E-Mini S\&P 500 futures and options contracts. (cite)
-
-%??Data: Weekly Raw Market Transactions in milliseconds - (FIX/FAST - https://en.wikipedia.org/wiki/FAST_protocol) ~ 30M transactions
-%Problem: Process raw transactional data (daily, hour, minute, second - volume), (filtering - map, reduce) in particular during month/weeks before and during the fast crash of 2010 ( https://en.wikipedia.org/wiki/2010_Flash_Crash )
+As computational capabilities continue to grow exponentially and financial markets around the world are increasingly dependable on automated systems it is worth to spend some time analysis the market depth data of the weeks leading to and the day of May 6, 2010 to have a better understanding of market behavior during this high volatility period and to compare some of this project findings with official report to congress from the CFTC and SEC. The data used in this project is from CME Group and corresponds to market depth transactions in milliseconds of the E-Mini S\&P 500 futures and options contracts. 
 
 %----------------------------------------------------------------
 %	SECTION 2 - METHODOLOGY

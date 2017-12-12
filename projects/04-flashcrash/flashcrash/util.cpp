@@ -221,7 +221,6 @@ if ((i) >= argc) \
         }
         else if (strcmp(argv[i],"--buffer") == 0 || strcmp(argv[i],"-b") == 0)
         {
-            check_index(i+1,"--buffer|-b");
             i++;
             use_buffer = 1;
         }
@@ -307,7 +306,33 @@ if ((i) >= argc) \
                     << t_search << ","
                     << t_volume <<std::endl;
     }
-
+    
+    /**
+    {    // Process the contents in parallel
+    #pragma omp parallel
+        {
+            int c_local = 0;
+            std::vector<long long> p1_local;
+            std::vector<long long> p2_local;
+            
+    #pragma omp for
+            for ( int i = 0; i < n_lines; ++i )
+            {
+                std::array<long long,2> A = toLongLong(lines[i]);
+                p1_local.push_back(A[0]);
+                p2_local.push_back(A[1]);
+                ++c_local;
+            }
+            
+    #pragma omp critical
+            {
+                p1.insert(p1.end(), p1_local.begin(), p1_local.end());
+                p2.insert(p2.end(), p2_local.begin(), p2_local.end());
+                c += c_local;
+            }
+        }
+    }
+    **/
     return 0;
 }
 
