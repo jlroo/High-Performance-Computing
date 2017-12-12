@@ -248,11 +248,12 @@ if ((i) >= argc) \
         line_end = &endline;
     }
     
-    double t_read = 0, t_endline = 0 , t_search = 0, t_volume = 0;
-    
     // Record time spent in each function.
     
     if (use_buffer==0) {
+        
+        double t_read = 0, t_search = 0, t_volume = 0;
+
         myTimer_t t0 = getTimeStamp();
         read_fix(path.c_str(), data);
         myTimer_t t1 = getTimeStamp();
@@ -276,6 +277,9 @@ if ((i) >= argc) \
         std::cout << week_volume << "," << t_read  << "," <<  t_search << "," << t_volume <<std::endl;
         
     }else{
+        
+        double t_read = 0, t_endline = 0 , t_search = 0, t_volume = 0;
+        
         size_t buff_size;
         myTimer_t t0 = getTimeStamp();
         char * buffer = read_buffer(path.c_str(), buff_size);
