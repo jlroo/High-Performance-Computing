@@ -56,34 +56,6 @@ void tagSearch(const vector<string> &data,
 
 
 void searchBuffer(char * buffer,
-                  const vector<int> &index_end,
-                  vector<string> &search,
-                  string fixtag,
-                  int num_start,
-                  int num_end) {
-    
-    std::vector<int> idx_start, idx_end;
-
-#pragma omp parallel
-    {
-        vector<string> vec_private;
-        int k =0;
-#pragma omp for schedule(static) nowait
-        for(int n = 0; n < index_end.size(); n++) {
-            string line = "";
-            for (int i = k; i < index_end[n]; i++) {
-                line+=buffer[i];
-                k+=1;
-            }
-            string smatch = line.substr(line.find(fixtag.c_str())+num_start,num_end);
-            vec_private.push_back(smatch);
-        }
-#pragma omp critical
-        search.insert(search.end(), vec_private.begin(), vec_private.end());
-    }
-}
-
-void searchBuff(char * buffer,
                   vector<string> &search,
                   vector<int64_t> &ixdrange,
                   string &fixtag,
@@ -256,12 +228,15 @@ if ((i) >= argc) \
 
         myTimer_t t0 = getTimeStamp();
         read_fix(path.c_str(), data);
+        
         myTimer_t t1 = getTimeStamp();
         const size_t N = data.size();
         tagSearch(data, search, fixtag,num_start,num_end, N);
+        
         myTimer_t t2 = getTimeStamp();
         size_t n = search.size();
         dateVolume(search, volume, n);
+        
         myTimer_t t3 = getTimeStamp();
         t_read = getElapsedTime(t0,t1);
         t_search = getElapsedTime(t1,t2);
@@ -283,15 +258,18 @@ if ((i) >= argc) \
         size_t buff_size;
         myTimer_t t0 = getTimeStamp();
         char * buffer = read_buffer(path.c_str(), buff_size);
+        
         myTimer_t t1 = getTimeStamp();
         KMPSearch(line_end, buffer, ixdrange, buff_size);
+        
         myTimer_t t2 = getTimeStamp();
-        searchBuff(buffer, search, ixdrange, fixtag, num_start, num_end);
+        searchBuffer(buffer, search, ixdrange, fixtag, num_start, num_end);
+        
         myTimer_t t3 = getTimeStamp();
         size_t n = search.size();
         dateVolume(search, volume, n);
-        myTimer_t t4 = getTimeStamp();
         
+        myTimer_t t4 = getTimeStamp();
         t_read = getElapsedTime(t0,t1);
         t_endline = getElapsedTime(t1,t2);
         t_search = getElapsedTime(t2,t3);
@@ -311,32 +289,6 @@ if ((i) >= argc) \
                     << t_volume <<std::endl;
     }
     
-    /**
-    {    // Process the contents in parallel
-    #pragma omp parallel
-        {
-            int c_local = 0;
-            std::vector<long long> p1_local;
-            std::vector<long long> p2_local;
-            
-    #pragma omp for
-            for ( int i = 0; i < n_lines; ++i )
-            {
-                std::array<long long,2> A = toLongLong(lines[i]);
-                p1_local.push_back(A[0]);
-                p2_local.push_back(A[1]);
-                ++c_local;
-            }
-            
-    #pragma omp critical
-            {
-                p1.insert(p1.end(), p1_local.begin(), p1_local.end());
-                p2.insert(p2.end(), p2_local.begin(), p2_local.end());
-                c += c_local;
-            }
-        }
-    }
-    **/
     return 0;
 }
 
