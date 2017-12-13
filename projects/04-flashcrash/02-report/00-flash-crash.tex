@@ -78,7 +78,7 @@
 %
 
 
-\title{COMP 464 - High Performance Computing \\ High Frequency Trading \& 2010 Market Flash Crash} % Title
+\title{COMP 464 - High Performance Computing \\ High Frequency Trading Data Processing} % Title
 \author{
 Loyola University Chicago \\
 Jose Luis Rodriguez 
@@ -100,13 +100,10 @@ Jose Luis Rodriguez
 
 \section{Overview}
 
-With the advent of low cost advance computational capabilities and rapid grow of market transactions. The ability to process a high volume of transactions and calculation in an ever decreasing window of time have become a corner stone of modern financial markets (cite). The months leading to May of 2010 in the U.S were filled with political unrest overseas and news about the European debt crisis, then in May 6, 2016 protections for the default of the Greek government sovereign debt increased and the Euro declined sharply against the U.S Dollar and Japanese Yen. 
+As computational capabilities continue to grow exponentially and financial markets around the world are increasingly dependent on automated systems, it is important to spend time analyzing market raw transactional data. Two approaches were developed - an openMP C++ application and a Spark/Hadoop application. Given the nature of the data (millions of transactions) it was necessary to implement the search, map, and reduce operations in parallel in order to efficiently process the market data. This report found that the openMP approach is easily scaleable and compatible with a multitude of hardware, despite its need for a more rigorous evaluation of code parallelization regions. 
 
-The turmoil of the afternoon of May 6, 2010 in futures and securities markets were down 4\% from previous day, then prices of futures contracts in particular stock index instruments declined suddenly another 5\%-6\% in very short period of time before rebounding within a very short period of time. The complexities and some of the details of what happened that day are covered on a report to the U.S Senate Committee on Banking and are beyond the scope of this project. (cite)
+The Spark/Hadoop approach can be seen as the go-to tool for large datasets (big data analysis) and was indeed easier to manipulate in so far as uploading data and conducting a preliminary analysis. With that said, the main drawback of the Spark/Hadoop approach is its lack of easy transferability. As soon as the Hadoop cluster is turned off, this approach is no longer functional. After the development, testing, and benchmark of the applications, the primary goal is to analyze the events leading up to the May 6, 2010 market flash crash. Preliminary findings on this project could be compared with the official report to congress from the CFTC and the SEC for additional work in the future. The data used in this project is from the CME Group and corresponds to market depth transactions in milliseconds of the E-Mini S\&P 500 futures and options contracts. 
 
-\newpage
-
-As computational capabilities continue to grow exponentially and financial markets around the world are increasingly dependable on automated systems it is worth to spend some time analysis the market depth data of the weeks leading to and the day of May 6, 2010 to have a better understanding of market behavior during this high volatility period and to compare some of this project findings with official report to congress from the CFTC and SEC. The data used in this project is from CME Group and corresponds to market depth transactions in milliseconds of the E-Mini S\&P 500 futures and options contracts. 
 
 %----------------------------------------------------------------
 %	SECTION 2 - METHODOLOGY
@@ -114,9 +111,14 @@ As computational capabilities continue to grow exponentially and financial marke
 
 \section{Methodology}
 
-The market depth data that the CME Group provides contains all market data messages required to recreate the order book (list of orders that a trading firm uses to record the interest of buyers and sellers in a particular financial instrument.) each message contains between five to ten orders deep in futures markets and three orders deep in options markets this data is time stamped to the millisecond allowing for an in depth analysis of the price movement. (cite)
+%The ability to process a high volume of transactions and calculations in an ever-decreasing window of time has become a cornerstone of modern financial markets. With the advent of low-cost advanced computational capabilities and rapid growth market transactions, there must be a more accessible and efficient way to analyze raw financial data. Per the incidents highlighted in a joint report by the U.S. Securities \& Exchange Commission and The U.S. Commodity Futures Trading Commission, the months leading up to May of 2010 in the U.S were filled with political unrest overseas and news about the European debt crisis. On May 6, 2016, protections for the default of the Greek government's sovereign debt increased and the Euro declined sharply against the U.S Dollar and Japanese Yen. 
 
-In order to process the large volume of transactions (millions of transactions per week) and the goal is to compute daily, hourly, minute, seconds, millisecond volume and other data metrics it is necessary to implement statistical operations such as distributions, average in parallel as well as filtering map-reduce type jobs are ideal for type of task as the nature of the data (independent transactions) allows for parallel processing in most cases.
+%This report highlights how volatile the afternoon of May 6, 2010 was in futures and securities markets. At some point the market was down 4\% from the previous day. The prices of futures contracts in particular stock index instruments declined suddenly another 5\%-6\% in a very short period of time before rebounding within a very short period of time. The complexities and more details of happened that day are covered in the mentioned report that was given to the senate Committee on Banking. Those details are beyond the scope of this project.
+
+According to the CME Group Data Mine website, their market depth data provides all market data messages required to recreate the order book (list of orders that a trading firm uses to record the interest of buyers and sellers in a particular financial instrument). Each message contains between five to ten orders deep in futures markets and three orders deep in options markets. This data is timestamped to the millisecond, allowing for an in-depth analysis of the price and volume movement. 
+
+To analyze the volume and price variation three main functions in openMP were utilized to first read the data into memory, search for a given tag that represents a value in the data, and finally (using the volume function) aggregate the results from the search method. These functions utilize openMP parallel pragmas in order to efficiently process the data. For benchmark purposes, different numbers of threads were used in order to identify the superior performance. For the Spark/Hadoop setup, the data reading process was different given the nature of the Hadoop. The data needed to be copied to the Hadoop cluster, then Spark was utilized for the analysis. While in Spark, a function to search for a given tag was created, and the results of the function were counted utilizing Spark parallelism features. 
+
 
 %----------------------------------------------------------------
 %	SECTION 3 - PERFORMANCE
@@ -124,23 +126,32 @@ In order to process the large volume of transactions (millions of transactions p
 
 \section{Performance}
 
-When processing the market depth data there different factors to consider such as the distribution of the files amount different nodes (Hadoop) and how to distributed evenly the work that each node would perform. To measure performance  scalability metrics can be use in each of the statistical and filtering operations.
+To measure performance, scalability metrics can be used in each of the map, search, reduce, and filtering operations. The performance measures are different depending upon the approach used. For openMP, it is possible to measure a number of performance metrics within the program, such as the time it takes to read a file into memory (RAM), the time it takes for a given number of threads to search a tag, and the time it takes to process and aggregate the results. In each of these functions, the time was recorded and a log was created. For the Spark/Hadoop approach, timing the operations was more direct as it is simply a matter of timing how long it takes to run a function. With that said, the Spark/Hadoop approach lacks the flexibility possessed by the openMP approach. A table and plots of the results of each approach can be found in the appendix. Further scaleability testing was possible utilizing the openMP approach as the number of threads can be increased to allow for quicker data processing.
 
-\newpage
+\section{Conclusion}
+
+The aim of this report was to highlight methods to approach high frequency trading data (raw market data) that can be utilized to conduct system and strategies backtesting and forensics of market transactions data. Addressing large transactional data sizes presents challenges in any setting, from transferring to opening, and even regarding storage resources. In many cases, raw financial transactional data is not stored in a common data type. Special search functions must be implemented in order to parse the data and make the data usable. Finally, having access to raw transaction data is proven to be a very challenging task, as these datasets are very costly and the amount of time and resources that these datasets demand can be prohibitive for companies and/or researchers. Nonetheless, it is in the best interest of all that applications such as the one built in this project are created and are open source. There is an opportunity to create a robust community that could lead the charge on increasing transparency, education, and training in the high frequency trading industry.
+
+
 %----------------------------------------------------------------
 %	SECTION 4 - REFERENCE
 %----------------------------------------------------------------
 
+\newpage
+
 \section{Reference}
 
 \begin{flushleft}
-Rustler User Guide -- Hadoop Cluster \url{https://portal.tacc.utexas.edu/user-guides/rustler}
+
+TACC Wrangler User Guide  -- The Wrangler Data Analysis and Storage System \url{https://portal.tacc.utexas.edu/user-guides/wrangler}
+
+Stampede2 User Guide -- Supercomputer at the Texas Advanced Computing Center \url{https://portal.tacc.utexas.edu/user-guides/stampede2}
 
 Introduction to High Performance Scientific Computing -- Victor Eijkhout \\ \url{http://pages.tacc.utexas.edu/~eijkhout/istc/istc.html}
 
 Kirilenko, Andrei; Kyle, Albert S.; Samadi, Mehrdad; Tuzun, Tugkan (May 5, 2014), The Flash Crash: The Impact of High Frequency Trading on an Electronic Market (PDF), retrieved 8 November 2017 \\ \url{http://www.cftc.gov/idc/groups/public/@economicanalysis/documents/file/oce_flashcrash0314.pdf}
 
-U.S. Securities and Exchange Commission and the Commodity Futures Trading Commission (September 30, 2010). "Findings Regarding the Market Events of May 6, 2010" \\ \url{https://www.sec.gov/news/studies/2010/marketevents-report.pdf}
+Findings Regarding the Market Events of May 6, 2010 (Rep.). (2010, September 20). Retrieved December 12, 2017, from U.S. Securities \& Exchange Commission website: https://www.sec.gov/news/studies/2010/marketevents-report.pdf
 
 \end{flushleft}
 
